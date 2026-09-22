@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  GRADUATE
+  EMPLOYER
+  ADMIN
+}
+
+enum ExperienceLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum OpportunityType {
+  JOB
+  GIG
+  CONTRACT
+  APPRENTICESHIP
+  SERVICE_REQUEST
+}
+
+enum OpportunityStatus {
+  OPEN
+  CLOSED
+}
+
+enum PaymentType {
+  FIXED
+  PER_DAY
+  PER_HOUR
+  NEGOTIABLE
+}
+
+enum ApplicationStatus {
+  PENDING
+  REVIEWING
+  ACCEPTED
+  REJECTED
+  COMPLETED
+}
+
+model User {
+  id          String   @id @default(cuid())
+  firebaseUid String   @unique
+  name        String
+  email       String   @unique
+  phone       String?
+  role        Role     @default(GRADUATE)
+  bio         String?
+  location    String?
+  avatarUrl   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  skills        UserSkill[]
+  opportunities Opportunity[] @relation("employerOpportunities")
+  applications  Application[]
+}
+
+model Skill {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  category  String?
+  createdAt DateTime @default(now())
+
+  users        UserSkill[]
+  opportunities OpportunitySkill[]
+}
+
+model UserSkill {
+  id              String           @id @default(cuid())
+  userId          String
+  skillId         String
+  experienceLevel ExperienceLevel  @default(BEGINNER)
+  createdAt       DateTime         @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, skillId])
+}
+
+model Opportunity {
+  id          String            @id @default(cuid())
+  title       String
+  description String
+  type        OpportunityType   @default(GIG)
+  location    String
+  payment     Int?
+  paymentType PaymentType       @default(NEGOTIABLE)
+  deadline    DateTime?
+  employerId  String
+  status      OpportunityStatus @default(OPEN)
+  verified    Boolean           @default(false)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  employer     User                 @relation("employerOpportunities", fields: [employerId], references: [id], onDelete: Cascade)
+  skills       OpportunitySkill[]
+  applications Application[]
+}
+
+model OpportunitySkill {
+  id            String      @id @default(cuid())
+  opportunityId String
+  skillId       String
+
+  opportunity Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  skill       Skill       @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([opportunityId, skillId])
+}
+
+model Application {
+  id            String            @id @default(cuid())
+  opportunityId String
+  applicantId   String
+  message       String
+  status        ApplicationStatus @default(PENDING)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  opportunity Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  applicant   User        @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+
+  @@unique([opportunityId, applicantId])
+}
