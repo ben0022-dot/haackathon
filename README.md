@@ -103,21 +103,44 @@ Key libraries: `firebase`, `firebase-admin`, `@prisma/client`, `@prisma/adapter-
 
 ## Repository layout
 
+The Next.js application lives at the **repository root** (Vercel builds it automatically via framework detection).
+
 | Path | Description |
 | --- | --- |
-| `spacemakers/` | The full Next.js application — **see [`spacemakers/README.md`](spacemakers/README.md)** for setup, scripts, data model and project structure |
+| `src/app/` | Pages (`login`, `signup`, `dashboard`, `opportunities`, `applications`, `profile`, `employer`, `admin`) and API route handlers |
+| `src/components/` | Navbar, cards, filters, skill badges, landing animations |
+| `src/context/AuthContext.js` | Firebase auth state + profile provider |
+| `src/lib/` | Firebase clients, auth guards, Prisma client, matching engine |
+| `src/generated/prisma/` | Generated Prisma client (do not edit) |
+| `src/styles/globals.css` | Design system (CSS variables, buttons, forms) |
+| `prisma/` | `schema.prisma` (data model) + `seed.js` (demo data) |
 
-## Quick start
-
-Inside `spacemakers/`:
+## Development setup
 
 ```bash
 npm install
 cp .env.example .env.local   # fill in Firebase + DATABASE_URL credentials
-npm run db:migrate
-npm run db:seed
+npm run db:migrate           # apply Prisma migrations
+npm run db:seed              # demo users, skills, opportunities, applications
 npm run dev                  # → http://localhost:3000
 ```
+
+Environment variables (see `.env.example`): the `NEXT_PUBLIC_FIREBASE_*` web config, the Firebase Admin SDK creds (`FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` — keep the `\n` escapes), and `DATABASE_URL`.
+
+| Script | Purpose |
+| --- | --- |
+| `npm run dev` | Start the dev server |
+| `npm run build` | Production build |
+| `npm run start` | Serve the production build |
+| `npm run lint` | Run ESLint |
+| `npm run db:migrate` | Apply Prisma migrations |
+| `npm run db:seed` | Load demo data |
+
+### Deploying on Vercel
+
+- The repo root is the project root — Vercel auto-detects Next.js; a `vercel.json` is included and valid (no framework/output overrides needed). The seed-created Firebase accounts let demo users sign in on the deployed app.
+- Add all env vars from `.env.example` in **Vercel → Project Settings → Environment Variables** (Production + Preview).
+- On first run, the production database needs the schema applied: run `prisma migrate deploy` once (e.g. locally against the same `DATABASE_URL`, or in a one-off Vercel build/CLI step).
 
 ## Demo accounts
 
