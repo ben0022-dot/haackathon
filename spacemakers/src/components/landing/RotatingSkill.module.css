@@ -1,0 +1,38 @@
+.rotor {
+  position: relative;
+  display: inline-block;
+  min-width: 10ch;
+  height: 1.15em;
+  vertical-align: -0.12em;
+  color: var(--primary-dark);
+  font-style: italic;
+}
+
+.word {
+  position: absolute;
+  inset: 0 auto 0 0;
+  opacity: 0;
+  transform: translateY(10px);
+  white-space: nowrap;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.word.active {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .rotor {
+    color: var(--primary);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rotor .word:not(.active) {
+    display: none;
+  }
+  .word {
+    transition: none;
+  }
+}
