@@ -19,7 +19,6 @@ import {
 } from "lucide-react";
 
 const PRIMARY_LINKS = [
-  { href: "/", label: "Home", icon: null },
   { href: "/opportunities", label: "Opportunities", icon: Briefcase },
   { href: "/demand-map", label: "Demand Map", icon: Compass },
   { href: "/ai", label: "AI Suite", icon: Sparkles },
@@ -33,7 +32,6 @@ const USER_LINKS = [
 const DESKTOP_BREAKPOINT = 860;
 
 function isActive(href, pathname) {
-  if (href === "/") return pathname === "/";
   if (href === "/opportunities") {
     return pathname.startsWith("/opportunities") && !pathname.includes("/new");
   }
@@ -139,6 +137,8 @@ export default function Navbar() {
     );
   }
 
+  const isLanding = pathname === "/";
+
   const navItems = [
     ...PRIMARY_LINKS,
     ...(user ? [{ href: dashboardHref, label: "Dashboard", icon: LayoutDashboard }] : []),
@@ -182,7 +182,8 @@ export default function Navbar() {
           onClick={() => setOpen(false)}
         >
           <div className={styles.navGroup}>
-            {navItems.map((item) => {
+            {!isLanding &&
+              navItems.map((item) => {
               const Icon = item.icon;
               const active = isNavItemActive(item.href);
               return (
@@ -198,7 +199,8 @@ export default function Navbar() {
               );
             })}
 
-            {user &&
+            {!isLanding &&
+              user &&
               USER_LINKS.map((item) => {
                 const Icon = item.icon;
                 const active = isActive(item.href, pathname);
@@ -217,7 +219,7 @@ export default function Navbar() {
           </div>
 
           <div className={styles.authGroup}>
-            {user && (isEmployer || isAdmin) && (
+            {!isLanding && user && (isEmployer || isAdmin) && (
               <Link
                 href="/employer/opportunities/new"
                 className={styles.postLink}
@@ -238,7 +240,17 @@ export default function Navbar() {
                 </Link>
               </>
             ) : (
-              <div className={styles.userActions}>
+              <>
+                {isLanding && (
+                  <Link
+                    href={dashboardHref}
+                    className={styles.loginLink}
+                  >
+                    <LayoutDashboard size={15} />
+                    <span>Dashboard</span>
+                  </Link>
+                )}
+                <div className={styles.userActions}>
                 <div className={styles.userBadge}>
                   <span>{profile?.name ? profile.name.split(" ")[0] : "User"}</span>
                   <span className={styles.roleTag}>
@@ -254,7 +266,8 @@ export default function Navbar() {
                   <LogOut size={15} />
                   <span>Sign Out</span>
                 </button>
-              </div>
+                </div>
+              </>
             )}
           </div>
         </div>

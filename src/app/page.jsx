@@ -145,7 +145,7 @@ export default function Home() {
                 </div>
                 <h3 style={{ fontSize: "1.15rem", marginBottom: 6 }}>Sign In / Register</h3>
                 <p style={{ fontSize: "0.88rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>
-                  Create an artisan or employer account, or test immediately using instant pre-seeded demo credentials.
+                  Create an artisan or employer account to start finding work, posting gigs, and tracking your applications.
                 </p>
               </div>
               <div style={{ display: "flex", gap: 8, marginTop: 16 }}>

@@ -15,7 +15,7 @@ import styles from "./page.module.css";
 function SignupContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { user, loading, refreshProfile, loginAsDemo } = useAuth();
+  const { user, loading, refreshProfile } = useAuth();
 
   const [role, setRole] = useState(
     searchParams.get("role") === "EMPLOYER" ? "EMPLOYER" : "GRADUATE",
@@ -55,41 +55,26 @@ function SignupContent() {
     }
     setSubmitting(true);
     try {
-      if (auth) {
-        try {
-          const cred = await createUserWithEmailAndPassword(
-            auth,
-            email.trim(),
-            password,
-          );
-          const token = await cred.user.getIdToken();
-          await createProfile(token);
-          await refreshProfile();
-          router.push("/profile");
-          return;
-        } catch (firebaseErr) {
-          if (firebaseErr?.code === "auth/email-already-in-use") {
-            setError("An account with this email already exists. Try logging in.");
-            setSubmitting(false);
-            return;
-          }
-          if (firebaseErr?.code === "auth/weak-password") {
-            setError("Password must be at least 6 characters.");
-            setSubmitting(false);
-            return;
-          }
-          // Fall through to mock signup if Firebase is not configured
-        }
-      }
-
-      // Demo/Fallback signup
-      const mockUser = await loginAsDemo(email.trim());
-      const token = await mockUser.getIdToken();
+      if (!auth) throw new Error("auth-unavailable");
+      const cred = await createUserWithEmailAndPassword(auth, email.trim(), password);
+      const token = await cred.user.getIdToken();
       await createProfile(token);
       await refreshProfile();
       router.push("/profile");
     } catch (err) {
-      setError(err?.message || "Sign up failed. Please try again.");
+      const code = err?.code || err?.message;
+      if (code === "auth-unavailable") {
+        setError("Account creation is unavailable right now. Please try again later.");
+      } else if (code === "auth/email-already-in-use") {
+        setError("An account with this email already exists. Try logging in.");
+      } else if (code === "auth/weak-password") {
+        setError("Password must be at least 6 characters.");
+      } else if (code === "auth/invalid-email") {
+        setError("Please enter a valid email address.");
+      } else {
+        setError("Sign up failed. Please try again.");
+      }
+    } finally {
       setSubmitting(false);
     }
   }
@@ -102,27 +87,22 @@ function SignupContent() {
     }
     setSubmitting(true);
     try {
-      if (auth) {
-        try {
-          const provider = new GoogleAuthProvider();
-          const cred = await signInWithPopup(auth, provider);
-          const token = await cred.user.getIdToken();
-          await createProfile(token);
-          await refreshProfile();
-          router.push("/profile");
-          return;
-        } catch {
-          // Fall through
-        }
-      }
-      const mockEmail = `google_${Date.now()}@spacemakers.app`;
-      const mockUser = await loginAsDemo(mockEmail);
-      const token = await mockUser.getIdToken();
+      if (!auth) throw new Error("auth-unavailable");
+      const provider = new GoogleAuthProvider();
+      const cred = await signInWithPopup(auth, provider);
+      const token = await cred.user.getIdToken();
       await createProfile(token);
       await refreshProfile();
       router.push("/profile");
-    } catch {
-      setError("Google sign-up failed. Please try again.");
+    } catch (err) {
+      if (err?.message === "auth-unavailable") {
+        setError("Google sign-up is unavailable right now. Please try again later.");
+      } else if (err?.code === "auth/popup-closed-by-user") {
+        setError("");
+      } else {
+        setError("Google sign-up failed. Please try again.");
+      }
+    } finally {
       setSubmitting(false);
     }
   }

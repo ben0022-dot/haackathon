@@ -10,7 +10,7 @@ import styles from "./page.module.css";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { user, loading, loginAsDemo } = useAuth();
+  const { user, loading } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,94 +20,6 @@ export default function LoginPage() {
   useEffect(() => {
     if (!loading && user) router.push("/dashboard");
   }, [user, loading, router]);
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setError("");
-    setSubmitting(true);
-    const trimmedEmail = email.trim().toLowerCase();
-
-    // Check if it's a demo account or fallback if Firebase Auth is not configured
-    const demoEmails = [
-      "brian.demo@spacemakers.app",
-      "wanjiku.demo@spacemakers.app",
-      "david.demo@spacemakers.app",
-      "eatery.demo@spacemakers.app",
-      "hardware.demo@spacemakers.app",
-      "mbugua.demo@spacemakers.app",
-      "admin.spacemakers@spacemakers.app",
-    ];
-
-    if (demoEmails.includes(trimmedEmail)) {
-      try {
-        await loginAsDemo(trimmedEmail);
-        router.push("/dashboard");
-        return;
-      } catch (err) {
-        console.warn("Demo login error:", err);
-      }
-    }
-
-    try {
-      if (auth) {
-        await signInWithEmailAndPassword(auth, trimmedEmail, password);
-        router.push("/dashboard");
-      } else {
-        await loginAsDemo(trimmedEmail);
-        router.push("/dashboard");
-      }
-    } catch {
-      // If Firebase auth failed, try demo login fallback
-      try {
-        await loginAsDemo(trimmedEmail);
-        router.push("/dashboard");
-      } catch {
-        setError("Invalid email or password.");
-      }
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
-  async function ensureProfile(userToken, displayName) {
-    const existing = await fetch("/api/profile", {
-      headers: { Authorization: `Bearer ${userToken}` },
-    });
-    if (existing.ok) return;
-    await fetch("/api/profile", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userToken}`,
-      },
-      body: JSON.stringify({
-        name: (displayName || "New Member").trim(),
-        role: "GRADUATE",
-      }),
-    });
-  }
-
-  async function handleGoogle() {
-    setError("");
-    setSubmitting(true);
-    try {
-      if (auth) {
-        const provider = new GoogleAuthProvider();
-        const cred = await signInWithPopup(auth, provider);
-        await ensureProfile(await cred.user.getIdToken(), cred.user.displayName);
-        router.push("/dashboard");
-      } else {
-        await loginAsDemo("graduate");
-        router.push("/dashboard");
-      }
-    } catch {
-      // Fallback for environment without Google Auth popup permissions
-      await loginAsDemo("graduate");
-      router.push("/dashboard");
-    } finally {
-      setSubmitting(false);
-    }
-  }
 
   async function ensureProfile(userToken, displayName) {
     try {
@@ -131,20 +43,53 @@ export default function LoginPage() {
     }
   }
 
-  async function handleQuickDemo(roleKey) {
+  async function handleSubmit(e) {
+    e.preventDefault();
     setError("");
     setSubmitting(true);
     try {
-      await loginAsDemo(roleKey);
-      if (roleKey === "employer") {
-        router.push("/employer");
-      } else if (roleKey === "admin") {
-        router.push("/admin");
-      } else {
-        router.push("/dashboard");
-      }
+      if (!auth) throw new Error("auth-unavailable");
+      await signInWithEmailAndPassword(auth, email.trim().toLowerCase(), password);
+      router.push("/dashboard");
     } catch (err) {
-      setError("Could not log in as demo user.");
+      const code = err?.code || err?.message;
+      if (code === "auth-unavailable") {
+        setError("Sign-in is unavailable right now. Please try again later.");
+      } else if (
+        code === "auth/user-not-found" ||
+        code === "auth/wrong-password" ||
+        code === "auth/invalid-credential"
+      ) {
+        setError("No account found with those credentials. Please check your email and password.");
+      } else if (code === "auth/too-many-requests") {
+        setError("Too many failed attempts. Please try again later.");
+      } else if (code === "auth/invalid-email") {
+        setError("Please enter a valid email address.");
+      } else {
+        setError("Invalid email or password.");
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  async function handleGoogle() {
+    setError("");
+    setSubmitting(true);
+    try {
+      if (!auth) throw new Error("auth-unavailable");
+      const provider = new GoogleAuthProvider();
+      const cred = await signInWithPopup(auth, provider);
+      await ensureProfile(await cred.user.getIdToken(), cred.user.displayName);
+      router.push("/dashboard");
+    } catch (err) {
+      if (err?.message === "auth-unavailable") {
+        setError("Sign-in is unavailable right now. Please try again later.");
+      } else if (err?.code === "auth/popup-closed-by-user") {
+        setError("");
+      } else {
+        setError("Google sign-in failed. Please try again.");
+      }
     } finally {
       setSubmitting(false);
     }
@@ -156,48 +101,6 @@ export default function LoginPage() {
         <div className="page-hero">
           <h1>Welcome back</h1>
           <p className="subtitle">Log in to find work that matches your skills.</p>
-        </div>
-
-        {/* Demo Fast Login Switcher */}
-        <div style={{
-          marginTop: 16,
-          padding: 12,
-          backgroundColor: "var(--color-surface-raised, #f9fafb)",
-          borderRadius: 8,
-          border: "1px solid var(--color-border, #e5e7eb)"
-        }}>
-          <p style={{ fontSize: "0.8125rem", fontWeight: 600, color: "var(--color-text-muted, #6b7280)", marginBottom: 8 }}>
-            Quick Demo Sign-in (Password: <code>SpaceMakers@2026</code>)
-          </p>
-          <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-            <button
-              type="button"
-              className="btn btn-secondary"
-              style={{ fontSize: "0.8125rem", padding: "6px 10px" }}
-              onClick={() => handleQuickDemo("graduate")}
-              disabled={submitting}
-            >
-              🎓 Brian (Graduate)
-            </button>
-            <button
-              type="button"
-              className="btn btn-secondary"
-              style={{ fontSize: "0.8125rem", padding: "6px 10px" }}
-              onClick={() => handleQuickDemo("employer")}
-              disabled={submitting}
-            >
-              💼 Mama Njeri (Employer)
-            </button>
-            <button
-              type="button"
-              className="btn btn-secondary"
-              style={{ fontSize: "0.8125rem", padding: "6px 10px" }}
-              onClick={() => handleQuickDemo("admin")}
-              disabled={submitting}
-            >
-              🛡️ Admin
-            </button>
-          </div>
         </div>
 
         <form className="form-stack" onSubmit={handleSubmit} style={{ marginTop: 16 }}>
