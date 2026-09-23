@@ -54,7 +54,12 @@ function PhoneVerificationGate({ onVerified }) {
       }
       setSent(true);
       setDevCode(data.devCode || "");
-      setNotice({ type: "success", text: "Code sent. Enter it below to verify." });
+      setNotice({
+        type: "success",
+        text: data.devCode
+          ? `Code sent (demo/sandbox mode — it won't reach a real phone). Your code is ${data.devCode}.`
+          : "Code sent. Enter it below to verify.",
+      });
     } catch {
       setNotice({ type: "error", text: "Could not send the code." });
     } finally {
