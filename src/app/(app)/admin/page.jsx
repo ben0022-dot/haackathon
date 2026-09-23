@@ -35,6 +35,8 @@ export default function AdminPage() {
   const [skillRequests, setSkillRequests] = useState([]);
   const [skillNotes, setSkillNotes] = useState("");
   const [skillBusy, setSkillBusy] = useState(null);
+  const [skillsList, setSkillsList] = useState([]);
+  const [mergeTargets, setMergeTargets] = useState({});
 
   const [users, setUsers] = useState([]);
   const [userQuery, setUserQuery] = useState("");
@@ -75,6 +77,11 @@ export default function AdminPage() {
       } else {
         setSkillRequests(data.requests || []);
       }
+      const skillRes = await fetch("/api/skills", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const skillData = await skillRes.json();
+      if (skillRes.ok) setSkillsList(skillData.skills || []);
     } catch {
       setSkillNotes("Could not load skill requests.");
     }
@@ -342,6 +349,43 @@ export default function AdminPage() {
                       disabled={skillBusy === request.id}
                     >
                       Reject
+                    </button>
+                  </div>
+
+                  <div className={styles.mergeRow} style={{ marginTop: 10 }}>
+                    <select
+                      className={styles.mergeInput}
+                      value={mergeTargets[request.id] || ""}
+                      onChange={(e) =>
+                        setMergeTargets((prev) => ({
+                          ...prev,
+                          [request.id]: e.target.value,
+                        }))
+                      }
+                      aria-label="Merge into existing skill"
+                    >
+                      <option value="">
+                        {skillsList.length === 0
+                          ? "No existing skills to merge into"
+                          : "Merge into..."}
+                      </option>
+                      {skillsList.map((skill) => (
+                        <option key={skill.id} value={skill.name}>
+                          {skill.name}
+                        </option>
+                      ))}
+                    </select>
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-secondary"
+                      onClick={() =>
+                        decideSkill(request.id, "merge", mergeTargets[request.id])
+                      }
+                      disabled={
+                        skillBusy === request.id || !mergeTargets[request.id]
+                      }
+                    >
+                      Merge
                     </button>
                   </div>
                 </article>

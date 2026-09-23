@@ -11,10 +11,6 @@ export async function getFirebaseUid(request) {
     const decoded = await adminAuth.verifyIdToken(token);
     return { firebaseUid: decoded.uid };
   } catch {
-    // If token is a demo token or direct UID/email
-    if (token.startsWith("demo_") || token.startsWith("user-") || token.includes("@")) {
-      return { firebaseUid: token };
-    }
     return { error: { status: 401, message: "Invalid session." } };
   }
 }
