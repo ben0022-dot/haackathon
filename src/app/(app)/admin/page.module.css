@@ -34,3 +34,74 @@
   gap: 10px;
   margin-top: 14px;
 }
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.tab {
+  appearance: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding: 10px 14px;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.12s ease;
+}
+
+.tab:hover {
+  color: var(--text-primary);
+}
+
+.tabActive {
+  color: var(--primary-dark);
+  border-bottom-color: var(--primary);
+}
+
+.mergeRow {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.mergeInput {
+  flex: 1;
+  min-width: 160px;
+  max-width: 220px;
+}
+
+.phoneNote {
+  margin-top: 6px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.email {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  word-break: break-all;
+}
+
+.counts {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.badgePending {
+  background: var(--warning-soft);
+  color: var(--warning);
+}
