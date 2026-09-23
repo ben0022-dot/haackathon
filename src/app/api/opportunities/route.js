@@ -67,8 +67,12 @@ export async function GET(request) {
   }
 
   const where = buildWhere(searchParams);
-  if (user.role !== "ADMIN" && !searchParams.get("includeUnverified")) {
-    where.verified = true;
+
+  const verifiedFilter = searchParams.get("verified");
+  if (verifiedFilter !== "true" && verifiedFilter !== "false") {
+    if (user.role !== "ADMIN" && !searchParams.get("includeUnverified")) {
+      where.verified = true;
+    }
   }
 
   const dashboard = searchParams.get("dashboard") === "true";
