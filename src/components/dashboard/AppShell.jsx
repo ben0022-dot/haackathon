@@ -35,6 +35,9 @@ function isActive(href, pathname) {
   if (href === "/opportunities") {
     return pathname.startsWith("/opportunities") && !pathname.includes("/new");
   }
+  if (href === "/employer") {
+    return pathname.startsWith("/employer") && !pathname.includes("/opportunities");
+  }
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
@@ -47,14 +50,43 @@ export default function AppShell({ children }) {
 
   const isEmployer = profile?.role === "EMPLOYER";
   const isAdmin = profile?.role === "ADMIN";
-  const dashboardHref = isEmployer ? "/employer" : isAdmin ? "/admin" : "/dashboard";
-  const dashboardLabel = isEmployer ? "Employment" : isAdmin ? "Admin" : "Dashboard";
 
   async function handleLogout() {
     setOpen(false);
     await logout();
     router.push("/");
   }
+
+  const graduateMain = [
+    { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { href: "/opportunities", label: "Opportunities", icon: Briefcase },
+    { href: "/demand-map", label: "Demand Map", icon: Compass },
+    { href: "/ai", label: "AI Suite", icon: Sparkles },
+  ];
+
+  const employerMain = [
+    { href: "/employer", label: "My gigs", icon: Briefcase },
+    { href: "/employer/opportunities/new", label: "Post a gig", icon: PlusCircle },
+  ];
+
+  const adminMain = [
+    { href: "/admin", label: "Admin", icon: House },
+    { href: "/employer/opportunities/new", label: "Post a gig", icon: PlusCircle },
+  ];
+
+  const mainLinks = isAdmin ? adminMain : isEmployer ? employerMain : graduateMain;
+
+  const accountLinks = user
+    ? [
+        ...(isEmployer && !isAdmin
+          ? []
+          : [{ href: "/applications", label: "Applications", icon: FileText }]),
+        { href: "/profile", label: "Profile", icon: User },
+      ]
+    : [];
+
+  const nameInitial = (profile?.name || "U").charAt(0).toUpperCase();
+  const roleLabel = isEmployer ? "Employer" : isAdmin ? "Admin" : "Artisan";
 
   useEffect(() => {
     function onResize() {
@@ -77,23 +109,6 @@ export default function AppShell({ children }) {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [open]);
-
-  const userLinks = [
-    { href: dashboardHref, label: dashboardLabel, icon: dashboardHref === "/dashboard" ? LayoutDashboard : House },
-    { href: "/opportunities", label: "Opportunities", icon: Briefcase },
-    { href: "/demand-map", label: "Demand Map", icon: Compass },
-    { href: "/ai", label: "AI Suite", icon: Sparkles },
-  ];
-
-  const accountLinks = user
-    ? [
-        { href: "/applications", label: "Applications", icon: FileText },
-        { href: "/profile", label: "Profile", icon: User },
-      ]
-    : [];
-
-  const nameInitial = (profile?.name || "U").charAt(0).toUpperCase();
-  const roleLabel = isEmployer ? "Employer" : isAdmin ? "Admin" : "Artisan";
 
   function renderLinks(links) {
     return links.map((item) => {
@@ -161,7 +176,7 @@ export default function AppShell({ children }) {
           ) : (
             <div className={styles.navGroup}>
               <span className={styles.navLabel}>Main</span>
-              {renderLinks(userLinks)}
+              {renderLinks(mainLinks)}
             </div>
           )}
 
@@ -192,12 +207,6 @@ export default function AppShell({ children }) {
                   <span className={styles.userRole}>{roleLabel}</span>
                 </div>
               </div>
-              {(isEmployer || isAdmin) && (
-                <Link href="/employer/opportunities/new" className={`btn btn-primary btn-sm ${styles.postGig}`}>
-                  <PlusCircle size={15} />
-                  Post a gig
-                </Link>
-              )}
               <button type="button" className={styles.signOut} onClick={handleLogout}>
                 <LogOut size={16} />
                 Sign out
