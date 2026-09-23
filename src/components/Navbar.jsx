@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
@@ -123,7 +124,14 @@ export default function Navbar() {
       <nav className={styles.nav} aria-label="Primary navigation">
         <div className={styles.navInner}>
           <Link href="/" className={styles.brand}>
-            Space<span className={styles.brandAccent}>Makers</span>
+<Image
+              src="/spacemakers.png"
+              alt="SpaceMakers"
+              width={76}
+              height={38}
+              priority
+              className={styles.brandLogo}
+            />
           </Link>
           <div className={styles.navSkeleton} aria-hidden="true" />
         </div>
@@ -143,7 +151,14 @@ export default function Navbar() {
     <nav className={styles.nav} aria-label="Primary navigation">
       <div className={styles.navInner}>
         <Link href="/" className={styles.brand}>
-          Space<span className={styles.brandAccent}>Makers</span>
+          <Image
+            src="/spacemakers.png"
+            alt="SpaceMakers"
+            width={76}
+            height={38}
+            priority
+            className={styles.brandLogo}
+          />
         </Link>
 
         <button

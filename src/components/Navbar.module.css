@@ -18,18 +18,15 @@
 }
 
 .brand {
-  font-size: 1.3rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  color: var(--text-primary);
-  text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  text-decoration: none;
 }
 
-.brandAccent {
-  color: var(--primary);
+.brandLogo {
+  height: 38px;
+  width: auto;
+  display: block;
 }
 
 .hamburger {
