@@ -137,7 +137,7 @@ export default function Navbar() {
     );
   }
 
-  const isLanding = pathname === "/";
+  const isBareNav = pathname === "/" || pathname.startsWith("/login") || pathname.startsWith("/signup");
 
   const navItems = [
     ...PRIMARY_LINKS,
@@ -182,7 +182,7 @@ export default function Navbar() {
           onClick={() => setOpen(false)}
         >
           <div className={styles.navGroup}>
-            {!isLanding &&
+            {!isBareNav &&
               navItems.map((item) => {
               const Icon = item.icon;
               const active = isNavItemActive(item.href);
@@ -199,7 +199,7 @@ export default function Navbar() {
               );
             })}
 
-            {!isLanding &&
+            {!isBareNav &&
               user &&
               USER_LINKS.map((item) => {
                 const Icon = item.icon;
@@ -219,7 +219,7 @@ export default function Navbar() {
           </div>
 
           <div className={styles.authGroup}>
-            {!isLanding && user && (isEmployer || isAdmin) && (
+            {!isBareNav && user && (isEmployer || isAdmin) && (
               <Link
                 href="/employer/opportunities/new"
                 className={styles.postLink}
@@ -241,7 +241,7 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                {isLanding && (
+                {isBareNav && (
                   <Link
                     href={dashboardHref}
                     className={styles.loginLink}

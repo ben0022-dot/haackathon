@@ -8,9 +8,18 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
+import { CheckCircle2, Circle } from "lucide-react";
 import { auth } from "@/lib/firebase";
 import { useAuth } from "@/context/AuthContext";
 import styles from "./page.module.css";
+
+const PASSWORD_RULES = [
+  { test: (p) => p.length >= 8, label: "At least 8 characters" },
+  { test: (p) => /[A-Z]/.test(p), label: "One uppercase letter (A–Z)" },
+  { test: (p) => /[a-z]/.test(p), label: "One lowercase letter (a–z)" },
+  { test: (p) => /\d/.test(p), label: "One number (0–9)" },
+  { test: (p) => /[^A-Za-z0-9]/.test(p), label: "One symbol (e.g. !@#$%)" },
+];
 
 function SignupContent() {
   const router = useRouter();
@@ -25,6 +34,19 @@ function SignupContent() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  const passwordChecks = PASSWORD_RULES.map((rule) => ({
+    ...rule,
+    ok: rule.test(password),
+  }));
+  const passwordComplete = passwordChecks.every((check) => check.ok);
+  const strength = password
+    ? Math.round(
+        (passwordChecks.filter((check) => check.ok).length /
+          passwordChecks.length) *
+          100,
+      )
+    : 0;
 
   useEffect(() => {
     if (!loading && user) router.push("/profile");
@@ -51,6 +73,10 @@ function SignupContent() {
     setError("");
     if (!name.trim()) {
       setError("Please enter your name.");
+      return;
+    }
+    if (!passwordComplete) {
+      setError("Meet all password requirements before creating your account.");
       return;
     }
     setSubmitting(true);
@@ -175,13 +201,52 @@ function SignupContent() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              minLength={6}
+              minLength={8}
               autoComplete="new-password"
-              placeholder="At least 6 characters"
+              placeholder="At least 8 characters"
+              aria-describedby="password-requirements"
             />
           </label>
 
-          <button type="submit" className="btn btn-primary btn-block" disabled={submitting}>
+          {password.length > 0 && (
+            <div id="password-requirements" className={styles.checkList}>
+              <div className={styles.strengthTrack}>
+                <div
+                  className={styles.strengthBar}
+                  style={{
+                    width: `${strength}%`,
+                    background:
+                      strength === 100
+                        ? "var(--success)"
+                        : strength >= 60
+                        ? "var(--warning)"
+                        : "var(--danger)",
+                  }}
+                />
+              </div>
+              {passwordChecks.map((check) => (
+                <span
+                  key={check.label}
+                  className={`${styles.checkItem} ${
+                    check.ok ? styles.checkOk : ""
+                  }`}
+                >
+                  {check.ok ? (
+                    <CheckCircle2 size={15} />
+                  ) : (
+                    <Circle size={15} />
+                  )}
+                  {check.label}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="btn btn-primary btn-block"
+            disabled={submitting || !passwordComplete}
+          >
             {submitting ? "Creating account..." : "Create account"}
           </button>
 
