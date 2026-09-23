@@ -35,12 +35,32 @@ export default function LoginPage() {
     }
   }
 
+  async function ensureProfile(userToken, displayName) {
+    const existing = await fetch("/api/profile", {
+      headers: { Authorization: `Bearer ${userToken}` },
+    });
+    if (existing.ok) return;
+    await fetch("/api/profile", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userToken}`,
+      },
+      body: JSON.stringify({
+        name: (displayName || "New Member").trim(),
+        role: "GRADUATE",
+      }),
+    });
+  }
+
   async function handleGoogle() {
     setError("");
     setSubmitting(true);
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
+      const cred = await signInWithPopup(auth, provider);
+      const token = await cred.user.getIdToken();
+      await ensureProfile(token, cred.user.displayName);
       router.push("/dashboard");
     } catch {
       setError("Google sign-in failed. Please try again.");

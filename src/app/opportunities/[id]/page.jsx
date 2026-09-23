@@ -42,6 +42,8 @@ export default function OpportunityDetailPage() {
   const [applicationText, setApplicationText] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [explanation, setExplanation] = useState("");
+  const [explaining, setExplaining] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) router.push("/login");
@@ -76,6 +78,29 @@ export default function OpportunityDetailPage() {
       cancelled = true;
     };
   }, [user, params.id]);
+
+  async function handleExplain() {
+    setExplaining(true);
+    setMessage("");
+    try {
+      const token = await user.getIdToken();
+      const res = await fetch(`/api/opportunities/${opportunity.id}/explain`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setExplanation("");
+        setMessage(data.error || "Could not generate an explanation.");
+      } else {
+        setExplanation(data.explanation || "");
+      }
+    } catch {
+      setExplanation("");
+      setMessage("Could not generate an explanation. Try again.");
+    } finally {
+      setExplaining(false);
+    }
+  }
 
   async function handleApply(e) {
     e.preventDefault();
@@ -190,6 +215,32 @@ export default function OpportunityDetailPage() {
           {opportunity.description}
         </p>
       </article>
+
+      {!isOwner && (
+        <article className="card" style={{ marginTop: 16 }}>
+          <div className="opportunity-card-head">
+            <h2 style={{ fontSize: "1.05rem" }}>Why this fits you</h2>
+          </div>
+          {explanation ? (
+            <p style={{ lineHeight: 1.6, color: "var(--text-secondary)" }}>{explanation}</p>
+          ) : (
+            <>
+              <p style={{ lineHeight: 1.6, color: "var(--text-secondary)" }}>
+                A quick AI breakdown of how your skills and location line up with this opportunity.
+              </p>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                style={{ marginTop: 12 }}
+                onClick={handleExplain}
+                disabled={explaining}
+              >
+                {explaining ? "Thinking..." : "✨ Explain this match"}
+              </button>
+            </>
+          )}
+        </article>
+      )}
 
       <div style={{ marginTop: 16 }}>
         {hasApplied ? (

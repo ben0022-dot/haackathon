@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import LoadingState from "@/components/LoadingState";
+import LocationSearch from "@/components/LocationSearch";
 import { profileCompletion } from "@/lib/matching";
 import styles from "./page.module.css";
 
@@ -146,12 +147,11 @@ export default function ProfilePage() {
 
           <label className="field">
             <span className="field-label field-required">Location</span>
-            <input
-              type="text"
+            <LocationSearch
               value={form.location}
-              onChange={(e) => setForm({ ...form, location: e.target.value })}
+              onChange={(location) => setForm({ ...form, location })}
               placeholder="Githogoro, Nairobi"
-              required
+              autoCompleteProps={{ required: true }}
             />
             <span className="field-hint">Where are you based? Employers search by location.</span>
           </label>

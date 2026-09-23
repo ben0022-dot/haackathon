@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import LoadingState from "@/components/LoadingState";
+import LocationSearch from "@/components/LocationSearch";
 import styles from "./page.module.css";
 
 const TYPE_OPTIONS = [
@@ -196,12 +197,11 @@ export default function NewOpportunityPage() {
 
           <label className="field">
             <span className="field-label field-required">Location</span>
-            <input
-              type="text"
+            <LocationSearch
               value={form.location}
-              onChange={(e) => setForm({ ...form, location: e.target.value })}
+              onChange={(location) => setForm({ ...form, location })}
               placeholder="Githogoro, Nairobi"
-              required
+              autoCompleteProps={{ required: true }}
             />
           </label>
 
