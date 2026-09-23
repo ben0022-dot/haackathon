@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import LoadingState from "@/components/LoadingState";
@@ -8,6 +9,7 @@ import OpportunityCard from "@/components/OpportunityCard";
 import SearchBar from "@/components/SearchBar";
 import FilterBar from "@/components/FilterBar";
 import styles from "./page.module.css";
+import { MapPin, Globe, Sparkles } from "lucide-react";
 
 const EMPTY_FILTERS = { skill: "", location: "", type: "", verified: "" };
 
@@ -85,8 +87,30 @@ export default function OpportunitiesPage() {
   return (
     <main className="container">
       <div className="page-hero">
-        <h1>Opportunities</h1>
-        <p className="subtitle">Verified jobs and gigs near you, matched to your skills.</p>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 10 }}>
+          <div>
+            <h1>Opportunities</h1>
+            <p className="subtitle">Verified jobs and gigs near you, matched to your skills.</p>
+          </div>
+          <div style={{ display: "flex", gap: 8 }}>
+            <Link
+              href="/ai?tab=maps"
+              className="btn btn-secondary btn-sm"
+              style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
+            >
+              <MapPin size={14} color="var(--primary)" />
+              Find Trade Hubs on Maps
+            </Link>
+            <Link
+              href="/ai?tab=search"
+              className="btn btn-secondary btn-sm"
+              style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
+            >
+              <Globe size={14} color="var(--primary)" />
+              Market Wage Trends
+            </Link>
+          </div>
+        </div>
       </div>
 
       <div style={{ marginTop: 14 }}>

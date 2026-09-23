@@ -8,6 +8,7 @@ import LoadingState from "@/components/LoadingState";
 import OpportunityCard from "@/components/OpportunityCard";
 import { profileCompletion } from "@/lib/matching";
 import styles from "./page.module.css";
+import { Bot, Radio, MapPin, Globe, Sparkles } from "lucide-react";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -67,6 +68,158 @@ export default function DashboardPage() {
         </div>
         <Link href="/profile" className="btn btn-secondary btn-sm">Edit profile</Link>
       </div>
+
+      {/* Gemini AI Suite Quick Access */}
+      <section style={{ marginTop: 20 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+          <h2 style={{ fontSize: "1.05rem", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
+            <Sparkles size={18} color="var(--primary)" />
+            SpaceMakers AI Tools & Assistance
+          </h2>
+          <Link href="/ai" style={{ fontSize: "0.85rem", color: "var(--primary)", fontWeight: 600 }}>
+            Open AI Suite →
+          </Link>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
+          <Link
+            href="/ai?tab=chat"
+            className="card"
+            style={{
+              padding: "14px 16px",
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              textDecoration: "none",
+              borderRadius: "var(--radius-sm)",
+              transition: "transform 0.1s ease",
+            }}
+          >
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                background: "var(--primary-soft)",
+                color: "var(--primary-dark)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
+              <Bot size={20} />
+            </div>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: "0.9rem" }}>Career Chatbot</div>
+              <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)" }}>Multi-turn TVET advisor</div>
+            </div>
+          </Link>
+
+          <Link
+            href="/ai?tab=voice"
+            className="card"
+            style={{
+              padding: "14px 16px",
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              textDecoration: "none",
+              borderRadius: "var(--radius-sm)",
+              transition: "transform 0.1s ease",
+            }}
+          >
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                background: "var(--warning-soft)",
+                color: "var(--warning)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
+              <Radio size={20} />
+            </div>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: "0.9rem" }}>Live Voice Coach</div>
+              <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)" }}>Gemini 3.8 Live API</div>
+            </div>
+          </Link>
+
+          <Link
+            href="/ai?tab=maps"
+            className="card"
+            style={{
+              padding: "14px 16px",
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              textDecoration: "none",
+              borderRadius: "var(--radius-sm)",
+              transition: "transform 0.1s ease",
+            }}
+          >
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                background: "var(--primary-soft)",
+                color: "var(--primary-dark)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
+              <MapPin size={20} />
+            </div>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: "0.9rem" }}>Maps Grounding</div>
+              <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)" }}>Find TVET & trade shops</div>
+            </div>
+          </Link>
+
+          <Link
+            href="/ai?tab=search"
+            className="card"
+            style={{
+              padding: "14px 16px",
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              textDecoration: "none",
+              borderRadius: "var(--radius-sm)",
+              transition: "transform 0.1s ease",
+            }}
+          >
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                background: "var(--surface)",
+                color: "var(--primary)",
+                border: "1px solid var(--border)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
+              <Globe size={20} />
+            </div>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: "0.9rem" }}>Search Grounding</div>
+              <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)" }}>Live wage & labor trends</div>
+            </div>
+          </Link>
+        </div>
+      </section>
 
       <section className="section">
         <div className="section-head">

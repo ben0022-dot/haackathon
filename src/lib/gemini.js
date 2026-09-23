@@ -1,5 +1,26 @@
-const API_KEY = process.env.GEMINI_API_KEY;
-const MODEL = process.env.GEMINI_MODEL || "gemini-2.0-flash";
+import { GoogleGenAI } from "@google/genai";
+
+let aiInstance = null;
+
+export function getGeminiClient() {
+  if (!aiInstance) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error("GEMINI_API_KEY is not configured on the server.");
+    }
+    aiInstance = new GoogleGenAI({
+      apiKey,
+      httpOptions: {
+        headers: {
+          "User-Agent": "aistudio-build",
+        },
+      },
+    });
+  }
+  return aiInstance;
+}
+
+export default getGeminiClient;
 
 function skillNames(user) {
   return (user.skills || [])
@@ -12,10 +33,6 @@ function requiredSkills(opportunity) {
 }
 
 export async function generateMatchExplanation({ opportunity, profile }) {
-  if (!API_KEY) {
-    return "No match explanation key configured for this deployment.";
-  }
-
   const prompt = [
     "You are a helpful career match assistant for SpaceMakers, a marketplace connecting TVET graduates with verified local gigs in Kenya.",
     "Explain in 2-3 short sentences why this specific job fits the worker. Be specific to their skills, experience, and location.",
@@ -34,27 +51,16 @@ export async function generateMatchExplanation({ opportunity, profile }) {
     `WORKER BIO: ${profile.bio || "Not set"}`,
   ].join("\n");
 
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.6,
-          maxOutputTokens: 120,
-        },
-      }),
-    }
-  );
+  const res = await getGeminiClient().models.generateContent({
+    model: process.env.GEMINI_MODEL || "gemini-2.0-flash",
+    contents: prompt,
+    config: {
+      temperature: 0.6,
+      maxOutputTokens: 120,
+    },
+  });
 
-  if (!res.ok) {
-    throw new Error(`Gemini request failed: ${res.status} ${await res.text()}`);
-  }
-
-  const data = await res.json();
-  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+  const text = res?.text?.trim();
   if (!text) {
     throw new Error("Gemini returned no explanation.");
   }

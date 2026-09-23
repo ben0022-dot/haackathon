@@ -1,4 +1,4 @@
-import { defineConfig, env } from "prisma/config";
+import { defineConfig } from "prisma/config";
 import dotenv from "dotenv";
 import dns from "dns";
 import net from "net";
@@ -15,6 +15,6 @@ export default defineConfig({
     seed: "node prisma/seed.js",
   },
   datasource: {
-    url: env("DATABASE_URL_UNPOOLED") ?? env("DATABASE_URL"),
+    url: process.env.DATABASE_URL_UNPOOLED || process.env.DATABASE_URL || "postgresql://mock:mock@localhost:5432/mock",
   },
 });
