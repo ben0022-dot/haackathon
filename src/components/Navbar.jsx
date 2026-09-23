@@ -2,16 +2,20 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import styles from "./Navbar.module.css";
-
-const LINKS = [
-  { href: "/dashboard", label: "Home" },
-  { href: "/opportunities", label: "Opportunities" },
-  { href: "/applications", label: "Applications" },
-  { href: "/profile", label: "Profile" },
-];
+import {
+  Sparkles,
+  Compass,
+  Briefcase,
+  LayoutDashboard,
+  User,
+  LogIn,
+  LogOut,
+  PlusCircle,
+  FileText,
+} from "lucide-react";
 
 export default function Navbar() {
   const { user, profile, logout, loading } = useAuth();
@@ -27,21 +31,42 @@ export default function Navbar() {
     router.push("/");
   }
 
+  const dashboardHref = isEmployer
+    ? "/employer"
+    : isAdmin
+    ? "/admin"
+    : "/dashboard";
+
+  const isDashboardActive =
+    pathname === "/dashboard" ||
+    pathname.startsWith("/employer") ||
+    pathname.startsWith("/admin");
+
   if (loading) {
-    return <nav className={styles.nav}><div className={styles.navInner}><span className={styles.brand}>SpaceMakers</span></div></nav>;
+    return (
+      <nav className={styles.nav}>
+        <div className={styles.navInner}>
+          <Link href="/" className={styles.brand}>
+            Space<span className={styles.brandAccent}>Makers</span>
+          </Link>
+        </div>
+      </nav>
+    );
   }
 
   return (
     <nav className={styles.nav}>
       <div className={styles.navInner}>
+        {/* Brand Logo -> Always to Landing Page */}
         <Link href="/" className={styles.brand}>
-          Space<span className={styles.brandAccent}>Makers</span>
+          <span>Space<span className={styles.brandAccent}>Makers</span></span>
         </Link>
 
+        {/* Hamburger button for mobile devices */}
         <button
           type="button"
           className={styles.hamburger}
-          aria-label="Toggle menu"
+          aria-label="Toggle navigation menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
@@ -50,56 +75,150 @@ export default function Navbar() {
           <span className={styles.bar} />
         </button>
 
-        <div className={`${styles.links} ${open ? styles.linksOpen : ""}`}>
-          {user && (
+        {/* Navigation links drawer / bar */}
+        <div
+          className={`${styles.links} ${open ? styles.linksOpen : ""}`}
+          onClick={() => setOpen(false)}
+        >
+          {/* Primary Navigation Hub */}
+          <div className={styles.navGroup}>
+            {/* Landing / Home Page */}
             <Link
-              href={isEmployer ? "/employer" : isAdmin ? "/admin" : "/dashboard"}
-              className={pathname === "/dashboard" || pathname.startsWith("/employer") || pathname.startsWith("/admin") ? styles.activeLink : undefined}
+              href="/"
+              className={pathname === "/" ? styles.activeLink : undefined}
             >
               Home
             </Link>
-          )}
-          {user && (
+
+            {/* Opportunities Directory */}
             <Link
               href="/opportunities"
-              className={pathname.startsWith("/opportunities") ? styles.activeLink : undefined}
+              className={
+                pathname.startsWith("/opportunities") &&
+                !pathname.includes("/new")
+                  ? styles.activeLink
+                  : undefined
+              }
             >
-              Opportunities
+              <Briefcase size={15} />
+              <span>Opportunities</span>
             </Link>
-          )}
-          {user && (
-            <Link
-              href="/applications"
-              className={pathname.startsWith("/applications") ? styles.activeLink : undefined}
-            >
-              Applications
-            </Link>
-          )}
-          {user && (
-            <Link
-              href="/profile"
-              className={pathname.startsWith("/profile") ? styles.activeLink : undefined}
-            >
-              Profile
-            </Link>
-          )}
 
-          {user && (isEmployer || isAdmin) && (
-            <Link href="/employer/opportunities/new" className={styles.postLink}>
-              Post Opportunity
+            {/* Interactive Demand Map */}
+            <Link
+              href="/demand-map"
+              className={
+                pathname.startsWith("/demand-map") ? styles.activeLink : undefined
+              }
+            >
+              <Compass size={15} />
+              <span>Demand Map</span>
             </Link>
-          )}
 
-          {!user ? (
-            <>
-              <Link href="/login" className={styles.loginLink}>Log in</Link>
-              <Link href="/signup" className={styles.signupLink}>Sign up</Link>
-            </>
-          ) : (
-            <button type="button" onClick={handleLogout} className={styles.logoutButton}>
-              Log out
-            </button>
-          )}
+            {/* Dedicated Dashboard */}
+            <Link
+              href={user ? dashboardHref : "/dashboard"}
+              className={isDashboardActive ? styles.activeLink : undefined}
+            >
+              <LayoutDashboard size={15} />
+              <span>Dashboard</span>
+            </Link>
+
+            {/* AI Career & Trade Suite */}
+            <Link
+              href="/ai"
+              className={
+                pathname.startsWith("/ai") ? styles.activeLink : undefined
+              }
+              style={{
+                color: pathname.startsWith("/ai")
+                  ? "var(--primary-dark)"
+                  : undefined,
+              }}
+            >
+              <Sparkles size={14} color="var(--primary)" />
+              <span>AI Suite</span>
+            </Link>
+
+            {/* Authenticated-only sublinks: Applications & Profile */}
+            {user && (
+              <>
+                <Link
+                  href="/applications"
+                  className={
+                    pathname.startsWith("/applications")
+                      ? styles.activeLink
+                      : undefined
+                  }
+                >
+                  <FileText size={15} />
+                  <span>Applications</span>
+                </Link>
+
+                <Link
+                  href="/profile"
+                  className={
+                    pathname.startsWith("/profile")
+                      ? styles.activeLink
+                      : undefined
+                  }
+                >
+                  <User size={15} />
+                  <span>Profile</span>
+                </Link>
+              </>
+            )}
+          </div>
+
+          {/* Account Authentication & Action Group */}
+          <div className={styles.authGroup}>
+            {user && (isEmployer || isAdmin) && (
+              <Link
+                href="/employer/opportunities/new"
+                className={styles.postLink}
+              >
+                <PlusCircle size={15} />
+                <span>Post Gig</span>
+              </Link>
+            )}
+
+            {!user ? (
+              <>
+                <Link href="/login" className={styles.loginLink}>
+                  <LogIn size={15} />
+                  <span>Sign In</span>
+                </Link>
+                <Link href="/signup" className={styles.signupLink}>
+                  <span>Get Started</span>
+                </Link>
+              </>
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  flexWrap: "wrap",
+                }}
+              >
+                <div className={styles.userBadge}>
+                  <span>{profile?.name ? profile.name.split(" ")[0] : "User"}</span>
+                  <span className={styles.roleTag}>
+                    {isEmployer ? "Employer" : isAdmin ? "Admin" : "Artisan"}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className={styles.logoutButton}
+                  title="Sign out of account"
+                >
+                  <LogOut size={15} />
+                  <span>Sign Out</span>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </nav>

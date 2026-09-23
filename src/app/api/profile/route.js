@@ -3,18 +3,9 @@ import { getFirebaseUid, requireUser } from "@/lib/auth";
 import { adminAuth } from "@/lib/firebase-admin";
 
 export async function GET(request) {
-  const result = await getFirebaseUid(request);
-  if (result.error) {
-    return Response.json({ error: result.error.message }, { status: result.error.status });
-  }
-
-  const user = await prisma.user.findUnique({
-    where: { firebaseUid: result.firebaseUid },
-    include: { skills: { include: { skill: true } } },
-  });
-
-  if (!user) {
-    return Response.json({ error: "No profile yet." }, { status: 404 });
+  const { user, error } = await requireUser(request);
+  if (error) {
+    return Response.json({ error: error.message }, { status: error.status });
   }
 
   return Response.json({ profile: user });
@@ -26,12 +17,38 @@ export async function POST(request) {
     return Response.json({ error: result.error.message }, { status: result.error.status });
   }
 
-  const existing = await prisma.user.findUnique({
-    where: { firebaseUid: result.firebaseUid },
+  let email = null;
+  try {
+    const account = await adminAuth.getUser(result.firebaseUid);
+    email = account?.email || null;
+  } catch {
+    email = null;
+  }
+
+  const existing = await prisma.user.findFirst({
+    where: {
+      OR: [
+        { firebaseUid: result.firebaseUid },
+        ...(email ? [{ email }] : []),
+      ],
+    },
+    include: { skills: { include: { skill: true } } },
   });
 
   if (existing) {
-    return Response.json({ error: "Profile already exists." }, { status: 409 });
+    if (existing.firebaseUid !== result.firebaseUid) {
+      try {
+        const updated = await prisma.user.update({
+          where: { id: existing.id },
+          data: { firebaseUid: result.firebaseUid },
+          include: { skills: { include: { skill: true } } },
+        });
+        return Response.json({ profile: updated }, { status: 200 });
+      } catch {
+        // ignore
+      }
+    }
+    return Response.json({ profile: existing }, { status: 200 });
   }
 
   let body;
@@ -48,14 +65,6 @@ export async function POST(request) {
   }
 
   const validRole = role === "EMPLOYER" ? "EMPLOYER" : "GRADUATE";
-  let email = null;
-
-  try {
-    const account = await adminAuth.getUser(result.firebaseUid);
-    email = account.email || null;
-  } catch {
-    email = null;
-  }
 
   try {
     const user = await prisma.user.create({

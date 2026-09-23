@@ -4,24 +4,28 @@
   z-index: 50;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(8px);
 }
 
 .navInner {
-  max-width: 960px;
+  max-width: 1240px;
   margin: 0 auto;
-  padding: 12px 16px;
+  padding: 12px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
 }
 
 .brand {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 800;
   letter-spacing: -0.5px;
   color: var(--text-primary);
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .brandAccent {
@@ -45,62 +49,126 @@
 }
 
 .bar {
-  width: 20px;
+  width: 22px;
   height: 2px;
   background: var(--text-primary);
   border-radius: 2px;
+  transition: all 0.2s ease;
 }
 
 .links {
   display: none;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
-  padding: 8px 16px 16px;
+  padding: 16px 20px 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .linksOpen {
   display: flex;
 }
 
+.navGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.authGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
 .links a,
 .logoutButton {
-  padding: 10px 12px;
-  border-radius: 10px;
+  padding: 8px 14px;
+  border-radius: 8px;
   text-decoration: none;
   color: var(--text-primary);
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.links a:hover {
+  background: var(--background);
+  color: var(--primary);
 }
 
 .links a.activeLink {
   background: var(--primary-soft);
-  color: var(--primary);
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+
+.userBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--background);
+  border: 1px solid var(--border);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.roleTag {
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
 .postLink {
-  margin-top: 6px;
   background: var(--primary);
-  color: #fff;
-  display: block;
+  color: #fff !important;
   text-align: center;
-  border-radius: 999px;
+  border-radius: 999px !important;
+  font-weight: 700 !important;
+  padding: 8px 16px !important;
 }
 
-.loginLink,
-.signupLink {
+.postLink:hover {
+  background: var(--primary-dark) !important;
+}
+
+.loginLink {
   text-align: center;
+  border: 1px solid var(--border);
+  border-radius: 8px !important;
+  font-weight: 600 !important;
 }
 
 .signupLink {
   background: var(--primary);
-  color: #fff;
-  border-radius: 999px;
+  color: #fff !important;
+  border-radius: 999px !important;
+  text-align: center;
+  font-weight: 700 !important;
+  padding: 8px 18px !important;
+  box-shadow: 0 2px 6px rgba(0, 132, 61, 0.2);
+}
+
+.signupLink:hover {
+  background: var(--primary-dark) !important;
 }
 
 .logoutButton {
@@ -108,10 +176,16 @@
   border: 1px solid var(--border);
   font: inherit;
   cursor: pointer;
-  margin-top: 4px;
+  color: var(--text-secondary);
 }
 
-@media (min-width: 700px) {
+.logoutButton:hover {
+  background: #fef2f2;
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+@media (min-width: 860px) {
   .hamburger {
     display: none;
   }
@@ -121,25 +195,28 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 4px;
+    justify-content: space-between;
+    flex: 1;
     position: static;
     border: none;
     padding: 0;
     background: none;
+    box-shadow: none;
+    margin-left: 20px;
   }
 
-  .links a,
-  .logoutButton {
-    padding: 8px 12px;
+  .navGroup {
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
   }
 
-  .postLink {
+  .authGroup {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
     margin-top: 0;
-    margin-left: 8px;
-    padding: 9px 16px;
-  }
-
-  .signupLink {
-    padding: 9px 16px;
+    padding-top: 0;
+    border-top: none;
   }
 }

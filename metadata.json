@@ -1,0 +1,6 @@
+{
+  "name": "SpaceMakers",
+  "description": "TVET graduates and local gig matching platform connecting skilled tradespeople with local demand.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
