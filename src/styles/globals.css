@@ -420,6 +420,12 @@ textarea {
   border: 1px solid color-mix(in srgb, var(--success) 25%, transparent);
 }
 
+.alert-info {
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
 /* Empty states */
 .empty-state {
   text-align: center;

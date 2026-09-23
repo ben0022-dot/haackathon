@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { sendEmailVerification } from "firebase/auth";
 import { useAuth } from "@/context/AuthContext";
 import LoadingState from "@/components/LoadingState";
 import OpportunityCard from "@/components/OpportunityCard";
@@ -15,6 +16,22 @@ export default function DashboardPage() {
   const { user, profile, loading } = useAuth();
   const [opportunities, setOpportunities] = useState([]);
   const [fetching, setFetching] = useState(true);
+  const [verifyMessage, setVerifyMessage] = useState("");
+  const [resending, setResending] = useState(false);
+
+  async function handleResendVerification() {
+    if (!user) return;
+    setResending(true);
+    setVerifyMessage("");
+    try {
+      await sendEmailVerification(user);
+      setVerifyMessage("Verification email sent. Check your inbox and spam folder.");
+    } catch {
+      setVerifyMessage("Could not send the email. Please sign in again and retry.");
+    } finally {
+      setResending(false);
+    }
+  }
 
   useEffect(() => {
     if (!loading && !user) router.push("/login");
@@ -57,6 +74,35 @@ export default function DashboardPage() {
         <h1>Hello, {profile?.name?.split(" ")[0] || "there"} 👋</h1>
         <p className="subtitle">Find work that matches your skills.</p>
       </div>
+
+      {user && !user.emailVerified && (
+        <div
+          className="alert alert-info"
+          role="status"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 12,
+            flexWrap: "wrap",
+          }}
+        >
+          <span>
+            Verify your email ({user.email}) to secure your account.
+            {verifyMessage && (
+              <span style={{ display: "block", fontWeight: 500 }}>{verifyMessage}</span>
+            )}
+          </span>
+          <button
+            type="button"
+            className="btn btn-secondary btn-sm"
+            onClick={handleResendVerification}
+            disabled={resending}
+          >
+            {resending ? "Sending..." : "Resend email"}
+          </button>
+        </div>
+      )}
 
       <div className={styles.profileCard}>
         <div className={styles.profileInfo}>
