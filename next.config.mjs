@@ -2,7 +2,7 @@
 const nextConfig = {
   output: "standalone",
   reactCompiler: true,
-  serverExternalPackages: [
+  transpilePackages: [
     "firebase-admin",
     "jwks-rsa",
     "jose",
