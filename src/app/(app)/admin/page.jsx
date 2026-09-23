@@ -43,6 +43,10 @@ export default function AdminPage() {
   const [userRole, setUserRole] = useState("");
   const [userNotes, setUserNotes] = useState("");
 
+  const [recentApps, setRecentApps] = useState([]);
+  const [appNotes, setAppNotes] = useState("");
+  const [appFetching, setAppFetching] = useState(false);
+
   async function loadPending() {
     setFetching(true);
     setError("");
@@ -108,6 +112,29 @@ export default function AdminPage() {
     }
   }
 
+  async function loadRecentApplications() {
+    setAppFetching(true);
+    setAppNotes("");
+    try {
+      const token = await user.getIdToken();
+      const res = await fetch("/api/admin/applications", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setAppNotes(data.error || "Could not load applications.");
+        setRecentApps([]);
+      } else {
+        setRecentApps(data.applications || []);
+      }
+    } catch {
+      setAppNotes("Could not load applications.");
+      setRecentApps([]);
+    } finally {
+      setAppFetching(false);
+    }
+  }
+
   useEffect(() => {
     if (!user) return;
     // eslint-disable-next-line react-hooks/set-state-in-effect -- data load on mount
@@ -124,6 +151,10 @@ export default function AdminPage() {
     if (tab === "users") {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- data load on tab switch
       loadUsers();
+    }
+    if (tab === "applications") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- data load on tab switch
+      loadRecentApplications();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab, user]);
@@ -207,7 +238,7 @@ export default function AdminPage() {
     <main className="container">
       <div className="page-hero">
         <h1>Admin dashboard</h1>
-        <p className="subtitle">Review verification queues for a safe, honest marketplace.</p>
+        <p className="subtitle">Review verification queues and monitor applications for a safe, honest marketplace.</p>
       </div>
 
       {error && <p className="alert alert-error" role="alert">{error}</p>}
@@ -219,6 +250,7 @@ export default function AdminPage() {
         {[
           ["pending", "Pending opportunities"],
           ["skill-requests", "Skill requests"],
+          ["applications", "Recent applications"],
           ["users", "Users"],
         ].map(([key, label]) => (
           <button
@@ -388,6 +420,60 @@ export default function AdminPage() {
                       Merge
                     </button>
                   </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
+      {tab === "applications" && (
+        <section className="section">
+          <div className="section-head">
+            <h2>Recent applications</h2>
+            <p className="subtitle" style={{ margin: 0 }}>
+              Who applied to which gig, newest first.
+            </p>
+          </div>
+
+          {appFetching ? (
+            <LoadingState message="Loading applications..." />
+          ) : appNotes ? (
+            <p className="alert" role="alert">{appNotes}</p>
+          ) : recentApps.length === 0 ? (
+            <div className="empty-state card">
+              <h3>No applications yet.</h3>
+              <p>When members apply to gigs, they will show up here.</p>
+            </div>
+          ) : (
+            <div>
+              {recentApps.map((app) => (
+                <article className="card" key={app.id}>
+                  <div className={styles.head}>
+                    <div>
+                      <h3 className={styles.title}>{app.applicant?.name}</h3>
+                      <p className={styles.meta}>
+                        applied to <strong>{app.opportunity?.title}</strong> ·{" "}
+                        {app.opportunity?.employer?.name} · {formatDate(app.createdAt)}
+                      </p>
+                    </div>
+                    <span className={`status-pill status-${app.status}`} style={{ flexShrink: 0 }}>
+                      {app.status}
+                    </span>
+                  </div>
+
+                  {app.message && <p className={styles.description}>{app.message}</p>}
+
+                  <p className={styles.meta}>
+                    {app.applicant?.location || "No location"} ·{" "}
+                    {app.opportunity?.location} ·{" "}
+                    {app.opportunity?.skills?.length > 0
+                      ? app.opportunity.skills.map((os) => os.skill?.name).join(", ")
+                      : "No listed skills"}
+                    {Array.isArray(app.reviews) && app.reviews.length > 0
+                      ? ` · ${app.reviews.length} review${app.reviews.length === 1 ? "" : "s"}`
+                      : ""}
+                  </p>
                 </article>
               ))}
             </div>

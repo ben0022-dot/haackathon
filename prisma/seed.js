@@ -58,6 +58,41 @@ const GRADUATES = [
     bio: "ICT technician, comfortable with computer repair and network setup.",
     roles: { ICT: "ADVANCED", Carpentry: "BEGINNER" },
   },
+  {
+    name: "Mercy Achieng",
+    email: "mercy.demo@spacemakers.app",
+    location: "Kasarani",
+    bio: "Masonry and welding graduate looking for construction work.",
+    roles: { Masonry: "INTERMEDIATE", Welding: "BEGINNER" },
+  },
+  {
+    name: "Samuel Kiprotich",
+    email: "samuel.demo@spacemakers.app",
+    location: "Langata",
+    bio: "Motorcycle mechanic with a passion for DIY carpentry.",
+    roles: { Mechanics: "ADVANCED", Carpentry: "INTERMEDIATE" },
+  },
+  {
+    name: "Faith Wambui",
+    email: "faith.demo@spacemakers.app",
+    location: "Eastleigh",
+    bio: "Hairdressing and tailoring graduate, quick and reliable.",
+    roles: { Hairdressing: "ADVANCED", Tailoring: "INTERMEDIATE" },
+  },
+  {
+    name: "Joseph Omondi",
+    email: "joseph.demo@spacemakers.app",
+    location: "Parklands",
+    bio: "General trades helper, strong on plumbing and basic electrical.",
+    roles: { Plumbing: "ADVANCED", Electrical: "BEGINNER" },
+  },
+  {
+    name: "Amina Noor",
+    email: "amina.demo@spacemakers.app",
+    location: "Gigiri",
+    bio: "Catering expert specialising in events and large groups.",
+    roles: { Catering: "ADVANCED" },
+  },
 ];
 
 const EMPLOYERS = [
@@ -72,6 +107,18 @@ const EMPLOYERS = [
     email: "hardware.demo@spacemakers.app",
     location: "Runda",
     bio: "Hardware shop that takes on wiring and installation jobs.",
+  },
+  {
+    name: "Kasarani Construction Co.",
+    email: "kasarani.demo@spacemakers.app",
+    location: "Kasarani",
+    bio: "Building contractor with steady need for masonry and welding hands.",
+  },
+  {
+    name: "St. Teresa Salons",
+    email: "salon.demo@spacemakers.app",
+    location: "Eastleigh",
+    bio: "Salon and tailoring studio hiring weekend assistants.",
   },
 ];
 
@@ -165,7 +212,7 @@ async function main() {
     grads.push({
       user,
       skillNames: new Set(Object.keys(g.roles)),
-      offsetDays: [1, 3, 5][index] || 2,
+      offsetDays: 1 + (index * 3) % 6,
     });
     console.log(`  + graduate ${g.name} (${uid})`);
   }
@@ -196,7 +243,7 @@ async function main() {
   });
   console.log(`  + admin ${ADMIN.name} (${adminUid})`);
 
-  const [eatery, hardware] = employers;
+  const [eatery, hardware, construction, salon] = employers;
   const household = {
     name: "Mrs. Mbugua",
     email: "mbugua.demo@spacemakers.app",
@@ -371,6 +418,97 @@ async function main() {
       verified: true,
       daysAgo: 8,
     },
+    {
+      title: "Mason needed for apartment finishing",
+      description:
+        "Plastering and floor screeding for a two-bedroom unit in Kasarani. Two days of work, materials on site.",
+      type: "GIG",
+      location: "Kasarani",
+      payment: 2800,
+      paymentType: "PER_DAY",
+      employerId: construction.id,
+      skills: ["Masonry"],
+      verified: true,
+      daysAgo: 0,
+    },
+    {
+      title: "Welding assistant at construction site",
+      description:
+        "Assist our welder with structural welding and grinding on a perimeter fence project in Kasarani.",
+      type: "GIG",
+      location: "Kasarani",
+      payment: 2200,
+      paymentType: "PER_DAY",
+      employerId: construction.id,
+      skills: ["Welding"],
+      verified: false,
+      daysAgo: 1,
+    },
+    {
+      title: "Barbershop weekend assistant",
+      description:
+        "Weekend haircuts and blade washing at St. Teresa Salons in Eastleigh. Steady weekend work.",
+      type: "GIG",
+      location: "Eastleigh",
+      payment: 850,
+      paymentType: "PER_DAY",
+      employerId: salon.id,
+      skills: ["Hairdressing"],
+      verified: true,
+      daysAgo: 2,
+    },
+    {
+      title: "Tailoring order: corporate uniforms",
+      description:
+        "Sewing 40 corporate uniforms for a small logistics firm. Cutting table and machines available on site.",
+      type: "CONTRACT",
+      location: "Eastleigh",
+      payment: 750,
+      paymentType: "PER_DAY",
+      employerId: salon.id,
+      skills: ["Tailoring"],
+      verified: false,
+      daysAgo: 3,
+    },
+    {
+      title: "Garage mechanic helper",
+      description:
+        "General servicing, oil changes and brake checks at a garage in Parklands. Basic tools provided.",
+      type: "APPRENTICESHIP",
+      location: "Parklands",
+      payment: 900,
+      paymentType: "PER_DAY",
+      employerId: hardware.id,
+      skills: ["Mechanics"],
+      verified: true,
+      daysAgo: 4,
+    },
+    {
+      title: "Drain unblocking & pipe fitting",
+      description:
+        "A restaurant in Gigiri needs a plumber to unblock drains and refit two kitchen pipes before inspection.",
+      type: "SERVICE_REQUEST",
+      location: "Gigiri",
+      payment: 1700,
+      paymentType: "FIXED",
+      employerId: eatery.id,
+      skills: ["Plumbing"],
+      verified: false,
+      daysAgo: 5,
+    },
+    {
+      title: "Event catering for 150 guests",
+      description:
+        "Full event catering for a birthday in Githogoro next week. Menu and budget agreed in advance.",
+      type: "GIG",
+      location: "Githogoro",
+      payment: 3000,
+      paymentType: "FIXED",
+      employerId: eatery.id,
+      skills: ["Catering"],
+      verified: true,
+      daysAgo: 1,
+    },
   ];
 
   console.log("Seeding opportunities...");
@@ -409,26 +547,63 @@ async function main() {
   }
 
   console.log("Seeding applications...");
-  for (const grad of grads) {
-    const ops = opportunities.filter((o) =>
+  const STATUS_ROTATION = ["PENDING", "REVIEWING", "ACCEPTED", "PENDING", "REJECTED", "COMPLETED"];
+  const createdApplications = [];
+  for (const [index, grad] of grads.entries()) {
+    const matchingOps = opportunities.filter((o) =>
       o.skills.some((os) => grad.skillNames?.has(os.skill?.name)),
     );
-    const target = ops[0] || opportunities[0];
-    if (!target) continue;
-    const existingApp = await prisma.application.findFirst({
-      where: { applicantId: grad.user.id, opportunityId: target.id },
-    });
-    if (!existingApp) {
-      await prisma.application.create({
+    const opPool = matchingOps.length >= 3 ? matchingOps.slice(0, 3) : matchingOps;
+    for (const [opIndex, op] of opPool.entries()) {
+      const status = STATUS_ROTATION[(index + opIndex) % STATUS_ROTATION.length];
+      const existingApp = await prisma.application.findFirst({
+        where: { applicantId: grad.user.id, opportunityId: op.id },
+      });
+      if (existingApp) continue;
+      const message =
+        status === "REJECTED"
+          ? "Available right away and happy to take direction."
+          : `Hi, I have ${grad.user.location} experience with ${op.skills
+              .map((os) => os.skill?.name)
+              .join(", ")} and can start immediately.`;
+      const created = await prisma.application.create({
         data: {
-          opportunityId: target.id,
+          opportunityId: op.id,
           applicantId: grad.user.id,
-          status: "PENDING",
-          message: `Hi, I have relevant experience and I'm based in ${grad.user.location}. I'm available to start right away.`,
+          status,
+          message,
+          createdAt: new Date(now - (grad.offsetDays + opIndex * 2) * 864e5),
         },
       });
-      console.log(`  + application: ${grad.user.name} -> ${target.title}`);
+      createdApplications.push({ application: created, op, grad, status });
+      console.log(`  + application (${status}): ${grad.user.name} -> ${op.title}`);
     }
+  }
+
+  console.log("Seeding reviews for completed applications...");
+  const REVIEW_COMMENTS = [
+    "Trained, punctual and worked cleanly. Would hire again.",
+    "Reliable and did exactly what was agreed.",
+    "Great attitude, showed up on time and finished early.",
+  ];
+  let reviewIndex = 0;
+  for (const { application, op, grad } of createdApplications.filter((c) => c.status === "COMPLETED")) {
+    const employer = employers.find((e) => e.id === op.employerId) || householdUser;
+    const existingReview = await prisma.review.findFirst({
+      where: { applicationId: application.id, reviewerId: employer.id },
+    });
+    if (existingReview) continue;
+    await prisma.review.create({
+      data: {
+        applicationId: application.id,
+        reviewerId: employer.id,
+        revieweeId: grad.user.id,
+        rating: 4 + (reviewIndex % 2),
+        comment: REVIEW_COMMENTS[reviewIndex % REVIEW_COMMENTS.length],
+      },
+    });
+    reviewIndex += 1;
+    console.log(`  + review: ${employer.name} rated ${grad.user.name}`);
   }
 
   console.log("Seed complete.");
