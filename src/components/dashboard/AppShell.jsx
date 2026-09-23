@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import {
   LayoutDashboard,
@@ -15,189 +16,205 @@ import {
   LogIn,
   LogOut,
   House,
+  Menu,
+  X,
 } from "lucide-react";
 import styles from "./AppShell.module.css";
+
+const DESKTOP_BREAKPOINT = 880;
+
+const GUEST_LINKS = [
+  { href: "/opportunities", label: "Opportunities", icon: Briefcase },
+  { href: "/demand-map", label: "Demand Map", icon: Compass },
+  { href: "/ai", label: "AI Suite", icon: Sparkles },
+  { href: "/login", label: "Sign in", icon: LogIn },
+];
+
+function isActive(href, pathname) {
+  if (href === "/login") return false;
+  if (href === "/opportunities") {
+    return pathname.startsWith("/opportunities") && !pathname.includes("/new");
+  }
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export default function AppShell({ children }) {
   const { user, profile, logout, loading } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const sidebarRef = useRef(null);
 
   const isEmployer = profile?.role === "EMPLOYER";
   const isAdmin = profile?.role === "ADMIN";
   const dashboardHref = isEmployer ? "/employer" : isAdmin ? "/admin" : "/dashboard";
-  const dashboardLabel = isEmployer ? "Employment" : "Dashboard";
+  const dashboardLabel = isEmployer ? "Employment" : isAdmin ? "Admin" : "Dashboard";
 
   async function handleLogout() {
+    setOpen(false);
     await logout();
     router.push("/");
   }
 
-  const isActive = (href) => {
-    if (href === "/opportunities") {
-      return pathname.startsWith("/opportunities") && !pathname.includes("/new");
+  useEffect(() => {
+    function onResize() {
+      if (window.innerWidth >= DESKTOP_BREAKPOINT) setOpen(false);
     }
-    return pathname === href || pathname.startsWith(`${href}/`);
-  };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
-  const DESKTOP_LINKS = [
+  useEffect(() => {
+    if (!open) return undefined;
+    const { overflow: previousOverflow } = document.body.style;
+    document.body.style.overflow = "hidden";
+    function handleKeyDown(event) {
+      if (event.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open]);
+
+  const userLinks = [
+    { href: dashboardHref, label: dashboardLabel, icon: dashboardHref === "/dashboard" ? LayoutDashboard : House },
     { href: "/opportunities", label: "Opportunities", icon: Briefcase },
     { href: "/demand-map", label: "Demand Map", icon: Compass },
     { href: "/ai", label: "AI Suite", icon: Sparkles },
   ];
 
-  const tabItems = isEmployer
+  const accountLinks = user
     ? [
-        { href: dashboardHref, label: "Employment", icon: House },
-        { href: "/opportunities", label: "Opportunities", icon: Briefcase },
-        { href: "/employer/opportunities/new", label: "Post gig", icon: PlusCircle },
-        { href: "/profile", label: "Profile", icon: User },
-      ]
-    : isAdmin
-    ? [
-        { href: dashboardHref, label: "Admin", icon: House },
-        { href: "/opportunities", label: "Opportunities", icon: Briefcase },
+        ...(isEmployer || isAdmin
+          ? [{ href: "/employer/opportunities/new", label: "Post a gig", icon: PlusCircle }]
+          : []),
         { href: "/applications", label: "Applications", icon: FileText },
         { href: "/profile", label: "Profile", icon: User },
       ]
-    : [
-        { href: dashboardHref, label: "Dashboard", icon: LayoutDashboard },
-        { href: "/opportunities", label: "Opportunities", icon: Briefcase },
-        { href: "/applications", label: "Applications", icon: FileText },
-        { href: "/profile", label: "Profile", icon: User },
-      ];
-
-  const guestTabs = [
-    { href: "/opportunities", label: "Opportunities", icon: Briefcase },
-    { href: "/demand-map", label: "Demand Map", icon: Compass },
-    { href: "/ai", label: "AI", icon: Sparkles },
-    { href: "/login", label: "Sign in", icon: LogIn },
-  ];
-
-  const tabs = user ? tabItems : guestTabs;
-
-  const tabActive = (href) => {
-    if (href === "/login") return false;
-    return isActive(href);
-  };
+    : [];
 
   const nameInitial = (profile?.name || "U").charAt(0).toUpperCase();
+  const roleLabel = isEmployer ? "Employer" : isAdmin ? "Admin" : "Artisan";
+
+  function renderLinks(links) {
+    return links.map((item) => {
+      const Icon = item.icon;
+      const active = isActive(item.href, pathname);
+      return (
+        <Link
+          key={item.href}
+          href={item.href}
+          className={`${styles.navItem} ${active ? styles.navItemActive : ""}`}
+          aria-current={active ? "page" : undefined}
+          onClick={() => setOpen(false)}
+        >
+          <Icon size={18} />
+          <span>{item.label}</span>
+        </Link>
+      );
+    });
+  }
 
   return (
     <div className={styles.shell}>
-      <header className={styles.topNav} aria-label="Primary navigation">
-        <div className={styles.topNavInner}>
-          <Link href="/" className={styles.brand} aria-label="SpaceMakers home">
-            <Image src="/spacemakers.png" alt="SpaceMakers" width={32} height={32} priority />
-            <span className={styles.brandName}>SpaceMakers</span>
-          </Link>
-
-          <nav className={styles.topLinks}>
-            {DESKTOP_LINKS.map((item) => {
-              const Icon = item.icon;
-              const active = isActive(item.href);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`${styles.topLink} ${active ? styles.topLinkActive : ""}`}
-                  aria-current={active ? "page" : undefined}
-                >
-                  <Icon size={15} />
-                  <span>{item.label}</span>
-                </Link>
-              );
-            })}
-            {user && (
-              <>
-                <Link
-                  href={dashboardHref}
-                  className={`${styles.topLink} ${isActive(dashboardHref) ? styles.topLinkActive : ""}`}
-                  aria-current={isActive(dashboardHref) ? "page" : undefined}
-                >
-                  <LayoutDashboard size={15} />
-                  <span>{dashboardLabel}</span>
-                </Link>
-                <Link
-                  href="/applications"
-                  className={`${styles.topLink} ${isActive("/applications") ? styles.topLinkActive : ""}`}
-                  aria-current={isActive("/applications") ? "page" : undefined}
-                >
-                  <FileText size={15} />
-                  <span>Applications</span>
-                </Link>
-                <Link
-                  href="/profile"
-                  className={`${styles.topLink} ${isActive("/profile") ? styles.topLinkActive : ""}`}
-                  aria-current={isActive("/profile") ? "page" : undefined}
-                >
-                  <User size={15} />
-                  <span>Profile</span>
-                </Link>
-              </>
-            )}
-          </nav>
-
-          <div className={styles.topActions}>
-            {loading ? (
-              <div className={styles.skeleton} aria-hidden="true" />
-            ) : user ? (
-              <>
-                {(isEmployer || isAdmin) && (
-                  <Link href="/employer/opportunities/new" className="btn btn-primary btn-sm">
-                    <PlusCircle size={16} />
-                    Post a gig
-                  </Link>
-                )}
-                <div className={styles.userBadge}>
-                  <span className={styles.userInitial}>{nameInitial}</span>
-                  <span className={styles.userName}>
-                    {profile?.name?.split(" ")[0] || "User"}
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  className={styles.signOut}
-                  onClick={handleLogout}
-                  title="Sign out of account"
-                >
-                  <LogOut size={16} />
-                  <span>Sign out</span>
-                </button>
-              </>
-            ) : (
-              <>
-                <Link href="/login" className={styles.loginLink}>
-                  Log in
-                </Link>
-                <Link href="/signup" className="btn btn-primary btn-sm">
-                  Get started
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
+      {/* Mobile top bar */}
+      <header className={styles.mobileBar}>
+        <Link href="/" className={styles.brand} aria-label="SpaceMakers home">
+          <Image src="/spacemakers.png" alt="SpaceMakers" width={30} height={30} priority />
+          <span className={styles.brandName}>SpaceMakers</span>
+        </Link>
+        <button
+          type="button"
+          className={styles.menuButton}
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          aria-controls="app-sidebar"
+        >
+          {open ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </header>
 
-      <main className={styles.content}>{children}</main>
+      {/* Overlay behind mobile drawer */}
+      <div
+        className={`${styles.overlay} ${open ? styles.overlayVisible : ""}`}
+        onClick={() => setOpen(false)}
+        aria-hidden="true"
+      />
 
-      <nav className={styles.tabBar} aria-label="Bottom navigation">
-        {tabs.map((item) => {
-          const Icon = item.icon;
-          const active = tabActive(item.href);
-          return (
-            <Link
-              key={item.label}
-              href={item.href}
-              className={`${styles.tab} ${active ? styles.tabActive : ""}`}
-              aria-current={active ? "page" : undefined}
-            >
-              <Icon size={20} strokeWidth={active ? 2.4 : 2} />
-              <span>{item.label}</span>
+      {/* Sidebar */}
+      <aside
+        ref={sidebarRef}
+        id="app-sidebar"
+        className={`${styles.sidebar} ${open ? styles.sidebarOpen : ""}`}
+        aria-label="Sidebar navigation"
+      >
+        <div className={styles.sidebarHeader}>
+          <Link href="/" className={styles.brand} aria-label="SpaceMakers home">
+            <Image src="/spacemakers.png" alt="SpaceMakers" width={30} height={30} priority />
+            <span className={styles.brandName}>SpaceMakers</span>
+          </Link>
+        </div>
+
+        <nav className={styles.sidebarNav}>
+          {loading ? (
+            <div className={styles.navSkeleton} aria-hidden="true" />
+          ) : (
+            <div className={styles.navGroup}>
+              <span className={styles.navLabel}>Main</span>
+              {renderLinks(userLinks)}
+            </div>
+          )}
+
+          {!loading && user && (
+            <div className={styles.navGroup}>
+              <span className={styles.navLabel}>Account</span>
+              {renderLinks(accountLinks)}
+            </div>
+          )}
+
+          {!loading && !user && (
+            <div className={styles.navGroup}>
+              <span className={styles.navLabel}>Main</span>
+              {renderLinks(GUEST_LINKS)}
+            </div>
+          )}
+        </nav>
+
+        <div className={styles.sidebarFooter}>
+          {loading ? (
+            <div className={styles.userSkeleton} aria-hidden="true" />
+          ) : user ? (
+            <>
+              <div className={styles.userCard}>
+                <span className={styles.userInitial}>{nameInitial}</span>
+                <div className={styles.userMeta}>
+                  <span className={styles.userName}>{profile?.name?.split(" ")[0] || "User"}</span>
+                  <span className={styles.userRole}>{roleLabel}</span>
+                </div>
+              </div>
+              {(isEmployer || isAdmin) && (
+                <Link href="/employer/opportunities/new" className={`btn btn-primary btn-sm ${styles.postGig}`}>
+                  <PlusCircle size={15} />
+                  Post a gig
+                </Link>
+              )}
+              <button type="button" className={styles.signOut} onClick={handleLogout}>
+                <LogOut size={16} />
+                Sign out
+              </button>
+            </>
+          ) : (
+            <Link href="/signup" className="btn btn-primary btn-sm">
+              Get started
             </Link>
-          );
-        })}
-      </nav>
+          )}
+        </div>
+      </aside>
+
+      <main className={styles.content}>{children}</main>
     </div>
   );
 }
