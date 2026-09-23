@@ -38,6 +38,7 @@ export async function GET(request) {
         applicant: {
           include: { skills: { include: { skill: true } } },
         },
+        reviews: true,
       },
       orderBy: { createdAt: "desc" },
     });
@@ -58,6 +59,7 @@ export async function GET(request) {
           employer: { select: { id: true, name: true, phone: true } },
         },
       },
+      reviews: true,
     },
     orderBy: { createdAt: "desc" },
   });

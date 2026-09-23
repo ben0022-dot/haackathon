@@ -54,6 +54,7 @@ model User {
   email         String   @unique
   emailVerified Boolean  @default(false)
   phone         String?
+  phoneVerified Boolean  @default(false)
   role          Role     @default(GRADUATE)
   bio           String?
   location      String?
@@ -61,11 +62,14 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  skills        UserSkill[]
-  opportunities Opportunity[] @relation("employerOpportunities")
-  applications  Application[]
+  skills            UserSkill[]
+  opportunities     Opportunity[]      @relation("employerOpportunities")
+  applications      Application[]
   matchExplanations MatchExplanation[] @relation("explanationGraduate")
-  skillRequests SkillRequest[] @relation("skillRequestEmployer")
+  skillRequests     SkillRequest[]     @relation("skillRequestEmployer")
+  otps              PhoneOtp[]
+  reviewsGiven      Review[]           @relation("reviewsGiven")
+  reviewsReceived   Review[]           @relation("reviewsReceived")
 }
 
 model Skill {
@@ -74,16 +78,16 @@ model Skill {
   category  String?
   createdAt DateTime @default(now())
 
-  users        UserSkill[]
+  users         UserSkill[]
   opportunities OpportunitySkill[]
 }
 
 model UserSkill {
-  id              String           @id @default(cuid())
+  id              String          @id @default(cuid())
   userId          String
   skillId         String
-  experienceLevel ExperienceLevel  @default(BEGINNER)
-  createdAt       DateTime         @default(now())
+  experienceLevel ExperienceLevel @default(BEGINNER)
+  createdAt       DateTime        @default(now())
 
   user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
   skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
@@ -106,14 +110,14 @@ model Opportunity {
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
 
-  employer     User                 @relation("employerOpportunities", fields: [employerId], references: [id], onDelete: Cascade)
-  skills       OpportunitySkill[]
-  applications Application[]
+  employer          User               @relation("employerOpportunities", fields: [employerId], references: [id], onDelete: Cascade)
+  skills            OpportunitySkill[]
+  applications      Application[]
   matchExplanations MatchExplanation[]
 }
 
 model OpportunitySkill {
-  id            String      @id @default(cuid())
+  id            String @id @default(cuid())
   opportunityId String
   skillId       String
 
@@ -134,8 +138,41 @@ model Application {
 
   opportunity Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
   applicant   User        @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  reviews     Review[]
 
   @@unique([opportunityId, applicantId])
+}
+
+model PhoneOtp {
+  id        String   @id @default(cuid())
+  userId    String
+  phone     String
+  codeHash  String
+  attempts  Int      @default(0)
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Review {
+  id            String   @id @default(cuid())
+  applicationId String
+  reviewerId    String
+  revieweeId    String
+  rating        Int
+  comment       String?
+  createdAt     DateTime @default(now())
+
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  reviewer    User        @relation("reviewsGiven", fields: [reviewerId], references: [id], onDelete: Cascade)
+  reviewee    User        @relation("reviewsReceived", fields: [revieweeId], references: [id], onDelete: Cascade)
+
+  @@unique([applicationId, reviewerId])
+  @@index([revieweeId])
 }
 
 model MatchExplanation {
@@ -153,12 +190,12 @@ model MatchExplanation {
 }
 
 model SkillRequest {
-  id         String   @id @default(cuid())
+  id         String             @id @default(cuid())
   name       String
   employerId String
   status     SkillRequestStatus @default(PENDING)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
 
   employer User @relation("skillRequestEmployer", fields: [employerId], references: [id], onDelete: Cascade)
 

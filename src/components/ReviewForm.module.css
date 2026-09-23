@@ -1,0 +1,43 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-color, #ececec);
+  margin-top: 8px;
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.starButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  color: var(--text-tertiary, #c4c4c4);
+  transition: color 0.15s ease;
+}
+
+.starButton.active {
+  color: #f5a623;
+}
+
+.label {
+  margin-left: 8px;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field textarea {
+  width: 100%;
+}

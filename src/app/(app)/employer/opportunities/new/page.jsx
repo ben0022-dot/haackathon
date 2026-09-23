@@ -23,6 +23,137 @@ const PAYMENT_TYPE_OPTIONS = [
   { value: "NEGOTIABLE", label: "Negotiable" },
 ];
 
+function PhoneVerificationGate({ onVerified }) {
+  const { user, refreshProfile } = useAuth();
+  const [phone, setPhone] = useState("");
+  const [code, setCode] = useState("");
+  const [sent, setSent] = useState(false);
+  const [devCode, setDevCode] = useState("");
+  const [notice, setNotice] = useState(null);
+  const [busy, setBusy] = useState(false);
+
+  async function requestOtp(e) {
+    e.preventDefault();
+    setNotice(null);
+    setBusy(true);
+    try {
+      const token = await user.getIdToken();
+      const res = await fetch("/api/sms/request", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ phone }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setNotice({ type: "error", text: data.error || "Could not send the code." });
+        setBusy(false);
+        return;
+      }
+      setSent(true);
+      setDevCode(data.devCode || "");
+      setNotice({ type: "success", text: "Code sent. Enter it below to verify." });
+    } catch {
+      setNotice({ type: "error", text: "Could not send the code." });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function verifyOtp(e) {
+    e.preventDefault();
+    setNotice(null);
+    setBusy(true);
+    try {
+      const token = await user.getIdToken();
+      const res = await fetch("/api/sms/verify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ phone, code }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setNotice({ type: "error", text: data.error || "Verification failed." });
+        setBusy(false);
+        return;
+      }
+      await refreshProfile();
+      onVerified();
+    } catch {
+      setNotice({ type: "error", text: "Verification failed." });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <form className="form-card" style={{ margin: "20px auto" }} onSubmit={sent ? verifyOtp : requestOtp}>
+      <div className="form-stack">
+        <h2 style={{ fontSize: "1.15rem" }}>Verify your phone number</h2>
+        <p className="field-hint">
+          To keep opportunities trustworthy, employers must verify a working phone number before posting.
+          We&apos;ll send you a 6-digit code.
+        </p>
+        <label className="field">
+          <span className="field-label field-required">Phone number</span>
+          <input
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="0712 345 678"
+            required
+          />
+        </label>
+        {sent && (
+          <label className="field">
+            <span className="field-label field-required">Verification code</span>
+            <input
+              type="text"
+              inputMode="numeric"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              placeholder="123456"
+              required
+            />
+            {devCode && (
+              <span className="field-hint">Dev mode code: {devCode}</span>
+            )}
+          </label>
+        )}
+        {notice && (
+          <p
+            className={`alert ${notice.type === "success" ? "alert-success" : "alert-error"}`}
+            role="alert"
+          >
+            {notice.text}
+          </p>
+        )}
+        <button type="submit" className="btn btn-primary btn-block" disabled={busy}>
+          {busy ? "Working..." : sent ? "Verify" : "Send code"}
+        </button>
+        {sent && (
+          <button
+            type="button"
+            className="btn btn-secondary btn-block"
+            onClick={() => {
+              setSent(false);
+              setCode("");
+              setNotice(null);
+            }}
+          >
+            Use a different number
+          </button>
+        )}
+      </div>
+    </form>
+  );
+}
+
 export default function NewOpportunityPage() {
   const router = useRouter();
   const { user, profile, loading } = useAuth();
@@ -167,6 +298,8 @@ export default function NewOpportunityPage() {
     );
   }
 
+  const needsPhoneVerification = profile?.role === "EMPLOYER" && !profile?.phoneVerified;
+
   return (
     <main className="container">
       <Link href="/employer" className="back-link">← Back to dashboard</Link>
@@ -178,7 +311,10 @@ export default function NewOpportunityPage() {
         </p>
       </div>
 
-      <form className="form-card" onSubmit={handleSubmit} style={{ margin: "20px auto" }}>
+      {needsPhoneVerification ? (
+        <PhoneVerificationGate onVerified={refreshProfile} />
+      ) : (
+        <form className="form-card" onSubmit={handleSubmit} style={{ margin: "20px auto" }}>
         <div className="form-stack">
           <label className="field">
             <span className="field-label field-required">Opportunity title</span>
@@ -301,7 +437,8 @@ export default function NewOpportunityPage() {
             {submitting ? "Posting..." : "Post opportunity"}
           </button>
         </div>
-      </form>
+        </form>
+      )}
     </main>
   );
 }

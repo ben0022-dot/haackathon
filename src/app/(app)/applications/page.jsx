@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import LoadingState from "@/components/LoadingState";
 import SkillBadge from "@/components/SkillBadge";
+import ReviewForm from "@/components/ReviewForm";
 import styles from "./page.module.css";
 
 function formatDate(value) {
@@ -17,7 +18,7 @@ function formatDate(value) {
 
 export default function ApplicationsPage() {
   const router = useRouter();
-  const { user, loading } = useAuth();
+  const { user, profile, loading } = useAuth();
   const [applications, setApplications] = useState([]);
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState("");
@@ -51,6 +52,19 @@ export default function ApplicationsPage() {
       cancelled = true;
     };
   }, [user]);
+
+  async function reload() {
+    try {
+      const token = await user.getIdToken();
+      const res = await fetch("/api/applications", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (res.ok) setApplications(data.applications || []);
+    } catch {
+      // keep existing data
+    }
+  }
 
   if (loading || !user) return <LoadingState message="Loading applications..." />;
 
@@ -97,6 +111,17 @@ export default function ApplicationsPage() {
               {app.message && (
                 <p className={styles.message}>&quot;{app.message}&quot;</p>
               )}
+              {app.status === "COMPLETED" &&
+                profile &&
+                !app.reviews?.some((r) => r.reviewerId === profile.id) && (
+                  <div style={{ marginTop: 12 }}>
+                    <ReviewForm
+                      applicationId={app.id}
+                      revieweeName={app.opportunity.employer?.name}
+                      onSubmitted={reload}
+                    />
+                  </div>
+                )}
             </article>
           ))}
         </div>

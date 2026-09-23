@@ -354,6 +354,8 @@ class MockDatabase {
     this.userSkills = [...INITIAL_USER_SKILLS];
     this.opportunities = [...INITIAL_OPPORTUNITIES];
     this.applications = [...INITIAL_APPLICATIONS];
+    this.phoneOtps = [];
+    this.reviews = [];
 
     this.user = {
       findUnique: async ({ where, include }) => {
@@ -396,6 +398,7 @@ class MockDatabase {
           email: data.email || `${id}@spacemakers.app`,
           emailVerified: data.emailVerified || false,
           phone: data.phone || null,
+          phoneVerified: data.phoneVerified || false,
           location: data.location || null,
           bio: data.bio || null,
           role: data.role || "GRADUATE",
@@ -633,6 +636,20 @@ class MockDatabase {
         this.applications[idx] = { ...this.applications[idx], ...data, updatedAt: new Date() };
         return this._enrichApplication(this.applications[idx], include);
       },
+      count: async ({ where } = {}) => {
+        let list = [...this.applications];
+        if (where) {
+          if (where.applicantId) list = list.filter((a) => a.applicantId === where.applicantId);
+          if (where.status) list = list.filter((a) => a.status === where.status);
+          if (where.opportunity?.employerId) {
+            list = list.filter((a) => {
+              const opp = this.opportunities.find((o) => o.id === a.opportunityId);
+              return opp && opp.employerId === where.opportunity.employerId;
+            });
+          }
+        }
+        return list.length;
+      },
     };
 
     this.matchExplanation = {
@@ -713,6 +730,70 @@ class MockDatabase {
         return this.skillRequest._store[idx];
       },
     };
+
+    this.phoneOtp = {
+      findFirst: async ({ where, orderBy }) => {
+        let list = this.phoneOtps.filter((o) => {
+          if (where?.userId && o.userId !== where.userId) return false;
+          if (where?.phone && o.phone !== where.phone) return false;
+          if (where?.used !== undefined && o.used !== where.used) return false;
+          if (where?.expiresAt?.gt && new Date(o.expiresAt) <= new Date(where.expiresAt.gt)) return false;
+          return true;
+        });
+        if (orderBy?.createdAt === "desc") {
+          list.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        }
+        return list[0] || null;
+      },
+      create: async ({ data }) => {
+        const created = {
+          id: `otp-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+          userId: data.userId,
+          phone: data.phone,
+          codeHash: data.codeHash,
+          attempts: data.attempts || 0,
+          expiresAt: data.expiresAt,
+          used: data.used || false,
+          createdAt: new Date(),
+        };
+        this.phoneOtps.push(created);
+        return created;
+      },
+      update: async ({ where, data }) => {
+        const idx = this.phoneOtps.findIndex((o) => o.id === where.id);
+        if (idx === -1) throw new Error("PhoneOtp not found");
+        this.phoneOtps[idx] = { ...this.phoneOtps[idx], ...data };
+        return this.phoneOtps[idx];
+      },
+    };
+
+    this.review = {
+      create: async ({ data }) => {
+        const created = {
+          id: `rev-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+          applicationId: data.applicationId,
+          reviewerId: data.reviewerId,
+          revieweeId: data.revieweeId,
+          rating: data.rating,
+          comment: data.comment || null,
+          createdAt: new Date(),
+        };
+        this.reviews.push(created);
+        return created;
+      },
+      aggregate: async ({ where, _avg, _count }) => {
+        let list = this.reviews.filter((r) => {
+          if (where?.revieweeId && r.revieweeId !== where.revieweeId) return false;
+          return true;
+        });
+        const ratings = list.map((r) => r.rating);
+        return {
+          _avg: { rating: ratings.length ? ratings.reduce((a, b) => a + b, 0) / ratings.length : null },
+          _count: list.length,
+        };
+      },
+      findMany: async () => [...this.reviews],
+    };
   }
 
   _enrichUser(u, include) {
@@ -743,7 +824,7 @@ class MockDatabase {
     if (include?.employer) {
       const emp = this.users.find((u) => u.id === o.employerId);
       copy.employer = emp
-        ? { id: emp.id, name: emp.name, avatarUrl: emp.avatarUrl, location: emp.location, phone: emp.phone }
+        ? { id: emp.id, name: emp.name, avatarUrl: emp.avatarUrl, location: emp.location, phone: emp.phone, phoneVerified: emp.phoneVerified || false }
         : null;
     }
     if (include?._count?.applications) {
@@ -767,6 +848,18 @@ class MockDatabase {
       copy.applicant = user
         ? this._enrichUser(user, include.applicant)
         : null;
+    }
+    if (include?.reviews) {
+      copy.reviews = this.reviews
+        .filter((r) => r.applicationId === a.id)
+        .map(({ id, reviewerId, revieweeId, rating, comment, createdAt }) => ({
+          id,
+          reviewerId,
+          revieweeId,
+          rating,
+          comment,
+          createdAt,
+        }));
     }
     return copy;
   }

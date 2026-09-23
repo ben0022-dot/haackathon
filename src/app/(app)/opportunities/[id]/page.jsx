@@ -6,6 +6,7 @@ import { useRouter, useParams } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import LoadingState from "@/components/LoadingState";
 import SkillBadge from "@/components/SkillBadge";
+import { BadgeCheck } from "lucide-react";
 
 const TYPE_LABELS = {
   JOB: "Job",
@@ -30,12 +31,20 @@ function formatDate(value) {
   });
 }
 
+function ratingLabel(stats) {
+  if (!stats || !stats.avgRating) return "No reviews yet";
+  const avg = Number(stats.avgRating).toFixed(1);
+  const plural = stats.reviewCount === 1 ? "" : "s";
+  return `${avg}★ · ${stats.reviewCount} review${plural}`;
+}
+
 export default function OpportunityDetailPage() {
   const router = useRouter();
   const params = useParams();
   const { user, profile, loading } = useAuth();
 
   const [opportunity, setOpportunity] = useState(null);
+  const [employerHistory, setEmployerHistory] = useState(null);
   const [hasApplied, setHasApplied] = useState(false);
   const [fetching, setFetching] = useState(true);
   const [message, setMessage] = useState("");
@@ -62,6 +71,7 @@ export default function OpportunityDetailPage() {
         if (!cancelled) {
           if (res.ok) {
             setOpportunity(data.opportunity);
+            setEmployerHistory(data.employerHistory);
             setHasApplied(data.hasApplied);
           } else {
             setMessage(data.error || "Opportunity not found.");
@@ -214,6 +224,43 @@ export default function OpportunityDetailPage() {
         <p style={{ lineHeight: 1.6, color: "var(--text-secondary)" }}>
           {opportunity.description}
         </p>
+      </article>
+
+      <article className="card" style={{ marginTop: 16 }}>
+        <div className="opportunity-card-head">
+          <h2 style={{ fontSize: "1.05rem" }}>About the employer</h2>
+        </div>
+        <dl>
+          <div className="detail-row">
+            <dt>{opportunity.employer.name}</dt>
+            <dd style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              {opportunity.employer.phoneVerified && (
+                <span className="verified-badge" style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+                  <BadgeCheck size={14} /> Phone verified
+                </span>
+              )}
+              <span style={{ color: "var(--text-secondary)" }}>
+                {ratingLabel(employerHistory)}
+              </span>
+            </dd>
+          </div>
+        </dl>
+        {employerHistory && (
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 18, marginTop: 4 }}>
+            <div>
+              <strong>{employerHistory.posted}</strong>
+              <p className="field-hint" style={{ margin: 0 }}>opportunities posted</p>
+            </div>
+            <div>
+              <strong>{employerHistory.verified}</strong>
+              <p className="field-hint" style={{ margin: 0 }}>verified</p>
+            </div>
+            <div>
+              <strong>{employerHistory.completed}</strong>
+              <p className="field-hint" style={{ margin: 0 }}>completed hires</p>
+            </div>
+          </div>
+        )}
       </article>
 
       {!isOwner && (

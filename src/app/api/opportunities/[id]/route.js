@@ -1,10 +1,13 @@
 import prisma from "@/lib/prisma";
 import { requireUser } from "@/lib/auth";
+import { employerStats } from "@/lib/reputation";
 
 function opportunityInclude() {
   return {
     skills: { include: { skill: true } },
-    employer: { select: { id: true, name: true, avatarUrl: true, location: true } },
+    employer: {
+      select: { id: true, name: true, avatarUrl: true, location: true, phoneVerified: true },
+    },
     _count: { select: { applications: true } },
   };
 }
@@ -33,7 +36,13 @@ export async function GET(request, ctx) {
     },
   });
 
-  return Response.json({ opportunity, hasApplied: Boolean(applied) });
+  const stats = await employerStats(opportunity.employerId);
+
+  return Response.json({
+    opportunity,
+    employerHistory: stats,
+    hasApplied: Boolean(applied),
+  });
 }
 
 export async function PATCH(request, ctx) {

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import LoadingState from "@/components/LoadingState";
+import ReviewForm from "@/components/ReviewForm";
 import styles from "./page.module.css";
 
 export default function EmployerPage() {
@@ -159,6 +160,9 @@ export default function EmployerPage() {
   const applicantsFor = (opportunityId) =>
     applicants.filter((a) => a.opportunity.id === opportunityId);
 
+  const reviewedAlready = (app) =>
+    Array.isArray(app.reviews) && app.reviews.some((r) => r.reviewerId === profile?.id);
+
   return (
     <main className="container">
       <div className="page-hero">
@@ -294,6 +298,13 @@ export default function EmployerPage() {
                               >
                                 Reject
                               </button>
+                              <button
+                                type="button"
+                                className="btn btn-sm btn-secondary"
+                                onClick={() => updateStatus(app.id, "COMPLETED")}
+                              >
+                                Mark complete
+                              </button>
                               {app.applicant.phone && (
                                 <a
                                   className="btn btn-sm btn-secondary"
@@ -303,6 +314,14 @@ export default function EmployerPage() {
                                 </a>
                               )}
                             </div>
+
+                            {app.status === "COMPLETED" && !reviewedAlready(app) && (
+                              <ReviewForm
+                                applicationId={app.id}
+                                revieweeName={app.applicant.name}
+                                onSubmitted={loadApplicants}
+                              />
+                            )}
                           </div>
                         ))
                       )}

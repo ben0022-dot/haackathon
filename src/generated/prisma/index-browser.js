@@ -127,6 +127,7 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   emailVerified: 'emailVerified',
   phone: 'phone',
+  phoneVerified: 'phoneVerified',
   role: 'role',
   bio: 'bio',
   location: 'location',
@@ -180,6 +181,27 @@ exports.Prisma.ApplicationScalarFieldEnum = {
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PhoneOtpScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  phone: 'phone',
+  codeHash: 'codeHash',
+  attempts: 'attempts',
+  expiresAt: 'expiresAt',
+  used: 'used',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ReviewScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  reviewerId: 'reviewerId',
+  revieweeId: 'revieweeId',
+  rating: 'rating',
+  comment: 'comment',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.MatchExplanationScalarFieldEnum = {
@@ -268,6 +290,8 @@ exports.Prisma.ModelName = {
   Opportunity: 'Opportunity',
   OpportunitySkill: 'OpportunitySkill',
   Application: 'Application',
+  PhoneOtp: 'PhoneOtp',
+  Review: 'Review',
   MatchExplanation: 'MatchExplanation',
   SkillRequest: 'SkillRequest'
 };

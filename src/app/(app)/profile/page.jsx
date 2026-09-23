@@ -222,6 +222,24 @@ export default function ProfilePage() {
         </p>
       </div>
 
+      {profile.role === "EMPLOYER" && (
+        <div className={`card ${styles.verificationCard}`}>
+          <div className={styles.verificationTitle}>Phone & reputation</div>
+          <p className={styles.verificationText}>
+            {profile.phoneVerified ? (
+              <span className={`status-pill status-success`}>Phone verified</span>
+            ) : (
+              <span className={`status-pill status-warning`}>Phone not verified</span>
+            )}
+            <span className={styles.verificationNote}>
+              {profile.phoneVerified
+                ? "Employers with a verified phone can post opportunities."
+                : "Verify your phone to post opportunities on the posting page."}
+            </span>
+          </p>
+        </div>
+      )}
+
       <form className="form-card" onSubmit={handleSubmit} style={{ margin: "20px auto" }}>
         <div className="form-stack">
           <label className="field">

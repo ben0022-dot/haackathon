@@ -114,6 +114,13 @@ export async function POST(request) {
   const roleError = requireRole(user, ["EMPLOYER", "ADMIN"]);
   if (roleError.error) return Response.json({ error: roleError.error.message }, { status: roleError.error.status });
 
+  if (user.role === "EMPLOYER" && !user.phoneVerified) {
+    return Response.json(
+      { error: "Verify your phone number with an OTP before posting an opportunity." },
+      { status: 403 },
+    );
+  }
+
   let body;
   try {
     body = await request.json();

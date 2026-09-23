@@ -44,6 +44,16 @@ export type OpportunitySkill = $Result.DefaultSelection<Prisma.$OpportunitySkill
  */
 export type Application = $Result.DefaultSelection<Prisma.$ApplicationPayload>
 /**
+ * Model PhoneOtp
+ * 
+ */
+export type PhoneOtp = $Result.DefaultSelection<Prisma.$PhoneOtpPayload>
+/**
+ * Model Review
+ * 
+ */
+export type Review = $Result.DefaultSelection<Prisma.$ReviewPayload>
+/**
  * Model MatchExplanation
  * 
  */
@@ -335,6 +345,26 @@ export class PrismaClient<
     * ```
     */
   get application(): Prisma.ApplicationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.phoneOtp`: Exposes CRUD operations for the **PhoneOtp** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PhoneOtps
+    * const phoneOtps = await prisma.phoneOtp.findMany()
+    * ```
+    */
+  get phoneOtp(): Prisma.PhoneOtpDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.review`: Exposes CRUD operations for the **Review** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Reviews
+    * const reviews = await prisma.review.findMany()
+    * ```
+    */
+  get review(): Prisma.ReviewDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.matchExplanation`: Exposes CRUD operations for the **MatchExplanation** model.
@@ -808,6 +838,8 @@ export namespace Prisma {
     Opportunity: 'Opportunity',
     OpportunitySkill: 'OpportunitySkill',
     Application: 'Application',
+    PhoneOtp: 'PhoneOtp',
+    Review: 'Review',
     MatchExplanation: 'MatchExplanation',
     SkillRequest: 'SkillRequest'
   };
@@ -825,7 +857,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "skill" | "userSkill" | "opportunity" | "opportunitySkill" | "application" | "matchExplanation" | "skillRequest"
+      modelProps: "user" | "skill" | "userSkill" | "opportunity" | "opportunitySkill" | "application" | "phoneOtp" | "review" | "matchExplanation" | "skillRequest"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1273,6 +1305,154 @@ export namespace Prisma {
           }
         }
       }
+      PhoneOtp: {
+        payload: Prisma.$PhoneOtpPayload<ExtArgs>
+        fields: Prisma.PhoneOtpFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PhoneOtpFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PhoneOtpPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PhoneOtpFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PhoneOtpPayload>
+          }
+          findFirst: {
+            args: Prisma.PhoneOtpFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PhoneOtpPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PhoneOtpFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PhoneOtpPayload>
+          }
+          findMany: {
+            args: Prisma.PhoneOtpFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PhoneOtpPayload>[]
+          }
+          create: {
+            args: Prisma.PhoneOtpCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PhoneOtpPayload>
+          }
+          createMany: {
+            args: Prisma.PhoneOtpCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PhoneOtpCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PhoneOtpPayload>[]
+          }
+          delete: {
+            args: Prisma.PhoneOtpDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PhoneOtpPayload>
+          }
+          update: {
+            args: Prisma.PhoneOtpUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PhoneOtpPayload>
+          }
+          deleteMany: {
+            args: Prisma.PhoneOtpDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PhoneOtpUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PhoneOtpUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PhoneOtpPayload>[]
+          }
+          upsert: {
+            args: Prisma.PhoneOtpUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PhoneOtpPayload>
+          }
+          aggregate: {
+            args: Prisma.PhoneOtpAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePhoneOtp>
+          }
+          groupBy: {
+            args: Prisma.PhoneOtpGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PhoneOtpGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PhoneOtpCountArgs<ExtArgs>
+            result: $Utils.Optional<PhoneOtpCountAggregateOutputType> | number
+          }
+        }
+      }
+      Review: {
+        payload: Prisma.$ReviewPayload<ExtArgs>
+        fields: Prisma.ReviewFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ReviewFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ReviewFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload>
+          }
+          findFirst: {
+            args: Prisma.ReviewFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ReviewFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload>
+          }
+          findMany: {
+            args: Prisma.ReviewFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload>[]
+          }
+          create: {
+            args: Prisma.ReviewCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload>
+          }
+          createMany: {
+            args: Prisma.ReviewCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ReviewCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload>[]
+          }
+          delete: {
+            args: Prisma.ReviewDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload>
+          }
+          update: {
+            args: Prisma.ReviewUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload>
+          }
+          deleteMany: {
+            args: Prisma.ReviewDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ReviewUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ReviewUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload>[]
+          }
+          upsert: {
+            args: Prisma.ReviewUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload>
+          }
+          aggregate: {
+            args: Prisma.ReviewAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateReview>
+          }
+          groupBy: {
+            args: Prisma.ReviewGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ReviewGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ReviewCountArgs<ExtArgs>
+            result: $Utils.Optional<ReviewCountAggregateOutputType> | number
+          }
+        }
+      }
       MatchExplanation: {
         payload: Prisma.$MatchExplanationPayload<ExtArgs>
         fields: Prisma.MatchExplanationFieldRefs
@@ -1550,6 +1730,8 @@ export namespace Prisma {
     opportunity?: OpportunityOmit
     opportunitySkill?: OpportunitySkillOmit
     application?: ApplicationOmit
+    phoneOtp?: PhoneOtpOmit
+    review?: ReviewOmit
     matchExplanation?: MatchExplanationOmit
     skillRequest?: SkillRequestOmit
   }
@@ -1637,6 +1819,9 @@ export namespace Prisma {
     applications: number
     matchExplanations: number
     skillRequests: number
+    otps: number
+    reviewsGiven: number
+    reviewsReceived: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1645,6 +1830,9 @@ export namespace Prisma {
     applications?: boolean | UserCountOutputTypeCountApplicationsArgs
     matchExplanations?: boolean | UserCountOutputTypeCountMatchExplanationsArgs
     skillRequests?: boolean | UserCountOutputTypeCountSkillRequestsArgs
+    otps?: boolean | UserCountOutputTypeCountOtpsArgs
+    reviewsGiven?: boolean | UserCountOutputTypeCountReviewsGivenArgs
+    reviewsReceived?: boolean | UserCountOutputTypeCountReviewsReceivedArgs
   }
 
   // Custom InputTypes
@@ -1691,6 +1879,27 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountSkillRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SkillRequestWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountOtpsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PhoneOtpWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReviewsGivenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReviewWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReviewsReceivedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReviewWhereInput
   }
 
 
@@ -1784,6 +1993,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type ApplicationCountOutputType
+   */
+
+  export type ApplicationCountOutputType = {
+    reviews: number
+  }
+
+  export type ApplicationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reviews?: boolean | ApplicationCountOutputTypeCountReviewsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ApplicationCountOutputType without action
+   */
+  export type ApplicationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApplicationCountOutputType
+     */
+    select?: ApplicationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ApplicationCountOutputType without action
+   */
+  export type ApplicationCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReviewWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -1804,6 +2044,7 @@ export namespace Prisma {
     email: string | null
     emailVerified: boolean | null
     phone: string | null
+    phoneVerified: boolean | null
     role: $Enums.Role | null
     bio: string | null
     location: string | null
@@ -1819,6 +2060,7 @@ export namespace Prisma {
     email: string | null
     emailVerified: boolean | null
     phone: string | null
+    phoneVerified: boolean | null
     role: $Enums.Role | null
     bio: string | null
     location: string | null
@@ -1834,6 +2076,7 @@ export namespace Prisma {
     email: number
     emailVerified: number
     phone: number
+    phoneVerified: number
     role: number
     bio: number
     location: number
@@ -1851,6 +2094,7 @@ export namespace Prisma {
     email?: true
     emailVerified?: true
     phone?: true
+    phoneVerified?: true
     role?: true
     bio?: true
     location?: true
@@ -1866,6 +2110,7 @@ export namespace Prisma {
     email?: true
     emailVerified?: true
     phone?: true
+    phoneVerified?: true
     role?: true
     bio?: true
     location?: true
@@ -1881,6 +2126,7 @@ export namespace Prisma {
     email?: true
     emailVerified?: true
     phone?: true
+    phoneVerified?: true
     role?: true
     bio?: true
     location?: true
@@ -1969,6 +2215,7 @@ export namespace Prisma {
     email: string
     emailVerified: boolean
     phone: string | null
+    phoneVerified: boolean
     role: $Enums.Role
     bio: string | null
     location: string | null
@@ -2001,6 +2248,7 @@ export namespace Prisma {
     email?: boolean
     emailVerified?: boolean
     phone?: boolean
+    phoneVerified?: boolean
     role?: boolean
     bio?: boolean
     location?: boolean
@@ -2012,6 +2260,9 @@ export namespace Prisma {
     applications?: boolean | User$applicationsArgs<ExtArgs>
     matchExplanations?: boolean | User$matchExplanationsArgs<ExtArgs>
     skillRequests?: boolean | User$skillRequestsArgs<ExtArgs>
+    otps?: boolean | User$otpsArgs<ExtArgs>
+    reviewsGiven?: boolean | User$reviewsGivenArgs<ExtArgs>
+    reviewsReceived?: boolean | User$reviewsReceivedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2022,6 +2273,7 @@ export namespace Prisma {
     email?: boolean
     emailVerified?: boolean
     phone?: boolean
+    phoneVerified?: boolean
     role?: boolean
     bio?: boolean
     location?: boolean
@@ -2037,6 +2289,7 @@ export namespace Prisma {
     email?: boolean
     emailVerified?: boolean
     phone?: boolean
+    phoneVerified?: boolean
     role?: boolean
     bio?: boolean
     location?: boolean
@@ -2052,6 +2305,7 @@ export namespace Prisma {
     email?: boolean
     emailVerified?: boolean
     phone?: boolean
+    phoneVerified?: boolean
     role?: boolean
     bio?: boolean
     location?: boolean
@@ -2060,13 +2314,16 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firebaseUid" | "name" | "email" | "emailVerified" | "phone" | "role" | "bio" | "location" | "avatarUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firebaseUid" | "name" | "email" | "emailVerified" | "phone" | "phoneVerified" | "role" | "bio" | "location" | "avatarUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     skills?: boolean | User$skillsArgs<ExtArgs>
     opportunities?: boolean | User$opportunitiesArgs<ExtArgs>
     applications?: boolean | User$applicationsArgs<ExtArgs>
     matchExplanations?: boolean | User$matchExplanationsArgs<ExtArgs>
     skillRequests?: boolean | User$skillRequestsArgs<ExtArgs>
+    otps?: boolean | User$otpsArgs<ExtArgs>
+    reviewsGiven?: boolean | User$reviewsGivenArgs<ExtArgs>
+    reviewsReceived?: boolean | User$reviewsReceivedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2080,6 +2337,9 @@ export namespace Prisma {
       applications: Prisma.$ApplicationPayload<ExtArgs>[]
       matchExplanations: Prisma.$MatchExplanationPayload<ExtArgs>[]
       skillRequests: Prisma.$SkillRequestPayload<ExtArgs>[]
+      otps: Prisma.$PhoneOtpPayload<ExtArgs>[]
+      reviewsGiven: Prisma.$ReviewPayload<ExtArgs>[]
+      reviewsReceived: Prisma.$ReviewPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2088,6 +2348,7 @@ export namespace Prisma {
       email: string
       emailVerified: boolean
       phone: string | null
+      phoneVerified: boolean
       role: $Enums.Role
       bio: string | null
       location: string | null
@@ -2493,6 +2754,9 @@ export namespace Prisma {
     applications<T extends User$applicationsArgs<ExtArgs> = {}>(args?: Subset<T, User$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     matchExplanations<T extends User$matchExplanationsArgs<ExtArgs> = {}>(args?: Subset<T, User$matchExplanationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MatchExplanationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     skillRequests<T extends User$skillRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$skillRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    otps<T extends User$otpsArgs<ExtArgs> = {}>(args?: Subset<T, User$otpsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PhoneOtpPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reviewsGiven<T extends User$reviewsGivenArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewsGivenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reviewsReceived<T extends User$reviewsReceivedArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2528,6 +2792,7 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly emailVerified: FieldRef<"User", 'Boolean'>
     readonly phone: FieldRef<"User", 'String'>
+    readonly phoneVerified: FieldRef<"User", 'Boolean'>
     readonly role: FieldRef<"User", 'Role'>
     readonly bio: FieldRef<"User", 'String'>
     readonly location: FieldRef<"User", 'String'>
@@ -3044,6 +3309,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SkillRequestScalarFieldEnum | SkillRequestScalarFieldEnum[]
+  }
+
+  /**
+   * User.otps
+   */
+  export type User$otpsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PhoneOtp
+     */
+    select?: PhoneOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PhoneOtp
+     */
+    omit?: PhoneOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PhoneOtpInclude<ExtArgs> | null
+    where?: PhoneOtpWhereInput
+    orderBy?: PhoneOtpOrderByWithRelationInput | PhoneOtpOrderByWithRelationInput[]
+    cursor?: PhoneOtpWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PhoneOtpScalarFieldEnum | PhoneOtpScalarFieldEnum[]
+  }
+
+  /**
+   * User.reviewsGiven
+   */
+  export type User$reviewsGivenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    where?: ReviewWhereInput
+    orderBy?: ReviewOrderByWithRelationInput | ReviewOrderByWithRelationInput[]
+    cursor?: ReviewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
+  }
+
+  /**
+   * User.reviewsReceived
+   */
+  export type User$reviewsReceivedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    where?: ReviewWhereInput
+    orderBy?: ReviewOrderByWithRelationInput | ReviewOrderByWithRelationInput[]
+    cursor?: ReviewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
   }
 
   /**
@@ -7740,6 +8077,8 @@ export namespace Prisma {
     updatedAt?: boolean
     opportunity?: boolean | OpportunityDefaultArgs<ExtArgs>
     applicant?: boolean | UserDefaultArgs<ExtArgs>
+    reviews?: boolean | Application$reviewsArgs<ExtArgs>
+    _count?: boolean | ApplicationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["application"]>
 
   export type ApplicationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7780,6 +8119,8 @@ export namespace Prisma {
   export type ApplicationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     opportunity?: boolean | OpportunityDefaultArgs<ExtArgs>
     applicant?: boolean | UserDefaultArgs<ExtArgs>
+    reviews?: boolean | Application$reviewsArgs<ExtArgs>
+    _count?: boolean | ApplicationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ApplicationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     opportunity?: boolean | OpportunityDefaultArgs<ExtArgs>
@@ -7795,6 +8136,7 @@ export namespace Prisma {
     objects: {
       opportunity: Prisma.$OpportunityPayload<ExtArgs>
       applicant: Prisma.$UserPayload<ExtArgs>
+      reviews: Prisma.$ReviewPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8200,6 +8542,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     opportunity<T extends OpportunityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OpportunityDefaultArgs<ExtArgs>>): Prisma__OpportunityClient<$Result.GetResult<Prisma.$OpportunityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     applicant<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    reviews<T extends Application$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, Application$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8637,6 +8980,30 @@ export namespace Prisma {
   }
 
   /**
+   * Application.reviews
+   */
+  export type Application$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    where?: ReviewWhereInput
+    orderBy?: ReviewOrderByWithRelationInput | ReviewOrderByWithRelationInput[]
+    cursor?: ReviewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
+  }
+
+  /**
    * Application without action
    */
   export type ApplicationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8652,6 +9019,2281 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ApplicationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PhoneOtp
+   */
+
+  export type AggregatePhoneOtp = {
+    _count: PhoneOtpCountAggregateOutputType | null
+    _avg: PhoneOtpAvgAggregateOutputType | null
+    _sum: PhoneOtpSumAggregateOutputType | null
+    _min: PhoneOtpMinAggregateOutputType | null
+    _max: PhoneOtpMaxAggregateOutputType | null
+  }
+
+  export type PhoneOtpAvgAggregateOutputType = {
+    attempts: number | null
+  }
+
+  export type PhoneOtpSumAggregateOutputType = {
+    attempts: number | null
+  }
+
+  export type PhoneOtpMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    phone: string | null
+    codeHash: string | null
+    attempts: number | null
+    expiresAt: Date | null
+    used: boolean | null
+    createdAt: Date | null
+  }
+
+  export type PhoneOtpMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    phone: string | null
+    codeHash: string | null
+    attempts: number | null
+    expiresAt: Date | null
+    used: boolean | null
+    createdAt: Date | null
+  }
+
+  export type PhoneOtpCountAggregateOutputType = {
+    id: number
+    userId: number
+    phone: number
+    codeHash: number
+    attempts: number
+    expiresAt: number
+    used: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PhoneOtpAvgAggregateInputType = {
+    attempts?: true
+  }
+
+  export type PhoneOtpSumAggregateInputType = {
+    attempts?: true
+  }
+
+  export type PhoneOtpMinAggregateInputType = {
+    id?: true
+    userId?: true
+    phone?: true
+    codeHash?: true
+    attempts?: true
+    expiresAt?: true
+    used?: true
+    createdAt?: true
+  }
+
+  export type PhoneOtpMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    phone?: true
+    codeHash?: true
+    attempts?: true
+    expiresAt?: true
+    used?: true
+    createdAt?: true
+  }
+
+  export type PhoneOtpCountAggregateInputType = {
+    id?: true
+    userId?: true
+    phone?: true
+    codeHash?: true
+    attempts?: true
+    expiresAt?: true
+    used?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PhoneOtpAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PhoneOtp to aggregate.
+     */
+    where?: PhoneOtpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PhoneOtps to fetch.
+     */
+    orderBy?: PhoneOtpOrderByWithRelationInput | PhoneOtpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PhoneOtpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PhoneOtps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PhoneOtps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PhoneOtps
+    **/
+    _count?: true | PhoneOtpCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PhoneOtpAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PhoneOtpSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PhoneOtpMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PhoneOtpMaxAggregateInputType
+  }
+
+  export type GetPhoneOtpAggregateType<T extends PhoneOtpAggregateArgs> = {
+        [P in keyof T & keyof AggregatePhoneOtp]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePhoneOtp[P]>
+      : GetScalarType<T[P], AggregatePhoneOtp[P]>
+  }
+
+
+
+
+  export type PhoneOtpGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PhoneOtpWhereInput
+    orderBy?: PhoneOtpOrderByWithAggregationInput | PhoneOtpOrderByWithAggregationInput[]
+    by: PhoneOtpScalarFieldEnum[] | PhoneOtpScalarFieldEnum
+    having?: PhoneOtpScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PhoneOtpCountAggregateInputType | true
+    _avg?: PhoneOtpAvgAggregateInputType
+    _sum?: PhoneOtpSumAggregateInputType
+    _min?: PhoneOtpMinAggregateInputType
+    _max?: PhoneOtpMaxAggregateInputType
+  }
+
+  export type PhoneOtpGroupByOutputType = {
+    id: string
+    userId: string
+    phone: string
+    codeHash: string
+    attempts: number
+    expiresAt: Date
+    used: boolean
+    createdAt: Date
+    _count: PhoneOtpCountAggregateOutputType | null
+    _avg: PhoneOtpAvgAggregateOutputType | null
+    _sum: PhoneOtpSumAggregateOutputType | null
+    _min: PhoneOtpMinAggregateOutputType | null
+    _max: PhoneOtpMaxAggregateOutputType | null
+  }
+
+  type GetPhoneOtpGroupByPayload<T extends PhoneOtpGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PhoneOtpGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PhoneOtpGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PhoneOtpGroupByOutputType[P]>
+            : GetScalarType<T[P], PhoneOtpGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PhoneOtpSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    phone?: boolean
+    codeHash?: boolean
+    attempts?: boolean
+    expiresAt?: boolean
+    used?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["phoneOtp"]>
+
+  export type PhoneOtpSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    phone?: boolean
+    codeHash?: boolean
+    attempts?: boolean
+    expiresAt?: boolean
+    used?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["phoneOtp"]>
+
+  export type PhoneOtpSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    phone?: boolean
+    codeHash?: boolean
+    attempts?: boolean
+    expiresAt?: boolean
+    used?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["phoneOtp"]>
+
+  export type PhoneOtpSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    phone?: boolean
+    codeHash?: boolean
+    attempts?: boolean
+    expiresAt?: boolean
+    used?: boolean
+    createdAt?: boolean
+  }
+
+  export type PhoneOtpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "phone" | "codeHash" | "attempts" | "expiresAt" | "used" | "createdAt", ExtArgs["result"]["phoneOtp"]>
+  export type PhoneOtpInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PhoneOtpIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PhoneOtpIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PhoneOtpPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PhoneOtp"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      phone: string
+      codeHash: string
+      attempts: number
+      expiresAt: Date
+      used: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["phoneOtp"]>
+    composites: {}
+  }
+
+  type PhoneOtpGetPayload<S extends boolean | null | undefined | PhoneOtpDefaultArgs> = $Result.GetResult<Prisma.$PhoneOtpPayload, S>
+
+  type PhoneOtpCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PhoneOtpFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PhoneOtpCountAggregateInputType | true
+    }
+
+  export interface PhoneOtpDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PhoneOtp'], meta: { name: 'PhoneOtp' } }
+    /**
+     * Find zero or one PhoneOtp that matches the filter.
+     * @param {PhoneOtpFindUniqueArgs} args - Arguments to find a PhoneOtp
+     * @example
+     * // Get one PhoneOtp
+     * const phoneOtp = await prisma.phoneOtp.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PhoneOtpFindUniqueArgs>(args: SelectSubset<T, PhoneOtpFindUniqueArgs<ExtArgs>>): Prisma__PhoneOtpClient<$Result.GetResult<Prisma.$PhoneOtpPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PhoneOtp that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PhoneOtpFindUniqueOrThrowArgs} args - Arguments to find a PhoneOtp
+     * @example
+     * // Get one PhoneOtp
+     * const phoneOtp = await prisma.phoneOtp.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PhoneOtpFindUniqueOrThrowArgs>(args: SelectSubset<T, PhoneOtpFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PhoneOtpClient<$Result.GetResult<Prisma.$PhoneOtpPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PhoneOtp that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PhoneOtpFindFirstArgs} args - Arguments to find a PhoneOtp
+     * @example
+     * // Get one PhoneOtp
+     * const phoneOtp = await prisma.phoneOtp.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PhoneOtpFindFirstArgs>(args?: SelectSubset<T, PhoneOtpFindFirstArgs<ExtArgs>>): Prisma__PhoneOtpClient<$Result.GetResult<Prisma.$PhoneOtpPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PhoneOtp that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PhoneOtpFindFirstOrThrowArgs} args - Arguments to find a PhoneOtp
+     * @example
+     * // Get one PhoneOtp
+     * const phoneOtp = await prisma.phoneOtp.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PhoneOtpFindFirstOrThrowArgs>(args?: SelectSubset<T, PhoneOtpFindFirstOrThrowArgs<ExtArgs>>): Prisma__PhoneOtpClient<$Result.GetResult<Prisma.$PhoneOtpPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PhoneOtps that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PhoneOtpFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PhoneOtps
+     * const phoneOtps = await prisma.phoneOtp.findMany()
+     * 
+     * // Get first 10 PhoneOtps
+     * const phoneOtps = await prisma.phoneOtp.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const phoneOtpWithIdOnly = await prisma.phoneOtp.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PhoneOtpFindManyArgs>(args?: SelectSubset<T, PhoneOtpFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PhoneOtpPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PhoneOtp.
+     * @param {PhoneOtpCreateArgs} args - Arguments to create a PhoneOtp.
+     * @example
+     * // Create one PhoneOtp
+     * const PhoneOtp = await prisma.phoneOtp.create({
+     *   data: {
+     *     // ... data to create a PhoneOtp
+     *   }
+     * })
+     * 
+     */
+    create<T extends PhoneOtpCreateArgs>(args: SelectSubset<T, PhoneOtpCreateArgs<ExtArgs>>): Prisma__PhoneOtpClient<$Result.GetResult<Prisma.$PhoneOtpPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PhoneOtps.
+     * @param {PhoneOtpCreateManyArgs} args - Arguments to create many PhoneOtps.
+     * @example
+     * // Create many PhoneOtps
+     * const phoneOtp = await prisma.phoneOtp.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PhoneOtpCreateManyArgs>(args?: SelectSubset<T, PhoneOtpCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PhoneOtps and returns the data saved in the database.
+     * @param {PhoneOtpCreateManyAndReturnArgs} args - Arguments to create many PhoneOtps.
+     * @example
+     * // Create many PhoneOtps
+     * const phoneOtp = await prisma.phoneOtp.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PhoneOtps and only return the `id`
+     * const phoneOtpWithIdOnly = await prisma.phoneOtp.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PhoneOtpCreateManyAndReturnArgs>(args?: SelectSubset<T, PhoneOtpCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PhoneOtpPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PhoneOtp.
+     * @param {PhoneOtpDeleteArgs} args - Arguments to delete one PhoneOtp.
+     * @example
+     * // Delete one PhoneOtp
+     * const PhoneOtp = await prisma.phoneOtp.delete({
+     *   where: {
+     *     // ... filter to delete one PhoneOtp
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PhoneOtpDeleteArgs>(args: SelectSubset<T, PhoneOtpDeleteArgs<ExtArgs>>): Prisma__PhoneOtpClient<$Result.GetResult<Prisma.$PhoneOtpPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PhoneOtp.
+     * @param {PhoneOtpUpdateArgs} args - Arguments to update one PhoneOtp.
+     * @example
+     * // Update one PhoneOtp
+     * const phoneOtp = await prisma.phoneOtp.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PhoneOtpUpdateArgs>(args: SelectSubset<T, PhoneOtpUpdateArgs<ExtArgs>>): Prisma__PhoneOtpClient<$Result.GetResult<Prisma.$PhoneOtpPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PhoneOtps.
+     * @param {PhoneOtpDeleteManyArgs} args - Arguments to filter PhoneOtps to delete.
+     * @example
+     * // Delete a few PhoneOtps
+     * const { count } = await prisma.phoneOtp.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PhoneOtpDeleteManyArgs>(args?: SelectSubset<T, PhoneOtpDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PhoneOtps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PhoneOtpUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PhoneOtps
+     * const phoneOtp = await prisma.phoneOtp.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PhoneOtpUpdateManyArgs>(args: SelectSubset<T, PhoneOtpUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PhoneOtps and returns the data updated in the database.
+     * @param {PhoneOtpUpdateManyAndReturnArgs} args - Arguments to update many PhoneOtps.
+     * @example
+     * // Update many PhoneOtps
+     * const phoneOtp = await prisma.phoneOtp.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PhoneOtps and only return the `id`
+     * const phoneOtpWithIdOnly = await prisma.phoneOtp.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PhoneOtpUpdateManyAndReturnArgs>(args: SelectSubset<T, PhoneOtpUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PhoneOtpPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PhoneOtp.
+     * @param {PhoneOtpUpsertArgs} args - Arguments to update or create a PhoneOtp.
+     * @example
+     * // Update or create a PhoneOtp
+     * const phoneOtp = await prisma.phoneOtp.upsert({
+     *   create: {
+     *     // ... data to create a PhoneOtp
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PhoneOtp we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PhoneOtpUpsertArgs>(args: SelectSubset<T, PhoneOtpUpsertArgs<ExtArgs>>): Prisma__PhoneOtpClient<$Result.GetResult<Prisma.$PhoneOtpPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PhoneOtps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PhoneOtpCountArgs} args - Arguments to filter PhoneOtps to count.
+     * @example
+     * // Count the number of PhoneOtps
+     * const count = await prisma.phoneOtp.count({
+     *   where: {
+     *     // ... the filter for the PhoneOtps we want to count
+     *   }
+     * })
+    **/
+    count<T extends PhoneOtpCountArgs>(
+      args?: Subset<T, PhoneOtpCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PhoneOtpCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PhoneOtp.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PhoneOtpAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PhoneOtpAggregateArgs>(args: Subset<T, PhoneOtpAggregateArgs>): Prisma.PrismaPromise<GetPhoneOtpAggregateType<T>>
+
+    /**
+     * Group by PhoneOtp.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PhoneOtpGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PhoneOtpGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PhoneOtpGroupByArgs['orderBy'] }
+        : { orderBy?: PhoneOtpGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PhoneOtpGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPhoneOtpGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PhoneOtp model
+   */
+  readonly fields: PhoneOtpFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PhoneOtp.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PhoneOtpClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PhoneOtp model
+   */
+  interface PhoneOtpFieldRefs {
+    readonly id: FieldRef<"PhoneOtp", 'String'>
+    readonly userId: FieldRef<"PhoneOtp", 'String'>
+    readonly phone: FieldRef<"PhoneOtp", 'String'>
+    readonly codeHash: FieldRef<"PhoneOtp", 'String'>
+    readonly attempts: FieldRef<"PhoneOtp", 'Int'>
+    readonly expiresAt: FieldRef<"PhoneOtp", 'DateTime'>
+    readonly used: FieldRef<"PhoneOtp", 'Boolean'>
+    readonly createdAt: FieldRef<"PhoneOtp", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PhoneOtp findUnique
+   */
+  export type PhoneOtpFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PhoneOtp
+     */
+    select?: PhoneOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PhoneOtp
+     */
+    omit?: PhoneOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PhoneOtpInclude<ExtArgs> | null
+    /**
+     * Filter, which PhoneOtp to fetch.
+     */
+    where: PhoneOtpWhereUniqueInput
+  }
+
+  /**
+   * PhoneOtp findUniqueOrThrow
+   */
+  export type PhoneOtpFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PhoneOtp
+     */
+    select?: PhoneOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PhoneOtp
+     */
+    omit?: PhoneOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PhoneOtpInclude<ExtArgs> | null
+    /**
+     * Filter, which PhoneOtp to fetch.
+     */
+    where: PhoneOtpWhereUniqueInput
+  }
+
+  /**
+   * PhoneOtp findFirst
+   */
+  export type PhoneOtpFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PhoneOtp
+     */
+    select?: PhoneOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PhoneOtp
+     */
+    omit?: PhoneOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PhoneOtpInclude<ExtArgs> | null
+    /**
+     * Filter, which PhoneOtp to fetch.
+     */
+    where?: PhoneOtpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PhoneOtps to fetch.
+     */
+    orderBy?: PhoneOtpOrderByWithRelationInput | PhoneOtpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PhoneOtps.
+     */
+    cursor?: PhoneOtpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PhoneOtps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PhoneOtps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PhoneOtps.
+     */
+    distinct?: PhoneOtpScalarFieldEnum | PhoneOtpScalarFieldEnum[]
+  }
+
+  /**
+   * PhoneOtp findFirstOrThrow
+   */
+  export type PhoneOtpFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PhoneOtp
+     */
+    select?: PhoneOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PhoneOtp
+     */
+    omit?: PhoneOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PhoneOtpInclude<ExtArgs> | null
+    /**
+     * Filter, which PhoneOtp to fetch.
+     */
+    where?: PhoneOtpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PhoneOtps to fetch.
+     */
+    orderBy?: PhoneOtpOrderByWithRelationInput | PhoneOtpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PhoneOtps.
+     */
+    cursor?: PhoneOtpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PhoneOtps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PhoneOtps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PhoneOtps.
+     */
+    distinct?: PhoneOtpScalarFieldEnum | PhoneOtpScalarFieldEnum[]
+  }
+
+  /**
+   * PhoneOtp findMany
+   */
+  export type PhoneOtpFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PhoneOtp
+     */
+    select?: PhoneOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PhoneOtp
+     */
+    omit?: PhoneOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PhoneOtpInclude<ExtArgs> | null
+    /**
+     * Filter, which PhoneOtps to fetch.
+     */
+    where?: PhoneOtpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PhoneOtps to fetch.
+     */
+    orderBy?: PhoneOtpOrderByWithRelationInput | PhoneOtpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PhoneOtps.
+     */
+    cursor?: PhoneOtpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PhoneOtps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PhoneOtps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PhoneOtps.
+     */
+    distinct?: PhoneOtpScalarFieldEnum | PhoneOtpScalarFieldEnum[]
+  }
+
+  /**
+   * PhoneOtp create
+   */
+  export type PhoneOtpCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PhoneOtp
+     */
+    select?: PhoneOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PhoneOtp
+     */
+    omit?: PhoneOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PhoneOtpInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PhoneOtp.
+     */
+    data: XOR<PhoneOtpCreateInput, PhoneOtpUncheckedCreateInput>
+  }
+
+  /**
+   * PhoneOtp createMany
+   */
+  export type PhoneOtpCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PhoneOtps.
+     */
+    data: PhoneOtpCreateManyInput | PhoneOtpCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PhoneOtp createManyAndReturn
+   */
+  export type PhoneOtpCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PhoneOtp
+     */
+    select?: PhoneOtpSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PhoneOtp
+     */
+    omit?: PhoneOtpOmit<ExtArgs> | null
+    /**
+     * The data used to create many PhoneOtps.
+     */
+    data: PhoneOtpCreateManyInput | PhoneOtpCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PhoneOtpIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PhoneOtp update
+   */
+  export type PhoneOtpUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PhoneOtp
+     */
+    select?: PhoneOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PhoneOtp
+     */
+    omit?: PhoneOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PhoneOtpInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PhoneOtp.
+     */
+    data: XOR<PhoneOtpUpdateInput, PhoneOtpUncheckedUpdateInput>
+    /**
+     * Choose, which PhoneOtp to update.
+     */
+    where: PhoneOtpWhereUniqueInput
+  }
+
+  /**
+   * PhoneOtp updateMany
+   */
+  export type PhoneOtpUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PhoneOtps.
+     */
+    data: XOR<PhoneOtpUpdateManyMutationInput, PhoneOtpUncheckedUpdateManyInput>
+    /**
+     * Filter which PhoneOtps to update
+     */
+    where?: PhoneOtpWhereInput
+    /**
+     * Limit how many PhoneOtps to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PhoneOtp updateManyAndReturn
+   */
+  export type PhoneOtpUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PhoneOtp
+     */
+    select?: PhoneOtpSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PhoneOtp
+     */
+    omit?: PhoneOtpOmit<ExtArgs> | null
+    /**
+     * The data used to update PhoneOtps.
+     */
+    data: XOR<PhoneOtpUpdateManyMutationInput, PhoneOtpUncheckedUpdateManyInput>
+    /**
+     * Filter which PhoneOtps to update
+     */
+    where?: PhoneOtpWhereInput
+    /**
+     * Limit how many PhoneOtps to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PhoneOtpIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PhoneOtp upsert
+   */
+  export type PhoneOtpUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PhoneOtp
+     */
+    select?: PhoneOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PhoneOtp
+     */
+    omit?: PhoneOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PhoneOtpInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PhoneOtp to update in case it exists.
+     */
+    where: PhoneOtpWhereUniqueInput
+    /**
+     * In case the PhoneOtp found by the `where` argument doesn't exist, create a new PhoneOtp with this data.
+     */
+    create: XOR<PhoneOtpCreateInput, PhoneOtpUncheckedCreateInput>
+    /**
+     * In case the PhoneOtp was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PhoneOtpUpdateInput, PhoneOtpUncheckedUpdateInput>
+  }
+
+  /**
+   * PhoneOtp delete
+   */
+  export type PhoneOtpDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PhoneOtp
+     */
+    select?: PhoneOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PhoneOtp
+     */
+    omit?: PhoneOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PhoneOtpInclude<ExtArgs> | null
+    /**
+     * Filter which PhoneOtp to delete.
+     */
+    where: PhoneOtpWhereUniqueInput
+  }
+
+  /**
+   * PhoneOtp deleteMany
+   */
+  export type PhoneOtpDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PhoneOtps to delete
+     */
+    where?: PhoneOtpWhereInput
+    /**
+     * Limit how many PhoneOtps to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PhoneOtp without action
+   */
+  export type PhoneOtpDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PhoneOtp
+     */
+    select?: PhoneOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PhoneOtp
+     */
+    omit?: PhoneOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PhoneOtpInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Review
+   */
+
+  export type AggregateReview = {
+    _count: ReviewCountAggregateOutputType | null
+    _avg: ReviewAvgAggregateOutputType | null
+    _sum: ReviewSumAggregateOutputType | null
+    _min: ReviewMinAggregateOutputType | null
+    _max: ReviewMaxAggregateOutputType | null
+  }
+
+  export type ReviewAvgAggregateOutputType = {
+    rating: number | null
+  }
+
+  export type ReviewSumAggregateOutputType = {
+    rating: number | null
+  }
+
+  export type ReviewMinAggregateOutputType = {
+    id: string | null
+    applicationId: string | null
+    reviewerId: string | null
+    revieweeId: string | null
+    rating: number | null
+    comment: string | null
+    createdAt: Date | null
+  }
+
+  export type ReviewMaxAggregateOutputType = {
+    id: string | null
+    applicationId: string | null
+    reviewerId: string | null
+    revieweeId: string | null
+    rating: number | null
+    comment: string | null
+    createdAt: Date | null
+  }
+
+  export type ReviewCountAggregateOutputType = {
+    id: number
+    applicationId: number
+    reviewerId: number
+    revieweeId: number
+    rating: number
+    comment: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ReviewAvgAggregateInputType = {
+    rating?: true
+  }
+
+  export type ReviewSumAggregateInputType = {
+    rating?: true
+  }
+
+  export type ReviewMinAggregateInputType = {
+    id?: true
+    applicationId?: true
+    reviewerId?: true
+    revieweeId?: true
+    rating?: true
+    comment?: true
+    createdAt?: true
+  }
+
+  export type ReviewMaxAggregateInputType = {
+    id?: true
+    applicationId?: true
+    reviewerId?: true
+    revieweeId?: true
+    rating?: true
+    comment?: true
+    createdAt?: true
+  }
+
+  export type ReviewCountAggregateInputType = {
+    id?: true
+    applicationId?: true
+    reviewerId?: true
+    revieweeId?: true
+    rating?: true
+    comment?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ReviewAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Review to aggregate.
+     */
+    where?: ReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reviews to fetch.
+     */
+    orderBy?: ReviewOrderByWithRelationInput | ReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Reviews
+    **/
+    _count?: true | ReviewCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ReviewAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ReviewSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ReviewMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ReviewMaxAggregateInputType
+  }
+
+  export type GetReviewAggregateType<T extends ReviewAggregateArgs> = {
+        [P in keyof T & keyof AggregateReview]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateReview[P]>
+      : GetScalarType<T[P], AggregateReview[P]>
+  }
+
+
+
+
+  export type ReviewGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReviewWhereInput
+    orderBy?: ReviewOrderByWithAggregationInput | ReviewOrderByWithAggregationInput[]
+    by: ReviewScalarFieldEnum[] | ReviewScalarFieldEnum
+    having?: ReviewScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ReviewCountAggregateInputType | true
+    _avg?: ReviewAvgAggregateInputType
+    _sum?: ReviewSumAggregateInputType
+    _min?: ReviewMinAggregateInputType
+    _max?: ReviewMaxAggregateInputType
+  }
+
+  export type ReviewGroupByOutputType = {
+    id: string
+    applicationId: string
+    reviewerId: string
+    revieweeId: string
+    rating: number
+    comment: string | null
+    createdAt: Date
+    _count: ReviewCountAggregateOutputType | null
+    _avg: ReviewAvgAggregateOutputType | null
+    _sum: ReviewSumAggregateOutputType | null
+    _min: ReviewMinAggregateOutputType | null
+    _max: ReviewMaxAggregateOutputType | null
+  }
+
+  type GetReviewGroupByPayload<T extends ReviewGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ReviewGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ReviewGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ReviewGroupByOutputType[P]>
+            : GetScalarType<T[P], ReviewGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ReviewSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    applicationId?: boolean
+    reviewerId?: boolean
+    revieweeId?: boolean
+    rating?: boolean
+    comment?: boolean
+    createdAt?: boolean
+    application?: boolean | ApplicationDefaultArgs<ExtArgs>
+    reviewer?: boolean | UserDefaultArgs<ExtArgs>
+    reviewee?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["review"]>
+
+  export type ReviewSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    applicationId?: boolean
+    reviewerId?: boolean
+    revieweeId?: boolean
+    rating?: boolean
+    comment?: boolean
+    createdAt?: boolean
+    application?: boolean | ApplicationDefaultArgs<ExtArgs>
+    reviewer?: boolean | UserDefaultArgs<ExtArgs>
+    reviewee?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["review"]>
+
+  export type ReviewSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    applicationId?: boolean
+    reviewerId?: boolean
+    revieweeId?: boolean
+    rating?: boolean
+    comment?: boolean
+    createdAt?: boolean
+    application?: boolean | ApplicationDefaultArgs<ExtArgs>
+    reviewer?: boolean | UserDefaultArgs<ExtArgs>
+    reviewee?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["review"]>
+
+  export type ReviewSelectScalar = {
+    id?: boolean
+    applicationId?: boolean
+    reviewerId?: boolean
+    revieweeId?: boolean
+    rating?: boolean
+    comment?: boolean
+    createdAt?: boolean
+  }
+
+  export type ReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "applicationId" | "reviewerId" | "revieweeId" | "rating" | "comment" | "createdAt", ExtArgs["result"]["review"]>
+  export type ReviewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | ApplicationDefaultArgs<ExtArgs>
+    reviewer?: boolean | UserDefaultArgs<ExtArgs>
+    reviewee?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ReviewIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | ApplicationDefaultArgs<ExtArgs>
+    reviewer?: boolean | UserDefaultArgs<ExtArgs>
+    reviewee?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ReviewIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | ApplicationDefaultArgs<ExtArgs>
+    reviewer?: boolean | UserDefaultArgs<ExtArgs>
+    reviewee?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ReviewPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Review"
+    objects: {
+      application: Prisma.$ApplicationPayload<ExtArgs>
+      reviewer: Prisma.$UserPayload<ExtArgs>
+      reviewee: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      applicationId: string
+      reviewerId: string
+      revieweeId: string
+      rating: number
+      comment: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["review"]>
+    composites: {}
+  }
+
+  type ReviewGetPayload<S extends boolean | null | undefined | ReviewDefaultArgs> = $Result.GetResult<Prisma.$ReviewPayload, S>
+
+  type ReviewCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ReviewFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ReviewCountAggregateInputType | true
+    }
+
+  export interface ReviewDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Review'], meta: { name: 'Review' } }
+    /**
+     * Find zero or one Review that matches the filter.
+     * @param {ReviewFindUniqueArgs} args - Arguments to find a Review
+     * @example
+     * // Get one Review
+     * const review = await prisma.review.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ReviewFindUniqueArgs>(args: SelectSubset<T, ReviewFindUniqueArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Review that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ReviewFindUniqueOrThrowArgs} args - Arguments to find a Review
+     * @example
+     * // Get one Review
+     * const review = await prisma.review.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ReviewFindUniqueOrThrowArgs>(args: SelectSubset<T, ReviewFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Review that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReviewFindFirstArgs} args - Arguments to find a Review
+     * @example
+     * // Get one Review
+     * const review = await prisma.review.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ReviewFindFirstArgs>(args?: SelectSubset<T, ReviewFindFirstArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Review that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReviewFindFirstOrThrowArgs} args - Arguments to find a Review
+     * @example
+     * // Get one Review
+     * const review = await prisma.review.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ReviewFindFirstOrThrowArgs>(args?: SelectSubset<T, ReviewFindFirstOrThrowArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Reviews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReviewFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Reviews
+     * const reviews = await prisma.review.findMany()
+     * 
+     * // Get first 10 Reviews
+     * const reviews = await prisma.review.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const reviewWithIdOnly = await prisma.review.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ReviewFindManyArgs>(args?: SelectSubset<T, ReviewFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Review.
+     * @param {ReviewCreateArgs} args - Arguments to create a Review.
+     * @example
+     * // Create one Review
+     * const Review = await prisma.review.create({
+     *   data: {
+     *     // ... data to create a Review
+     *   }
+     * })
+     * 
+     */
+    create<T extends ReviewCreateArgs>(args: SelectSubset<T, ReviewCreateArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Reviews.
+     * @param {ReviewCreateManyArgs} args - Arguments to create many Reviews.
+     * @example
+     * // Create many Reviews
+     * const review = await prisma.review.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ReviewCreateManyArgs>(args?: SelectSubset<T, ReviewCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Reviews and returns the data saved in the database.
+     * @param {ReviewCreateManyAndReturnArgs} args - Arguments to create many Reviews.
+     * @example
+     * // Create many Reviews
+     * const review = await prisma.review.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Reviews and only return the `id`
+     * const reviewWithIdOnly = await prisma.review.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ReviewCreateManyAndReturnArgs>(args?: SelectSubset<T, ReviewCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Review.
+     * @param {ReviewDeleteArgs} args - Arguments to delete one Review.
+     * @example
+     * // Delete one Review
+     * const Review = await prisma.review.delete({
+     *   where: {
+     *     // ... filter to delete one Review
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ReviewDeleteArgs>(args: SelectSubset<T, ReviewDeleteArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Review.
+     * @param {ReviewUpdateArgs} args - Arguments to update one Review.
+     * @example
+     * // Update one Review
+     * const review = await prisma.review.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ReviewUpdateArgs>(args: SelectSubset<T, ReviewUpdateArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Reviews.
+     * @param {ReviewDeleteManyArgs} args - Arguments to filter Reviews to delete.
+     * @example
+     * // Delete a few Reviews
+     * const { count } = await prisma.review.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ReviewDeleteManyArgs>(args?: SelectSubset<T, ReviewDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReviewUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Reviews
+     * const review = await prisma.review.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ReviewUpdateManyArgs>(args: SelectSubset<T, ReviewUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Reviews and returns the data updated in the database.
+     * @param {ReviewUpdateManyAndReturnArgs} args - Arguments to update many Reviews.
+     * @example
+     * // Update many Reviews
+     * const review = await prisma.review.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Reviews and only return the `id`
+     * const reviewWithIdOnly = await prisma.review.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ReviewUpdateManyAndReturnArgs>(args: SelectSubset<T, ReviewUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Review.
+     * @param {ReviewUpsertArgs} args - Arguments to update or create a Review.
+     * @example
+     * // Update or create a Review
+     * const review = await prisma.review.upsert({
+     *   create: {
+     *     // ... data to create a Review
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Review we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ReviewUpsertArgs>(args: SelectSubset<T, ReviewUpsertArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReviewCountArgs} args - Arguments to filter Reviews to count.
+     * @example
+     * // Count the number of Reviews
+     * const count = await prisma.review.count({
+     *   where: {
+     *     // ... the filter for the Reviews we want to count
+     *   }
+     * })
+    **/
+    count<T extends ReviewCountArgs>(
+      args?: Subset<T, ReviewCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ReviewCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Review.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReviewAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ReviewAggregateArgs>(args: Subset<T, ReviewAggregateArgs>): Prisma.PrismaPromise<GetReviewAggregateType<T>>
+
+    /**
+     * Group by Review.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReviewGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ReviewGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ReviewGroupByArgs['orderBy'] }
+        : { orderBy?: ReviewGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ReviewGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReviewGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Review model
+   */
+  readonly fields: ReviewFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Review.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ReviewClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    application<T extends ApplicationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ApplicationDefaultArgs<ExtArgs>>): Prisma__ApplicationClient<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    reviewer<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    reviewee<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Review model
+   */
+  interface ReviewFieldRefs {
+    readonly id: FieldRef<"Review", 'String'>
+    readonly applicationId: FieldRef<"Review", 'String'>
+    readonly reviewerId: FieldRef<"Review", 'String'>
+    readonly revieweeId: FieldRef<"Review", 'String'>
+    readonly rating: FieldRef<"Review", 'Int'>
+    readonly comment: FieldRef<"Review", 'String'>
+    readonly createdAt: FieldRef<"Review", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Review findUnique
+   */
+  export type ReviewFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which Review to fetch.
+     */
+    where: ReviewWhereUniqueInput
+  }
+
+  /**
+   * Review findUniqueOrThrow
+   */
+  export type ReviewFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which Review to fetch.
+     */
+    where: ReviewWhereUniqueInput
+  }
+
+  /**
+   * Review findFirst
+   */
+  export type ReviewFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which Review to fetch.
+     */
+    where?: ReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reviews to fetch.
+     */
+    orderBy?: ReviewOrderByWithRelationInput | ReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Reviews.
+     */
+    cursor?: ReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Reviews.
+     */
+    distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
+  }
+
+  /**
+   * Review findFirstOrThrow
+   */
+  export type ReviewFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which Review to fetch.
+     */
+    where?: ReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reviews to fetch.
+     */
+    orderBy?: ReviewOrderByWithRelationInput | ReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Reviews.
+     */
+    cursor?: ReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Reviews.
+     */
+    distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
+  }
+
+  /**
+   * Review findMany
+   */
+  export type ReviewFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which Reviews to fetch.
+     */
+    where?: ReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reviews to fetch.
+     */
+    orderBy?: ReviewOrderByWithRelationInput | ReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Reviews.
+     */
+    cursor?: ReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Reviews.
+     */
+    distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
+  }
+
+  /**
+   * Review create
+   */
+  export type ReviewCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Review.
+     */
+    data: XOR<ReviewCreateInput, ReviewUncheckedCreateInput>
+  }
+
+  /**
+   * Review createMany
+   */
+  export type ReviewCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Reviews.
+     */
+    data: ReviewCreateManyInput | ReviewCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Review createManyAndReturn
+   */
+  export type ReviewCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * The data used to create many Reviews.
+     */
+    data: ReviewCreateManyInput | ReviewCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Review update
+   */
+  export type ReviewUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Review.
+     */
+    data: XOR<ReviewUpdateInput, ReviewUncheckedUpdateInput>
+    /**
+     * Choose, which Review to update.
+     */
+    where: ReviewWhereUniqueInput
+  }
+
+  /**
+   * Review updateMany
+   */
+  export type ReviewUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Reviews.
+     */
+    data: XOR<ReviewUpdateManyMutationInput, ReviewUncheckedUpdateManyInput>
+    /**
+     * Filter which Reviews to update
+     */
+    where?: ReviewWhereInput
+    /**
+     * Limit how many Reviews to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Review updateManyAndReturn
+   */
+  export type ReviewUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * The data used to update Reviews.
+     */
+    data: XOR<ReviewUpdateManyMutationInput, ReviewUncheckedUpdateManyInput>
+    /**
+     * Filter which Reviews to update
+     */
+    where?: ReviewWhereInput
+    /**
+     * Limit how many Reviews to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Review upsert
+   */
+  export type ReviewUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Review to update in case it exists.
+     */
+    where: ReviewWhereUniqueInput
+    /**
+     * In case the Review found by the `where` argument doesn't exist, create a new Review with this data.
+     */
+    create: XOR<ReviewCreateInput, ReviewUncheckedCreateInput>
+    /**
+     * In case the Review was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ReviewUpdateInput, ReviewUncheckedUpdateInput>
+  }
+
+  /**
+   * Review delete
+   */
+  export type ReviewDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * Filter which Review to delete.
+     */
+    where: ReviewWhereUniqueInput
+  }
+
+  /**
+   * Review deleteMany
+   */
+  export type ReviewDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Reviews to delete
+     */
+    where?: ReviewWhereInput
+    /**
+     * Limit how many Reviews to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Review without action
+   */
+  export type ReviewDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
   }
 
 
@@ -10836,6 +13478,7 @@ export namespace Prisma {
     email: 'email',
     emailVerified: 'emailVerified',
     phone: 'phone',
+    phoneVerified: 'phoneVerified',
     role: 'role',
     bio: 'bio',
     location: 'location',
@@ -10907,6 +13550,33 @@ export namespace Prisma {
   };
 
   export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
+
+
+  export const PhoneOtpScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    phone: 'phone',
+    codeHash: 'codeHash',
+    attempts: 'attempts',
+    expiresAt: 'expiresAt',
+    used: 'used',
+    createdAt: 'createdAt'
+  };
+
+  export type PhoneOtpScalarFieldEnum = (typeof PhoneOtpScalarFieldEnum)[keyof typeof PhoneOtpScalarFieldEnum]
+
+
+  export const ReviewScalarFieldEnum: {
+    id: 'id',
+    applicationId: 'applicationId',
+    reviewerId: 'reviewerId',
+    revieweeId: 'revieweeId',
+    rating: 'rating',
+    comment: 'comment',
+    createdAt: 'createdAt'
+  };
+
+  export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
 
 
   export const MatchExplanationScalarFieldEnum: {
@@ -11136,6 +13806,7 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     emailVerified?: BoolFilter<"User"> | boolean
     phone?: StringNullableFilter<"User"> | string | null
+    phoneVerified?: BoolFilter<"User"> | boolean
     role?: EnumRoleFilter<"User"> | $Enums.Role
     bio?: StringNullableFilter<"User"> | string | null
     location?: StringNullableFilter<"User"> | string | null
@@ -11147,6 +13818,9 @@ export namespace Prisma {
     applications?: ApplicationListRelationFilter
     matchExplanations?: MatchExplanationListRelationFilter
     skillRequests?: SkillRequestListRelationFilter
+    otps?: PhoneOtpListRelationFilter
+    reviewsGiven?: ReviewListRelationFilter
+    reviewsReceived?: ReviewListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -11156,6 +13830,7 @@ export namespace Prisma {
     email?: SortOrder
     emailVerified?: SortOrder
     phone?: SortOrderInput | SortOrder
+    phoneVerified?: SortOrder
     role?: SortOrder
     bio?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
@@ -11167,6 +13842,9 @@ export namespace Prisma {
     applications?: ApplicationOrderByRelationAggregateInput
     matchExplanations?: MatchExplanationOrderByRelationAggregateInput
     skillRequests?: SkillRequestOrderByRelationAggregateInput
+    otps?: PhoneOtpOrderByRelationAggregateInput
+    reviewsGiven?: ReviewOrderByRelationAggregateInput
+    reviewsReceived?: ReviewOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -11179,6 +13857,7 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
     emailVerified?: BoolFilter<"User"> | boolean
     phone?: StringNullableFilter<"User"> | string | null
+    phoneVerified?: BoolFilter<"User"> | boolean
     role?: EnumRoleFilter<"User"> | $Enums.Role
     bio?: StringNullableFilter<"User"> | string | null
     location?: StringNullableFilter<"User"> | string | null
@@ -11190,6 +13869,9 @@ export namespace Prisma {
     applications?: ApplicationListRelationFilter
     matchExplanations?: MatchExplanationListRelationFilter
     skillRequests?: SkillRequestListRelationFilter
+    otps?: PhoneOtpListRelationFilter
+    reviewsGiven?: ReviewListRelationFilter
+    reviewsReceived?: ReviewListRelationFilter
   }, "id" | "firebaseUid" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -11199,6 +13881,7 @@ export namespace Prisma {
     email?: SortOrder
     emailVerified?: SortOrder
     phone?: SortOrderInput | SortOrder
+    phoneVerified?: SortOrder
     role?: SortOrder
     bio?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
@@ -11220,6 +13903,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
     phone?: StringNullableWithAggregatesFilter<"User"> | string | null
+    phoneVerified?: BoolWithAggregatesFilter<"User"> | boolean
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     bio?: StringNullableWithAggregatesFilter<"User"> | string | null
     location?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -11508,6 +14192,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Application"> | Date | string
     opportunity?: XOR<OpportunityScalarRelationFilter, OpportunityWhereInput>
     applicant?: XOR<UserScalarRelationFilter, UserWhereInput>
+    reviews?: ReviewListRelationFilter
   }
 
   export type ApplicationOrderByWithRelationInput = {
@@ -11520,6 +14205,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     opportunity?: OpportunityOrderByWithRelationInput
     applicant?: UserOrderByWithRelationInput
+    reviews?: ReviewOrderByRelationAggregateInput
   }
 
   export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
@@ -11536,6 +14222,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Application"> | Date | string
     opportunity?: XOR<OpportunityScalarRelationFilter, OpportunityWhereInput>
     applicant?: XOR<UserScalarRelationFilter, UserWhereInput>
+    reviews?: ReviewListRelationFilter
   }, "id" | "opportunityId_applicantId">
 
   export type ApplicationOrderByWithAggregationInput = {
@@ -11562,6 +14249,152 @@ export namespace Prisma {
     status?: EnumApplicationStatusWithAggregatesFilter<"Application"> | $Enums.ApplicationStatus
     createdAt?: DateTimeWithAggregatesFilter<"Application"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Application"> | Date | string
+  }
+
+  export type PhoneOtpWhereInput = {
+    AND?: PhoneOtpWhereInput | PhoneOtpWhereInput[]
+    OR?: PhoneOtpWhereInput[]
+    NOT?: PhoneOtpWhereInput | PhoneOtpWhereInput[]
+    id?: StringFilter<"PhoneOtp"> | string
+    userId?: StringFilter<"PhoneOtp"> | string
+    phone?: StringFilter<"PhoneOtp"> | string
+    codeHash?: StringFilter<"PhoneOtp"> | string
+    attempts?: IntFilter<"PhoneOtp"> | number
+    expiresAt?: DateTimeFilter<"PhoneOtp"> | Date | string
+    used?: BoolFilter<"PhoneOtp"> | boolean
+    createdAt?: DateTimeFilter<"PhoneOtp"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type PhoneOtpOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    phone?: SortOrder
+    codeHash?: SortOrder
+    attempts?: SortOrder
+    expiresAt?: SortOrder
+    used?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type PhoneOtpWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PhoneOtpWhereInput | PhoneOtpWhereInput[]
+    OR?: PhoneOtpWhereInput[]
+    NOT?: PhoneOtpWhereInput | PhoneOtpWhereInput[]
+    userId?: StringFilter<"PhoneOtp"> | string
+    phone?: StringFilter<"PhoneOtp"> | string
+    codeHash?: StringFilter<"PhoneOtp"> | string
+    attempts?: IntFilter<"PhoneOtp"> | number
+    expiresAt?: DateTimeFilter<"PhoneOtp"> | Date | string
+    used?: BoolFilter<"PhoneOtp"> | boolean
+    createdAt?: DateTimeFilter<"PhoneOtp"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type PhoneOtpOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    phone?: SortOrder
+    codeHash?: SortOrder
+    attempts?: SortOrder
+    expiresAt?: SortOrder
+    used?: SortOrder
+    createdAt?: SortOrder
+    _count?: PhoneOtpCountOrderByAggregateInput
+    _avg?: PhoneOtpAvgOrderByAggregateInput
+    _max?: PhoneOtpMaxOrderByAggregateInput
+    _min?: PhoneOtpMinOrderByAggregateInput
+    _sum?: PhoneOtpSumOrderByAggregateInput
+  }
+
+  export type PhoneOtpScalarWhereWithAggregatesInput = {
+    AND?: PhoneOtpScalarWhereWithAggregatesInput | PhoneOtpScalarWhereWithAggregatesInput[]
+    OR?: PhoneOtpScalarWhereWithAggregatesInput[]
+    NOT?: PhoneOtpScalarWhereWithAggregatesInput | PhoneOtpScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PhoneOtp"> | string
+    userId?: StringWithAggregatesFilter<"PhoneOtp"> | string
+    phone?: StringWithAggregatesFilter<"PhoneOtp"> | string
+    codeHash?: StringWithAggregatesFilter<"PhoneOtp"> | string
+    attempts?: IntWithAggregatesFilter<"PhoneOtp"> | number
+    expiresAt?: DateTimeWithAggregatesFilter<"PhoneOtp"> | Date | string
+    used?: BoolWithAggregatesFilter<"PhoneOtp"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"PhoneOtp"> | Date | string
+  }
+
+  export type ReviewWhereInput = {
+    AND?: ReviewWhereInput | ReviewWhereInput[]
+    OR?: ReviewWhereInput[]
+    NOT?: ReviewWhereInput | ReviewWhereInput[]
+    id?: StringFilter<"Review"> | string
+    applicationId?: StringFilter<"Review"> | string
+    reviewerId?: StringFilter<"Review"> | string
+    revieweeId?: StringFilter<"Review"> | string
+    rating?: IntFilter<"Review"> | number
+    comment?: StringNullableFilter<"Review"> | string | null
+    createdAt?: DateTimeFilter<"Review"> | Date | string
+    application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
+    reviewer?: XOR<UserScalarRelationFilter, UserWhereInput>
+    reviewee?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type ReviewOrderByWithRelationInput = {
+    id?: SortOrder
+    applicationId?: SortOrder
+    reviewerId?: SortOrder
+    revieweeId?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    application?: ApplicationOrderByWithRelationInput
+    reviewer?: UserOrderByWithRelationInput
+    reviewee?: UserOrderByWithRelationInput
+  }
+
+  export type ReviewWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    applicationId_reviewerId?: ReviewApplicationIdReviewerIdCompoundUniqueInput
+    AND?: ReviewWhereInput | ReviewWhereInput[]
+    OR?: ReviewWhereInput[]
+    NOT?: ReviewWhereInput | ReviewWhereInput[]
+    applicationId?: StringFilter<"Review"> | string
+    reviewerId?: StringFilter<"Review"> | string
+    revieweeId?: StringFilter<"Review"> | string
+    rating?: IntFilter<"Review"> | number
+    comment?: StringNullableFilter<"Review"> | string | null
+    createdAt?: DateTimeFilter<"Review"> | Date | string
+    application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
+    reviewer?: XOR<UserScalarRelationFilter, UserWhereInput>
+    reviewee?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "applicationId_reviewerId">
+
+  export type ReviewOrderByWithAggregationInput = {
+    id?: SortOrder
+    applicationId?: SortOrder
+    reviewerId?: SortOrder
+    revieweeId?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: ReviewCountOrderByAggregateInput
+    _avg?: ReviewAvgOrderByAggregateInput
+    _max?: ReviewMaxOrderByAggregateInput
+    _min?: ReviewMinOrderByAggregateInput
+    _sum?: ReviewSumOrderByAggregateInput
+  }
+
+  export type ReviewScalarWhereWithAggregatesInput = {
+    AND?: ReviewScalarWhereWithAggregatesInput | ReviewScalarWhereWithAggregatesInput[]
+    OR?: ReviewScalarWhereWithAggregatesInput[]
+    NOT?: ReviewScalarWhereWithAggregatesInput | ReviewScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Review"> | string
+    applicationId?: StringWithAggregatesFilter<"Review"> | string
+    reviewerId?: StringWithAggregatesFilter<"Review"> | string
+    revieweeId?: StringWithAggregatesFilter<"Review"> | string
+    rating?: IntWithAggregatesFilter<"Review"> | number
+    comment?: StringNullableWithAggregatesFilter<"Review"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Review"> | Date | string
   }
 
   export type MatchExplanationWhereInput = {
@@ -11695,6 +14528,7 @@ export namespace Prisma {
     email: string
     emailVerified?: boolean
     phone?: string | null
+    phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
     location?: string | null
@@ -11706,6 +14540,9 @@ export namespace Prisma {
     applications?: ApplicationCreateNestedManyWithoutApplicantInput
     matchExplanations?: MatchExplanationCreateNestedManyWithoutGraduateInput
     skillRequests?: SkillRequestCreateNestedManyWithoutEmployerInput
+    otps?: PhoneOtpCreateNestedManyWithoutUserInput
+    reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
+    reviewsReceived?: ReviewCreateNestedManyWithoutRevieweeInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -11715,6 +14552,7 @@ export namespace Prisma {
     email: string
     emailVerified?: boolean
     phone?: string | null
+    phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
     location?: string | null
@@ -11726,6 +14564,9 @@ export namespace Prisma {
     applications?: ApplicationUncheckedCreateNestedManyWithoutApplicantInput
     matchExplanations?: MatchExplanationUncheckedCreateNestedManyWithoutGraduateInput
     skillRequests?: SkillRequestUncheckedCreateNestedManyWithoutEmployerInput
+    otps?: PhoneOtpUncheckedCreateNestedManyWithoutUserInput
+    reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
+    reviewsReceived?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
   }
 
   export type UserUpdateInput = {
@@ -11735,6 +14576,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11746,6 +14588,9 @@ export namespace Prisma {
     applications?: ApplicationUpdateManyWithoutApplicantNestedInput
     matchExplanations?: MatchExplanationUpdateManyWithoutGraduateNestedInput
     skillRequests?: SkillRequestUpdateManyWithoutEmployerNestedInput
+    otps?: PhoneOtpUpdateManyWithoutUserNestedInput
+    reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
+    reviewsReceived?: ReviewUpdateManyWithoutRevieweeNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -11755,6 +14600,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11766,6 +14612,9 @@ export namespace Prisma {
     applications?: ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     matchExplanations?: MatchExplanationUncheckedUpdateManyWithoutGraduateNestedInput
     skillRequests?: SkillRequestUncheckedUpdateManyWithoutEmployerNestedInput
+    otps?: PhoneOtpUncheckedUpdateManyWithoutUserNestedInput
+    reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    reviewsReceived?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -11775,6 +14624,7 @@ export namespace Prisma {
     email: string
     emailVerified?: boolean
     phone?: string | null
+    phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
     location?: string | null
@@ -11790,6 +14640,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11805,6 +14656,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12095,6 +14947,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     opportunity: OpportunityCreateNestedOneWithoutApplicationsInput
     applicant: UserCreateNestedOneWithoutApplicationsInput
+    reviews?: ReviewCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUncheckedCreateInput = {
@@ -12105,6 +14958,7 @@ export namespace Prisma {
     status?: $Enums.ApplicationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    reviews?: ReviewUncheckedCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUpdateInput = {
@@ -12115,6 +14969,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     opportunity?: OpportunityUpdateOneRequiredWithoutApplicationsNestedInput
     applicant?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    reviews?: ReviewUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateInput = {
@@ -12125,6 +14980,7 @@ export namespace Prisma {
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: ReviewUncheckedUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationCreateManyInput = {
@@ -12153,6 +15009,149 @@ export namespace Prisma {
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PhoneOtpCreateInput = {
+    id?: string
+    phone: string
+    codeHash: string
+    attempts?: number
+    expiresAt: Date | string
+    used?: boolean
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutOtpsInput
+  }
+
+  export type PhoneOtpUncheckedCreateInput = {
+    id?: string
+    userId: string
+    phone: string
+    codeHash: string
+    attempts?: number
+    expiresAt: Date | string
+    used?: boolean
+    createdAt?: Date | string
+  }
+
+  export type PhoneOtpUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutOtpsNestedInput
+  }
+
+  export type PhoneOtpUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PhoneOtpCreateManyInput = {
+    id?: string
+    userId: string
+    phone: string
+    codeHash: string
+    attempts?: number
+    expiresAt: Date | string
+    used?: boolean
+    createdAt?: Date | string
+  }
+
+  export type PhoneOtpUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PhoneOtpUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewCreateInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    createdAt?: Date | string
+    application: ApplicationCreateNestedOneWithoutReviewsInput
+    reviewer: UserCreateNestedOneWithoutReviewsGivenInput
+    reviewee: UserCreateNestedOneWithoutReviewsReceivedInput
+  }
+
+  export type ReviewUncheckedCreateInput = {
+    id?: string
+    applicationId: string
+    reviewerId: string
+    revieweeId: string
+    rating: number
+    comment?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ReviewUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    application?: ApplicationUpdateOneRequiredWithoutReviewsNestedInput
+    reviewer?: UserUpdateOneRequiredWithoutReviewsGivenNestedInput
+    reviewee?: UserUpdateOneRequiredWithoutReviewsReceivedNestedInput
+  }
+
+  export type ReviewUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationId?: StringFieldUpdateOperationsInput | string
+    reviewerId?: StringFieldUpdateOperationsInput | string
+    revieweeId?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewCreateManyInput = {
+    id?: string
+    applicationId: string
+    reviewerId: string
+    revieweeId: string
+    rating: number
+    comment?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ReviewUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationId?: StringFieldUpdateOperationsInput | string
+    reviewerId?: StringFieldUpdateOperationsInput | string
+    revieweeId?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MatchExplanationCreateInput = {
@@ -12361,6 +15360,18 @@ export namespace Prisma {
     none?: SkillRequestWhereInput
   }
 
+  export type PhoneOtpListRelationFilter = {
+    every?: PhoneOtpWhereInput
+    some?: PhoneOtpWhereInput
+    none?: PhoneOtpWhereInput
+  }
+
+  export type ReviewListRelationFilter = {
+    every?: ReviewWhereInput
+    some?: ReviewWhereInput
+    none?: ReviewWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -12386,6 +15397,14 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type PhoneOtpOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ReviewOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     firebaseUid?: SortOrder
@@ -12393,6 +15412,7 @@ export namespace Prisma {
     email?: SortOrder
     emailVerified?: SortOrder
     phone?: SortOrder
+    phoneVerified?: SortOrder
     role?: SortOrder
     bio?: SortOrder
     location?: SortOrder
@@ -12408,6 +15428,7 @@ export namespace Prisma {
     email?: SortOrder
     emailVerified?: SortOrder
     phone?: SortOrder
+    phoneVerified?: SortOrder
     role?: SortOrder
     bio?: SortOrder
     location?: SortOrder
@@ -12423,6 +15444,7 @@ export namespace Prisma {
     email?: SortOrder
     emailVerified?: SortOrder
     phone?: SortOrder
+    phoneVerified?: SortOrder
     role?: SortOrder
     bio?: SortOrder
     location?: SortOrder
@@ -12825,6 +15847,122 @@ export namespace Prisma {
     _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type PhoneOtpCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    phone?: SortOrder
+    codeHash?: SortOrder
+    attempts?: SortOrder
+    expiresAt?: SortOrder
+    used?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PhoneOtpAvgOrderByAggregateInput = {
+    attempts?: SortOrder
+  }
+
+  export type PhoneOtpMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    phone?: SortOrder
+    codeHash?: SortOrder
+    attempts?: SortOrder
+    expiresAt?: SortOrder
+    used?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PhoneOtpMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    phone?: SortOrder
+    codeHash?: SortOrder
+    attempts?: SortOrder
+    expiresAt?: SortOrder
+    used?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PhoneOtpSumOrderByAggregateInput = {
+    attempts?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type ApplicationScalarRelationFilter = {
+    is?: ApplicationWhereInput
+    isNot?: ApplicationWhereInput
+  }
+
+  export type ReviewApplicationIdReviewerIdCompoundUniqueInput = {
+    applicationId: string
+    reviewerId: string
+  }
+
+  export type ReviewCountOrderByAggregateInput = {
+    id?: SortOrder
+    applicationId?: SortOrder
+    reviewerId?: SortOrder
+    revieweeId?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ReviewAvgOrderByAggregateInput = {
+    rating?: SortOrder
+  }
+
+  export type ReviewMaxOrderByAggregateInput = {
+    id?: SortOrder
+    applicationId?: SortOrder
+    reviewerId?: SortOrder
+    revieweeId?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ReviewMinOrderByAggregateInput = {
+    id?: SortOrder
+    applicationId?: SortOrder
+    reviewerId?: SortOrder
+    revieweeId?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ReviewSumOrderByAggregateInput = {
+    rating?: SortOrder
+  }
+
   export type MatchExplanationGraduateIdOpportunityIdCompoundUniqueInput = {
     graduateId: string
     opportunityId: string
@@ -12936,6 +16074,27 @@ export namespace Prisma {
     connect?: SkillRequestWhereUniqueInput | SkillRequestWhereUniqueInput[]
   }
 
+  export type PhoneOtpCreateNestedManyWithoutUserInput = {
+    create?: XOR<PhoneOtpCreateWithoutUserInput, PhoneOtpUncheckedCreateWithoutUserInput> | PhoneOtpCreateWithoutUserInput[] | PhoneOtpUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PhoneOtpCreateOrConnectWithoutUserInput | PhoneOtpCreateOrConnectWithoutUserInput[]
+    createMany?: PhoneOtpCreateManyUserInputEnvelope
+    connect?: PhoneOtpWhereUniqueInput | PhoneOtpWhereUniqueInput[]
+  }
+
+  export type ReviewCreateNestedManyWithoutReviewerInput = {
+    create?: XOR<ReviewCreateWithoutReviewerInput, ReviewUncheckedCreateWithoutReviewerInput> | ReviewCreateWithoutReviewerInput[] | ReviewUncheckedCreateWithoutReviewerInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutReviewerInput | ReviewCreateOrConnectWithoutReviewerInput[]
+    createMany?: ReviewCreateManyReviewerInputEnvelope
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
+  export type ReviewCreateNestedManyWithoutRevieweeInput = {
+    create?: XOR<ReviewCreateWithoutRevieweeInput, ReviewUncheckedCreateWithoutRevieweeInput> | ReviewCreateWithoutRevieweeInput[] | ReviewUncheckedCreateWithoutRevieweeInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutRevieweeInput | ReviewCreateOrConnectWithoutRevieweeInput[]
+    createMany?: ReviewCreateManyRevieweeInputEnvelope
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
   export type UserSkillUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<UserSkillCreateWithoutUserInput, UserSkillUncheckedCreateWithoutUserInput> | UserSkillCreateWithoutUserInput[] | UserSkillUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserSkillCreateOrConnectWithoutUserInput | UserSkillCreateOrConnectWithoutUserInput[]
@@ -12969,6 +16128,27 @@ export namespace Prisma {
     connectOrCreate?: SkillRequestCreateOrConnectWithoutEmployerInput | SkillRequestCreateOrConnectWithoutEmployerInput[]
     createMany?: SkillRequestCreateManyEmployerInputEnvelope
     connect?: SkillRequestWhereUniqueInput | SkillRequestWhereUniqueInput[]
+  }
+
+  export type PhoneOtpUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PhoneOtpCreateWithoutUserInput, PhoneOtpUncheckedCreateWithoutUserInput> | PhoneOtpCreateWithoutUserInput[] | PhoneOtpUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PhoneOtpCreateOrConnectWithoutUserInput | PhoneOtpCreateOrConnectWithoutUserInput[]
+    createMany?: PhoneOtpCreateManyUserInputEnvelope
+    connect?: PhoneOtpWhereUniqueInput | PhoneOtpWhereUniqueInput[]
+  }
+
+  export type ReviewUncheckedCreateNestedManyWithoutReviewerInput = {
+    create?: XOR<ReviewCreateWithoutReviewerInput, ReviewUncheckedCreateWithoutReviewerInput> | ReviewCreateWithoutReviewerInput[] | ReviewUncheckedCreateWithoutReviewerInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutReviewerInput | ReviewCreateOrConnectWithoutReviewerInput[]
+    createMany?: ReviewCreateManyReviewerInputEnvelope
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
+  export type ReviewUncheckedCreateNestedManyWithoutRevieweeInput = {
+    create?: XOR<ReviewCreateWithoutRevieweeInput, ReviewUncheckedCreateWithoutRevieweeInput> | ReviewCreateWithoutRevieweeInput[] | ReviewUncheckedCreateWithoutRevieweeInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutRevieweeInput | ReviewCreateOrConnectWithoutRevieweeInput[]
+    createMany?: ReviewCreateManyRevieweeInputEnvelope
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -13061,6 +16241,48 @@ export namespace Prisma {
     deleteMany?: SkillRequestScalarWhereInput | SkillRequestScalarWhereInput[]
   }
 
+  export type PhoneOtpUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PhoneOtpCreateWithoutUserInput, PhoneOtpUncheckedCreateWithoutUserInput> | PhoneOtpCreateWithoutUserInput[] | PhoneOtpUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PhoneOtpCreateOrConnectWithoutUserInput | PhoneOtpCreateOrConnectWithoutUserInput[]
+    upsert?: PhoneOtpUpsertWithWhereUniqueWithoutUserInput | PhoneOtpUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PhoneOtpCreateManyUserInputEnvelope
+    set?: PhoneOtpWhereUniqueInput | PhoneOtpWhereUniqueInput[]
+    disconnect?: PhoneOtpWhereUniqueInput | PhoneOtpWhereUniqueInput[]
+    delete?: PhoneOtpWhereUniqueInput | PhoneOtpWhereUniqueInput[]
+    connect?: PhoneOtpWhereUniqueInput | PhoneOtpWhereUniqueInput[]
+    update?: PhoneOtpUpdateWithWhereUniqueWithoutUserInput | PhoneOtpUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PhoneOtpUpdateManyWithWhereWithoutUserInput | PhoneOtpUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PhoneOtpScalarWhereInput | PhoneOtpScalarWhereInput[]
+  }
+
+  export type ReviewUpdateManyWithoutReviewerNestedInput = {
+    create?: XOR<ReviewCreateWithoutReviewerInput, ReviewUncheckedCreateWithoutReviewerInput> | ReviewCreateWithoutReviewerInput[] | ReviewUncheckedCreateWithoutReviewerInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutReviewerInput | ReviewCreateOrConnectWithoutReviewerInput[]
+    upsert?: ReviewUpsertWithWhereUniqueWithoutReviewerInput | ReviewUpsertWithWhereUniqueWithoutReviewerInput[]
+    createMany?: ReviewCreateManyReviewerInputEnvelope
+    set?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    disconnect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    delete?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    update?: ReviewUpdateWithWhereUniqueWithoutReviewerInput | ReviewUpdateWithWhereUniqueWithoutReviewerInput[]
+    updateMany?: ReviewUpdateManyWithWhereWithoutReviewerInput | ReviewUpdateManyWithWhereWithoutReviewerInput[]
+    deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+  }
+
+  export type ReviewUpdateManyWithoutRevieweeNestedInput = {
+    create?: XOR<ReviewCreateWithoutRevieweeInput, ReviewUncheckedCreateWithoutRevieweeInput> | ReviewCreateWithoutRevieweeInput[] | ReviewUncheckedCreateWithoutRevieweeInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutRevieweeInput | ReviewCreateOrConnectWithoutRevieweeInput[]
+    upsert?: ReviewUpsertWithWhereUniqueWithoutRevieweeInput | ReviewUpsertWithWhereUniqueWithoutRevieweeInput[]
+    createMany?: ReviewCreateManyRevieweeInputEnvelope
+    set?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    disconnect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    delete?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    update?: ReviewUpdateWithWhereUniqueWithoutRevieweeInput | ReviewUpdateWithWhereUniqueWithoutRevieweeInput[]
+    updateMany?: ReviewUpdateManyWithWhereWithoutRevieweeInput | ReviewUpdateManyWithWhereWithoutRevieweeInput[]
+    deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+  }
+
   export type UserSkillUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserSkillCreateWithoutUserInput, UserSkillUncheckedCreateWithoutUserInput> | UserSkillCreateWithoutUserInput[] | UserSkillUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserSkillCreateOrConnectWithoutUserInput | UserSkillCreateOrConnectWithoutUserInput[]
@@ -13129,6 +16351,48 @@ export namespace Prisma {
     update?: SkillRequestUpdateWithWhereUniqueWithoutEmployerInput | SkillRequestUpdateWithWhereUniqueWithoutEmployerInput[]
     updateMany?: SkillRequestUpdateManyWithWhereWithoutEmployerInput | SkillRequestUpdateManyWithWhereWithoutEmployerInput[]
     deleteMany?: SkillRequestScalarWhereInput | SkillRequestScalarWhereInput[]
+  }
+
+  export type PhoneOtpUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PhoneOtpCreateWithoutUserInput, PhoneOtpUncheckedCreateWithoutUserInput> | PhoneOtpCreateWithoutUserInput[] | PhoneOtpUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PhoneOtpCreateOrConnectWithoutUserInput | PhoneOtpCreateOrConnectWithoutUserInput[]
+    upsert?: PhoneOtpUpsertWithWhereUniqueWithoutUserInput | PhoneOtpUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PhoneOtpCreateManyUserInputEnvelope
+    set?: PhoneOtpWhereUniqueInput | PhoneOtpWhereUniqueInput[]
+    disconnect?: PhoneOtpWhereUniqueInput | PhoneOtpWhereUniqueInput[]
+    delete?: PhoneOtpWhereUniqueInput | PhoneOtpWhereUniqueInput[]
+    connect?: PhoneOtpWhereUniqueInput | PhoneOtpWhereUniqueInput[]
+    update?: PhoneOtpUpdateWithWhereUniqueWithoutUserInput | PhoneOtpUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PhoneOtpUpdateManyWithWhereWithoutUserInput | PhoneOtpUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PhoneOtpScalarWhereInput | PhoneOtpScalarWhereInput[]
+  }
+
+  export type ReviewUncheckedUpdateManyWithoutReviewerNestedInput = {
+    create?: XOR<ReviewCreateWithoutReviewerInput, ReviewUncheckedCreateWithoutReviewerInput> | ReviewCreateWithoutReviewerInput[] | ReviewUncheckedCreateWithoutReviewerInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutReviewerInput | ReviewCreateOrConnectWithoutReviewerInput[]
+    upsert?: ReviewUpsertWithWhereUniqueWithoutReviewerInput | ReviewUpsertWithWhereUniqueWithoutReviewerInput[]
+    createMany?: ReviewCreateManyReviewerInputEnvelope
+    set?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    disconnect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    delete?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    update?: ReviewUpdateWithWhereUniqueWithoutReviewerInput | ReviewUpdateWithWhereUniqueWithoutReviewerInput[]
+    updateMany?: ReviewUpdateManyWithWhereWithoutReviewerInput | ReviewUpdateManyWithWhereWithoutReviewerInput[]
+    deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+  }
+
+  export type ReviewUncheckedUpdateManyWithoutRevieweeNestedInput = {
+    create?: XOR<ReviewCreateWithoutRevieweeInput, ReviewUncheckedCreateWithoutRevieweeInput> | ReviewCreateWithoutRevieweeInput[] | ReviewUncheckedCreateWithoutRevieweeInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutRevieweeInput | ReviewCreateOrConnectWithoutRevieweeInput[]
+    upsert?: ReviewUpsertWithWhereUniqueWithoutRevieweeInput | ReviewUpsertWithWhereUniqueWithoutRevieweeInput[]
+    createMany?: ReviewCreateManyRevieweeInputEnvelope
+    set?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    disconnect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    delete?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    update?: ReviewUpdateWithWhereUniqueWithoutRevieweeInput | ReviewUpdateWithWhereUniqueWithoutRevieweeInput[]
+    updateMany?: ReviewUpdateManyWithWhereWithoutRevieweeInput | ReviewUpdateManyWithWhereWithoutRevieweeInput[]
+    deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
   }
 
   export type UserSkillCreateNestedManyWithoutSkillInput = {
@@ -13451,6 +16715,20 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type ReviewCreateNestedManyWithoutApplicationInput = {
+    create?: XOR<ReviewCreateWithoutApplicationInput, ReviewUncheckedCreateWithoutApplicationInput> | ReviewCreateWithoutApplicationInput[] | ReviewUncheckedCreateWithoutApplicationInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutApplicationInput | ReviewCreateOrConnectWithoutApplicationInput[]
+    createMany?: ReviewCreateManyApplicationInputEnvelope
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
+  export type ReviewUncheckedCreateNestedManyWithoutApplicationInput = {
+    create?: XOR<ReviewCreateWithoutApplicationInput, ReviewUncheckedCreateWithoutApplicationInput> | ReviewCreateWithoutApplicationInput[] | ReviewUncheckedCreateWithoutApplicationInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutApplicationInput | ReviewCreateOrConnectWithoutApplicationInput[]
+    createMany?: ReviewCreateManyApplicationInputEnvelope
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
   export type EnumApplicationStatusFieldUpdateOperationsInput = {
     set?: $Enums.ApplicationStatus
   }
@@ -13469,6 +16747,98 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutApplicationsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutApplicationsInput, UserUpdateWithoutApplicationsInput>, UserUncheckedUpdateWithoutApplicationsInput>
+  }
+
+  export type ReviewUpdateManyWithoutApplicationNestedInput = {
+    create?: XOR<ReviewCreateWithoutApplicationInput, ReviewUncheckedCreateWithoutApplicationInput> | ReviewCreateWithoutApplicationInput[] | ReviewUncheckedCreateWithoutApplicationInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutApplicationInput | ReviewCreateOrConnectWithoutApplicationInput[]
+    upsert?: ReviewUpsertWithWhereUniqueWithoutApplicationInput | ReviewUpsertWithWhereUniqueWithoutApplicationInput[]
+    createMany?: ReviewCreateManyApplicationInputEnvelope
+    set?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    disconnect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    delete?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    update?: ReviewUpdateWithWhereUniqueWithoutApplicationInput | ReviewUpdateWithWhereUniqueWithoutApplicationInput[]
+    updateMany?: ReviewUpdateManyWithWhereWithoutApplicationInput | ReviewUpdateManyWithWhereWithoutApplicationInput[]
+    deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+  }
+
+  export type ReviewUncheckedUpdateManyWithoutApplicationNestedInput = {
+    create?: XOR<ReviewCreateWithoutApplicationInput, ReviewUncheckedCreateWithoutApplicationInput> | ReviewCreateWithoutApplicationInput[] | ReviewUncheckedCreateWithoutApplicationInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutApplicationInput | ReviewCreateOrConnectWithoutApplicationInput[]
+    upsert?: ReviewUpsertWithWhereUniqueWithoutApplicationInput | ReviewUpsertWithWhereUniqueWithoutApplicationInput[]
+    createMany?: ReviewCreateManyApplicationInputEnvelope
+    set?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    disconnect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    delete?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    update?: ReviewUpdateWithWhereUniqueWithoutApplicationInput | ReviewUpdateWithWhereUniqueWithoutApplicationInput[]
+    updateMany?: ReviewUpdateManyWithWhereWithoutApplicationInput | ReviewUpdateManyWithWhereWithoutApplicationInput[]
+    deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutOtpsInput = {
+    create?: XOR<UserCreateWithoutOtpsInput, UserUncheckedCreateWithoutOtpsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOtpsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutOtpsNestedInput = {
+    create?: XOR<UserCreateWithoutOtpsInput, UserUncheckedCreateWithoutOtpsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOtpsInput
+    upsert?: UserUpsertWithoutOtpsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOtpsInput, UserUpdateWithoutOtpsInput>, UserUncheckedUpdateWithoutOtpsInput>
+  }
+
+  export type ApplicationCreateNestedOneWithoutReviewsInput = {
+    create?: XOR<ApplicationCreateWithoutReviewsInput, ApplicationUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: ApplicationCreateOrConnectWithoutReviewsInput
+    connect?: ApplicationWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutReviewsGivenInput = {
+    create?: XOR<UserCreateWithoutReviewsGivenInput, UserUncheckedCreateWithoutReviewsGivenInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReviewsGivenInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutReviewsReceivedInput = {
+    create?: XOR<UserCreateWithoutReviewsReceivedInput, UserUncheckedCreateWithoutReviewsReceivedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReviewsReceivedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ApplicationUpdateOneRequiredWithoutReviewsNestedInput = {
+    create?: XOR<ApplicationCreateWithoutReviewsInput, ApplicationUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: ApplicationCreateOrConnectWithoutReviewsInput
+    upsert?: ApplicationUpsertWithoutReviewsInput
+    connect?: ApplicationWhereUniqueInput
+    update?: XOR<XOR<ApplicationUpdateToOneWithWhereWithoutReviewsInput, ApplicationUpdateWithoutReviewsInput>, ApplicationUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutReviewsGivenNestedInput = {
+    create?: XOR<UserCreateWithoutReviewsGivenInput, UserUncheckedCreateWithoutReviewsGivenInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReviewsGivenInput
+    upsert?: UserUpsertWithoutReviewsGivenInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReviewsGivenInput, UserUpdateWithoutReviewsGivenInput>, UserUncheckedUpdateWithoutReviewsGivenInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutReviewsReceivedNestedInput = {
+    create?: XOR<UserCreateWithoutReviewsReceivedInput, UserUncheckedCreateWithoutReviewsReceivedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReviewsReceivedInput
+    upsert?: UserUpsertWithoutReviewsReceivedInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReviewsReceivedInput, UserUpdateWithoutReviewsReceivedInput>, UserUncheckedUpdateWithoutReviewsReceivedInput>
   }
 
   export type UserCreateNestedOneWithoutMatchExplanationsInput = {
@@ -13793,6 +17163,33 @@ export namespace Prisma {
     _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedEnumSkillRequestStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.SkillRequestStatus | EnumSkillRequestStatusFieldRefInput<$PrismaModel>
     in?: $Enums.SkillRequestStatus[] | ListEnumSkillRequestStatusFieldRefInput<$PrismaModel>
@@ -13887,6 +17284,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     opportunity: OpportunityCreateNestedOneWithoutApplicationsInput
+    reviews?: ReviewCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUncheckedCreateWithoutApplicantInput = {
@@ -13896,6 +17294,7 @@ export namespace Prisma {
     status?: $Enums.ApplicationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    reviews?: ReviewUncheckedCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationCreateOrConnectWithoutApplicantInput = {
@@ -13957,6 +17356,92 @@ export namespace Prisma {
 
   export type SkillRequestCreateManyEmployerInputEnvelope = {
     data: SkillRequestCreateManyEmployerInput | SkillRequestCreateManyEmployerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PhoneOtpCreateWithoutUserInput = {
+    id?: string
+    phone: string
+    codeHash: string
+    attempts?: number
+    expiresAt: Date | string
+    used?: boolean
+    createdAt?: Date | string
+  }
+
+  export type PhoneOtpUncheckedCreateWithoutUserInput = {
+    id?: string
+    phone: string
+    codeHash: string
+    attempts?: number
+    expiresAt: Date | string
+    used?: boolean
+    createdAt?: Date | string
+  }
+
+  export type PhoneOtpCreateOrConnectWithoutUserInput = {
+    where: PhoneOtpWhereUniqueInput
+    create: XOR<PhoneOtpCreateWithoutUserInput, PhoneOtpUncheckedCreateWithoutUserInput>
+  }
+
+  export type PhoneOtpCreateManyUserInputEnvelope = {
+    data: PhoneOtpCreateManyUserInput | PhoneOtpCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ReviewCreateWithoutReviewerInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    createdAt?: Date | string
+    application: ApplicationCreateNestedOneWithoutReviewsInput
+    reviewee: UserCreateNestedOneWithoutReviewsReceivedInput
+  }
+
+  export type ReviewUncheckedCreateWithoutReviewerInput = {
+    id?: string
+    applicationId: string
+    revieweeId: string
+    rating: number
+    comment?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ReviewCreateOrConnectWithoutReviewerInput = {
+    where: ReviewWhereUniqueInput
+    create: XOR<ReviewCreateWithoutReviewerInput, ReviewUncheckedCreateWithoutReviewerInput>
+  }
+
+  export type ReviewCreateManyReviewerInputEnvelope = {
+    data: ReviewCreateManyReviewerInput | ReviewCreateManyReviewerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ReviewCreateWithoutRevieweeInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    createdAt?: Date | string
+    application: ApplicationCreateNestedOneWithoutReviewsInput
+    reviewer: UserCreateNestedOneWithoutReviewsGivenInput
+  }
+
+  export type ReviewUncheckedCreateWithoutRevieweeInput = {
+    id?: string
+    applicationId: string
+    reviewerId: string
+    rating: number
+    comment?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ReviewCreateOrConnectWithoutRevieweeInput = {
+    where: ReviewWhereUniqueInput
+    create: XOR<ReviewCreateWithoutRevieweeInput, ReviewUncheckedCreateWithoutRevieweeInput>
+  }
+
+  export type ReviewCreateManyRevieweeInputEnvelope = {
+    data: ReviewCreateManyRevieweeInput | ReviewCreateManyRevieweeInput[]
     skipDuplicates?: boolean
   }
 
@@ -14107,6 +17592,81 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"SkillRequest"> | Date | string
   }
 
+  export type PhoneOtpUpsertWithWhereUniqueWithoutUserInput = {
+    where: PhoneOtpWhereUniqueInput
+    update: XOR<PhoneOtpUpdateWithoutUserInput, PhoneOtpUncheckedUpdateWithoutUserInput>
+    create: XOR<PhoneOtpCreateWithoutUserInput, PhoneOtpUncheckedCreateWithoutUserInput>
+  }
+
+  export type PhoneOtpUpdateWithWhereUniqueWithoutUserInput = {
+    where: PhoneOtpWhereUniqueInput
+    data: XOR<PhoneOtpUpdateWithoutUserInput, PhoneOtpUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PhoneOtpUpdateManyWithWhereWithoutUserInput = {
+    where: PhoneOtpScalarWhereInput
+    data: XOR<PhoneOtpUpdateManyMutationInput, PhoneOtpUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PhoneOtpScalarWhereInput = {
+    AND?: PhoneOtpScalarWhereInput | PhoneOtpScalarWhereInput[]
+    OR?: PhoneOtpScalarWhereInput[]
+    NOT?: PhoneOtpScalarWhereInput | PhoneOtpScalarWhereInput[]
+    id?: StringFilter<"PhoneOtp"> | string
+    userId?: StringFilter<"PhoneOtp"> | string
+    phone?: StringFilter<"PhoneOtp"> | string
+    codeHash?: StringFilter<"PhoneOtp"> | string
+    attempts?: IntFilter<"PhoneOtp"> | number
+    expiresAt?: DateTimeFilter<"PhoneOtp"> | Date | string
+    used?: BoolFilter<"PhoneOtp"> | boolean
+    createdAt?: DateTimeFilter<"PhoneOtp"> | Date | string
+  }
+
+  export type ReviewUpsertWithWhereUniqueWithoutReviewerInput = {
+    where: ReviewWhereUniqueInput
+    update: XOR<ReviewUpdateWithoutReviewerInput, ReviewUncheckedUpdateWithoutReviewerInput>
+    create: XOR<ReviewCreateWithoutReviewerInput, ReviewUncheckedCreateWithoutReviewerInput>
+  }
+
+  export type ReviewUpdateWithWhereUniqueWithoutReviewerInput = {
+    where: ReviewWhereUniqueInput
+    data: XOR<ReviewUpdateWithoutReviewerInput, ReviewUncheckedUpdateWithoutReviewerInput>
+  }
+
+  export type ReviewUpdateManyWithWhereWithoutReviewerInput = {
+    where: ReviewScalarWhereInput
+    data: XOR<ReviewUpdateManyMutationInput, ReviewUncheckedUpdateManyWithoutReviewerInput>
+  }
+
+  export type ReviewScalarWhereInput = {
+    AND?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+    OR?: ReviewScalarWhereInput[]
+    NOT?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+    id?: StringFilter<"Review"> | string
+    applicationId?: StringFilter<"Review"> | string
+    reviewerId?: StringFilter<"Review"> | string
+    revieweeId?: StringFilter<"Review"> | string
+    rating?: IntFilter<"Review"> | number
+    comment?: StringNullableFilter<"Review"> | string | null
+    createdAt?: DateTimeFilter<"Review"> | Date | string
+  }
+
+  export type ReviewUpsertWithWhereUniqueWithoutRevieweeInput = {
+    where: ReviewWhereUniqueInput
+    update: XOR<ReviewUpdateWithoutRevieweeInput, ReviewUncheckedUpdateWithoutRevieweeInput>
+    create: XOR<ReviewCreateWithoutRevieweeInput, ReviewUncheckedCreateWithoutRevieweeInput>
+  }
+
+  export type ReviewUpdateWithWhereUniqueWithoutRevieweeInput = {
+    where: ReviewWhereUniqueInput
+    data: XOR<ReviewUpdateWithoutRevieweeInput, ReviewUncheckedUpdateWithoutRevieweeInput>
+  }
+
+  export type ReviewUpdateManyWithWhereWithoutRevieweeInput = {
+    where: ReviewScalarWhereInput
+    data: XOR<ReviewUpdateManyMutationInput, ReviewUncheckedUpdateManyWithoutRevieweeInput>
+  }
+
   export type UserSkillCreateWithoutSkillInput = {
     id?: string
     experienceLevel?: $Enums.ExperienceLevel
@@ -14199,6 +17759,7 @@ export namespace Prisma {
     email: string
     emailVerified?: boolean
     phone?: string | null
+    phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
     location?: string | null
@@ -14209,6 +17770,9 @@ export namespace Prisma {
     applications?: ApplicationCreateNestedManyWithoutApplicantInput
     matchExplanations?: MatchExplanationCreateNestedManyWithoutGraduateInput
     skillRequests?: SkillRequestCreateNestedManyWithoutEmployerInput
+    otps?: PhoneOtpCreateNestedManyWithoutUserInput
+    reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
+    reviewsReceived?: ReviewCreateNestedManyWithoutRevieweeInput
   }
 
   export type UserUncheckedCreateWithoutSkillsInput = {
@@ -14218,6 +17782,7 @@ export namespace Prisma {
     email: string
     emailVerified?: boolean
     phone?: string | null
+    phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
     location?: string | null
@@ -14228,6 +17793,9 @@ export namespace Prisma {
     applications?: ApplicationUncheckedCreateNestedManyWithoutApplicantInput
     matchExplanations?: MatchExplanationUncheckedCreateNestedManyWithoutGraduateInput
     skillRequests?: SkillRequestUncheckedCreateNestedManyWithoutEmployerInput
+    otps?: PhoneOtpUncheckedCreateNestedManyWithoutUserInput
+    reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
+    reviewsReceived?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
   }
 
   export type UserCreateOrConnectWithoutSkillsInput = {
@@ -14274,6 +17842,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14284,6 +17853,9 @@ export namespace Prisma {
     applications?: ApplicationUpdateManyWithoutApplicantNestedInput
     matchExplanations?: MatchExplanationUpdateManyWithoutGraduateNestedInput
     skillRequests?: SkillRequestUpdateManyWithoutEmployerNestedInput
+    otps?: PhoneOtpUpdateManyWithoutUserNestedInput
+    reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
+    reviewsReceived?: ReviewUpdateManyWithoutRevieweeNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSkillsInput = {
@@ -14293,6 +17865,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14303,6 +17876,9 @@ export namespace Prisma {
     applications?: ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     matchExplanations?: MatchExplanationUncheckedUpdateManyWithoutGraduateNestedInput
     skillRequests?: SkillRequestUncheckedUpdateManyWithoutEmployerNestedInput
+    otps?: PhoneOtpUncheckedUpdateManyWithoutUserNestedInput
+    reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    reviewsReceived?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
   }
 
   export type SkillUpsertWithoutUsersInput = {
@@ -14339,6 +17915,7 @@ export namespace Prisma {
     email: string
     emailVerified?: boolean
     phone?: string | null
+    phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
     location?: string | null
@@ -14349,6 +17926,9 @@ export namespace Prisma {
     applications?: ApplicationCreateNestedManyWithoutApplicantInput
     matchExplanations?: MatchExplanationCreateNestedManyWithoutGraduateInput
     skillRequests?: SkillRequestCreateNestedManyWithoutEmployerInput
+    otps?: PhoneOtpCreateNestedManyWithoutUserInput
+    reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
+    reviewsReceived?: ReviewCreateNestedManyWithoutRevieweeInput
   }
 
   export type UserUncheckedCreateWithoutOpportunitiesInput = {
@@ -14358,6 +17938,7 @@ export namespace Prisma {
     email: string
     emailVerified?: boolean
     phone?: string | null
+    phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
     location?: string | null
@@ -14368,6 +17949,9 @@ export namespace Prisma {
     applications?: ApplicationUncheckedCreateNestedManyWithoutApplicantInput
     matchExplanations?: MatchExplanationUncheckedCreateNestedManyWithoutGraduateInput
     skillRequests?: SkillRequestUncheckedCreateNestedManyWithoutEmployerInput
+    otps?: PhoneOtpUncheckedCreateNestedManyWithoutUserInput
+    reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
+    reviewsReceived?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
   }
 
   export type UserCreateOrConnectWithoutOpportunitiesInput = {
@@ -14402,6 +17986,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     applicant: UserCreateNestedOneWithoutApplicationsInput
+    reviews?: ReviewCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUncheckedCreateWithoutOpportunityInput = {
@@ -14411,6 +17996,7 @@ export namespace Prisma {
     status?: $Enums.ApplicationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    reviews?: ReviewUncheckedCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationCreateOrConnectWithoutOpportunityInput = {
@@ -14467,6 +18053,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14477,6 +18064,9 @@ export namespace Prisma {
     applications?: ApplicationUpdateManyWithoutApplicantNestedInput
     matchExplanations?: MatchExplanationUpdateManyWithoutGraduateNestedInput
     skillRequests?: SkillRequestUpdateManyWithoutEmployerNestedInput
+    otps?: PhoneOtpUpdateManyWithoutUserNestedInput
+    reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
+    reviewsReceived?: ReviewUpdateManyWithoutRevieweeNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOpportunitiesInput = {
@@ -14486,6 +18076,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14496,6 +18087,9 @@ export namespace Prisma {
     applications?: ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     matchExplanations?: MatchExplanationUncheckedUpdateManyWithoutGraduateNestedInput
     skillRequests?: SkillRequestUncheckedUpdateManyWithoutEmployerNestedInput
+    otps?: PhoneOtpUncheckedUpdateManyWithoutUserNestedInput
+    reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    reviewsReceived?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
   }
 
   export type OpportunitySkillUpsertWithWhereUniqueWithoutOpportunityInput = {
@@ -14730,6 +18324,7 @@ export namespace Prisma {
     email: string
     emailVerified?: boolean
     phone?: string | null
+    phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
     location?: string | null
@@ -14740,6 +18335,9 @@ export namespace Prisma {
     opportunities?: OpportunityCreateNestedManyWithoutEmployerInput
     matchExplanations?: MatchExplanationCreateNestedManyWithoutGraduateInput
     skillRequests?: SkillRequestCreateNestedManyWithoutEmployerInput
+    otps?: PhoneOtpCreateNestedManyWithoutUserInput
+    reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
+    reviewsReceived?: ReviewCreateNestedManyWithoutRevieweeInput
   }
 
   export type UserUncheckedCreateWithoutApplicationsInput = {
@@ -14749,6 +18347,7 @@ export namespace Prisma {
     email: string
     emailVerified?: boolean
     phone?: string | null
+    phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
     location?: string | null
@@ -14759,11 +18358,42 @@ export namespace Prisma {
     opportunities?: OpportunityUncheckedCreateNestedManyWithoutEmployerInput
     matchExplanations?: MatchExplanationUncheckedCreateNestedManyWithoutGraduateInput
     skillRequests?: SkillRequestUncheckedCreateNestedManyWithoutEmployerInput
+    otps?: PhoneOtpUncheckedCreateNestedManyWithoutUserInput
+    reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
+    reviewsReceived?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
   }
 
   export type UserCreateOrConnectWithoutApplicationsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutApplicationsInput, UserUncheckedCreateWithoutApplicationsInput>
+  }
+
+  export type ReviewCreateWithoutApplicationInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    createdAt?: Date | string
+    reviewer: UserCreateNestedOneWithoutReviewsGivenInput
+    reviewee: UserCreateNestedOneWithoutReviewsReceivedInput
+  }
+
+  export type ReviewUncheckedCreateWithoutApplicationInput = {
+    id?: string
+    reviewerId: string
+    revieweeId: string
+    rating: number
+    comment?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ReviewCreateOrConnectWithoutApplicationInput = {
+    where: ReviewWhereUniqueInput
+    create: XOR<ReviewCreateWithoutApplicationInput, ReviewUncheckedCreateWithoutApplicationInput>
+  }
+
+  export type ReviewCreateManyApplicationInputEnvelope = {
+    data: ReviewCreateManyApplicationInput | ReviewCreateManyApplicationInput[]
+    skipDuplicates?: boolean
   }
 
   export type OpportunityUpsertWithoutApplicationsInput = {
@@ -14831,6 +18461,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14841,6 +18472,9 @@ export namespace Prisma {
     opportunities?: OpportunityUpdateManyWithoutEmployerNestedInput
     matchExplanations?: MatchExplanationUpdateManyWithoutGraduateNestedInput
     skillRequests?: SkillRequestUpdateManyWithoutEmployerNestedInput
+    otps?: PhoneOtpUpdateManyWithoutUserNestedInput
+    reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
+    reviewsReceived?: ReviewUpdateManyWithoutRevieweeNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApplicationsInput = {
@@ -14850,6 +18484,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14860,6 +18495,405 @@ export namespace Prisma {
     opportunities?: OpportunityUncheckedUpdateManyWithoutEmployerNestedInput
     matchExplanations?: MatchExplanationUncheckedUpdateManyWithoutGraduateNestedInput
     skillRequests?: SkillRequestUncheckedUpdateManyWithoutEmployerNestedInput
+    otps?: PhoneOtpUncheckedUpdateManyWithoutUserNestedInput
+    reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    reviewsReceived?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
+  }
+
+  export type ReviewUpsertWithWhereUniqueWithoutApplicationInput = {
+    where: ReviewWhereUniqueInput
+    update: XOR<ReviewUpdateWithoutApplicationInput, ReviewUncheckedUpdateWithoutApplicationInput>
+    create: XOR<ReviewCreateWithoutApplicationInput, ReviewUncheckedCreateWithoutApplicationInput>
+  }
+
+  export type ReviewUpdateWithWhereUniqueWithoutApplicationInput = {
+    where: ReviewWhereUniqueInput
+    data: XOR<ReviewUpdateWithoutApplicationInput, ReviewUncheckedUpdateWithoutApplicationInput>
+  }
+
+  export type ReviewUpdateManyWithWhereWithoutApplicationInput = {
+    where: ReviewScalarWhereInput
+    data: XOR<ReviewUpdateManyMutationInput, ReviewUncheckedUpdateManyWithoutApplicationInput>
+  }
+
+  export type UserCreateWithoutOtpsInput = {
+    id?: string
+    firebaseUid: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    phone?: string | null
+    phoneVerified?: boolean
+    role?: $Enums.Role
+    bio?: string | null
+    location?: string | null
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    skills?: UserSkillCreateNestedManyWithoutUserInput
+    opportunities?: OpportunityCreateNestedManyWithoutEmployerInput
+    applications?: ApplicationCreateNestedManyWithoutApplicantInput
+    matchExplanations?: MatchExplanationCreateNestedManyWithoutGraduateInput
+    skillRequests?: SkillRequestCreateNestedManyWithoutEmployerInput
+    reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
+    reviewsReceived?: ReviewCreateNestedManyWithoutRevieweeInput
+  }
+
+  export type UserUncheckedCreateWithoutOtpsInput = {
+    id?: string
+    firebaseUid: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    phone?: string | null
+    phoneVerified?: boolean
+    role?: $Enums.Role
+    bio?: string | null
+    location?: string | null
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    skills?: UserSkillUncheckedCreateNestedManyWithoutUserInput
+    opportunities?: OpportunityUncheckedCreateNestedManyWithoutEmployerInput
+    applications?: ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    matchExplanations?: MatchExplanationUncheckedCreateNestedManyWithoutGraduateInput
+    skillRequests?: SkillRequestUncheckedCreateNestedManyWithoutEmployerInput
+    reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
+    reviewsReceived?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
+  }
+
+  export type UserCreateOrConnectWithoutOtpsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutOtpsInput, UserUncheckedCreateWithoutOtpsInput>
+  }
+
+  export type UserUpsertWithoutOtpsInput = {
+    update: XOR<UserUpdateWithoutOtpsInput, UserUncheckedUpdateWithoutOtpsInput>
+    create: XOR<UserCreateWithoutOtpsInput, UserUncheckedCreateWithoutOtpsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutOtpsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutOtpsInput, UserUncheckedUpdateWithoutOtpsInput>
+  }
+
+  export type UserUpdateWithoutOtpsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firebaseUid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    skills?: UserSkillUpdateManyWithoutUserNestedInput
+    opportunities?: OpportunityUpdateManyWithoutEmployerNestedInput
+    applications?: ApplicationUpdateManyWithoutApplicantNestedInput
+    matchExplanations?: MatchExplanationUpdateManyWithoutGraduateNestedInput
+    skillRequests?: SkillRequestUpdateManyWithoutEmployerNestedInput
+    reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
+    reviewsReceived?: ReviewUpdateManyWithoutRevieweeNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutOtpsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firebaseUid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    skills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput
+    opportunities?: OpportunityUncheckedUpdateManyWithoutEmployerNestedInput
+    applications?: ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    matchExplanations?: MatchExplanationUncheckedUpdateManyWithoutGraduateNestedInput
+    skillRequests?: SkillRequestUncheckedUpdateManyWithoutEmployerNestedInput
+    reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    reviewsReceived?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
+  }
+
+  export type ApplicationCreateWithoutReviewsInput = {
+    id?: string
+    message: string
+    status?: $Enums.ApplicationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    opportunity: OpportunityCreateNestedOneWithoutApplicationsInput
+    applicant: UserCreateNestedOneWithoutApplicationsInput
+  }
+
+  export type ApplicationUncheckedCreateWithoutReviewsInput = {
+    id?: string
+    opportunityId: string
+    applicantId: string
+    message: string
+    status?: $Enums.ApplicationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ApplicationCreateOrConnectWithoutReviewsInput = {
+    where: ApplicationWhereUniqueInput
+    create: XOR<ApplicationCreateWithoutReviewsInput, ApplicationUncheckedCreateWithoutReviewsInput>
+  }
+
+  export type UserCreateWithoutReviewsGivenInput = {
+    id?: string
+    firebaseUid: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    phone?: string | null
+    phoneVerified?: boolean
+    role?: $Enums.Role
+    bio?: string | null
+    location?: string | null
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    skills?: UserSkillCreateNestedManyWithoutUserInput
+    opportunities?: OpportunityCreateNestedManyWithoutEmployerInput
+    applications?: ApplicationCreateNestedManyWithoutApplicantInput
+    matchExplanations?: MatchExplanationCreateNestedManyWithoutGraduateInput
+    skillRequests?: SkillRequestCreateNestedManyWithoutEmployerInput
+    otps?: PhoneOtpCreateNestedManyWithoutUserInput
+    reviewsReceived?: ReviewCreateNestedManyWithoutRevieweeInput
+  }
+
+  export type UserUncheckedCreateWithoutReviewsGivenInput = {
+    id?: string
+    firebaseUid: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    phone?: string | null
+    phoneVerified?: boolean
+    role?: $Enums.Role
+    bio?: string | null
+    location?: string | null
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    skills?: UserSkillUncheckedCreateNestedManyWithoutUserInput
+    opportunities?: OpportunityUncheckedCreateNestedManyWithoutEmployerInput
+    applications?: ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    matchExplanations?: MatchExplanationUncheckedCreateNestedManyWithoutGraduateInput
+    skillRequests?: SkillRequestUncheckedCreateNestedManyWithoutEmployerInput
+    otps?: PhoneOtpUncheckedCreateNestedManyWithoutUserInput
+    reviewsReceived?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
+  }
+
+  export type UserCreateOrConnectWithoutReviewsGivenInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReviewsGivenInput, UserUncheckedCreateWithoutReviewsGivenInput>
+  }
+
+  export type UserCreateWithoutReviewsReceivedInput = {
+    id?: string
+    firebaseUid: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    phone?: string | null
+    phoneVerified?: boolean
+    role?: $Enums.Role
+    bio?: string | null
+    location?: string | null
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    skills?: UserSkillCreateNestedManyWithoutUserInput
+    opportunities?: OpportunityCreateNestedManyWithoutEmployerInput
+    applications?: ApplicationCreateNestedManyWithoutApplicantInput
+    matchExplanations?: MatchExplanationCreateNestedManyWithoutGraduateInput
+    skillRequests?: SkillRequestCreateNestedManyWithoutEmployerInput
+    otps?: PhoneOtpCreateNestedManyWithoutUserInput
+    reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
+  }
+
+  export type UserUncheckedCreateWithoutReviewsReceivedInput = {
+    id?: string
+    firebaseUid: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    phone?: string | null
+    phoneVerified?: boolean
+    role?: $Enums.Role
+    bio?: string | null
+    location?: string | null
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    skills?: UserSkillUncheckedCreateNestedManyWithoutUserInput
+    opportunities?: OpportunityUncheckedCreateNestedManyWithoutEmployerInput
+    applications?: ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    matchExplanations?: MatchExplanationUncheckedCreateNestedManyWithoutGraduateInput
+    skillRequests?: SkillRequestUncheckedCreateNestedManyWithoutEmployerInput
+    otps?: PhoneOtpUncheckedCreateNestedManyWithoutUserInput
+    reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  }
+
+  export type UserCreateOrConnectWithoutReviewsReceivedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReviewsReceivedInput, UserUncheckedCreateWithoutReviewsReceivedInput>
+  }
+
+  export type ApplicationUpsertWithoutReviewsInput = {
+    update: XOR<ApplicationUpdateWithoutReviewsInput, ApplicationUncheckedUpdateWithoutReviewsInput>
+    create: XOR<ApplicationCreateWithoutReviewsInput, ApplicationUncheckedCreateWithoutReviewsInput>
+    where?: ApplicationWhereInput
+  }
+
+  export type ApplicationUpdateToOneWithWhereWithoutReviewsInput = {
+    where?: ApplicationWhereInput
+    data: XOR<ApplicationUpdateWithoutReviewsInput, ApplicationUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type ApplicationUpdateWithoutReviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    opportunity?: OpportunityUpdateOneRequiredWithoutApplicationsNestedInput
+    applicant?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+  }
+
+  export type ApplicationUncheckedUpdateWithoutReviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    opportunityId?: StringFieldUpdateOperationsInput | string
+    applicantId?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutReviewsGivenInput = {
+    update: XOR<UserUpdateWithoutReviewsGivenInput, UserUncheckedUpdateWithoutReviewsGivenInput>
+    create: XOR<UserCreateWithoutReviewsGivenInput, UserUncheckedCreateWithoutReviewsGivenInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReviewsGivenInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReviewsGivenInput, UserUncheckedUpdateWithoutReviewsGivenInput>
+  }
+
+  export type UserUpdateWithoutReviewsGivenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firebaseUid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    skills?: UserSkillUpdateManyWithoutUserNestedInput
+    opportunities?: OpportunityUpdateManyWithoutEmployerNestedInput
+    applications?: ApplicationUpdateManyWithoutApplicantNestedInput
+    matchExplanations?: MatchExplanationUpdateManyWithoutGraduateNestedInput
+    skillRequests?: SkillRequestUpdateManyWithoutEmployerNestedInput
+    otps?: PhoneOtpUpdateManyWithoutUserNestedInput
+    reviewsReceived?: ReviewUpdateManyWithoutRevieweeNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReviewsGivenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firebaseUid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    skills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput
+    opportunities?: OpportunityUncheckedUpdateManyWithoutEmployerNestedInput
+    applications?: ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    matchExplanations?: MatchExplanationUncheckedUpdateManyWithoutGraduateNestedInput
+    skillRequests?: SkillRequestUncheckedUpdateManyWithoutEmployerNestedInput
+    otps?: PhoneOtpUncheckedUpdateManyWithoutUserNestedInput
+    reviewsReceived?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
+  }
+
+  export type UserUpsertWithoutReviewsReceivedInput = {
+    update: XOR<UserUpdateWithoutReviewsReceivedInput, UserUncheckedUpdateWithoutReviewsReceivedInput>
+    create: XOR<UserCreateWithoutReviewsReceivedInput, UserUncheckedCreateWithoutReviewsReceivedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReviewsReceivedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReviewsReceivedInput, UserUncheckedUpdateWithoutReviewsReceivedInput>
+  }
+
+  export type UserUpdateWithoutReviewsReceivedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firebaseUid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    skills?: UserSkillUpdateManyWithoutUserNestedInput
+    opportunities?: OpportunityUpdateManyWithoutEmployerNestedInput
+    applications?: ApplicationUpdateManyWithoutApplicantNestedInput
+    matchExplanations?: MatchExplanationUpdateManyWithoutGraduateNestedInput
+    skillRequests?: SkillRequestUpdateManyWithoutEmployerNestedInput
+    otps?: PhoneOtpUpdateManyWithoutUserNestedInput
+    reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firebaseUid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    skills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput
+    opportunities?: OpportunityUncheckedUpdateManyWithoutEmployerNestedInput
+    applications?: ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    matchExplanations?: MatchExplanationUncheckedUpdateManyWithoutGraduateNestedInput
+    skillRequests?: SkillRequestUncheckedUpdateManyWithoutEmployerNestedInput
+    otps?: PhoneOtpUncheckedUpdateManyWithoutUserNestedInput
+    reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   }
 
   export type UserCreateWithoutMatchExplanationsInput = {
@@ -14869,6 +18903,7 @@ export namespace Prisma {
     email: string
     emailVerified?: boolean
     phone?: string | null
+    phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
     location?: string | null
@@ -14879,6 +18914,9 @@ export namespace Prisma {
     opportunities?: OpportunityCreateNestedManyWithoutEmployerInput
     applications?: ApplicationCreateNestedManyWithoutApplicantInput
     skillRequests?: SkillRequestCreateNestedManyWithoutEmployerInput
+    otps?: PhoneOtpCreateNestedManyWithoutUserInput
+    reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
+    reviewsReceived?: ReviewCreateNestedManyWithoutRevieweeInput
   }
 
   export type UserUncheckedCreateWithoutMatchExplanationsInput = {
@@ -14888,6 +18926,7 @@ export namespace Prisma {
     email: string
     emailVerified?: boolean
     phone?: string | null
+    phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
     location?: string | null
@@ -14898,6 +18937,9 @@ export namespace Prisma {
     opportunities?: OpportunityUncheckedCreateNestedManyWithoutEmployerInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutApplicantInput
     skillRequests?: SkillRequestUncheckedCreateNestedManyWithoutEmployerInput
+    otps?: PhoneOtpUncheckedCreateNestedManyWithoutUserInput
+    reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
+    reviewsReceived?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
   }
 
   export type UserCreateOrConnectWithoutMatchExplanationsInput = {
@@ -14964,6 +19006,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14974,6 +19017,9 @@ export namespace Prisma {
     opportunities?: OpportunityUpdateManyWithoutEmployerNestedInput
     applications?: ApplicationUpdateManyWithoutApplicantNestedInput
     skillRequests?: SkillRequestUpdateManyWithoutEmployerNestedInput
+    otps?: PhoneOtpUpdateManyWithoutUserNestedInput
+    reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
+    reviewsReceived?: ReviewUpdateManyWithoutRevieweeNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMatchExplanationsInput = {
@@ -14983,6 +19029,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14993,6 +19040,9 @@ export namespace Prisma {
     opportunities?: OpportunityUncheckedUpdateManyWithoutEmployerNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     skillRequests?: SkillRequestUncheckedUpdateManyWithoutEmployerNestedInput
+    otps?: PhoneOtpUncheckedUpdateManyWithoutUserNestedInput
+    reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    reviewsReceived?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
   }
 
   export type OpportunityUpsertWithoutMatchExplanationsInput = {
@@ -15049,6 +19099,7 @@ export namespace Prisma {
     email: string
     emailVerified?: boolean
     phone?: string | null
+    phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
     location?: string | null
@@ -15059,6 +19110,9 @@ export namespace Prisma {
     opportunities?: OpportunityCreateNestedManyWithoutEmployerInput
     applications?: ApplicationCreateNestedManyWithoutApplicantInput
     matchExplanations?: MatchExplanationCreateNestedManyWithoutGraduateInput
+    otps?: PhoneOtpCreateNestedManyWithoutUserInput
+    reviewsGiven?: ReviewCreateNestedManyWithoutReviewerInput
+    reviewsReceived?: ReviewCreateNestedManyWithoutRevieweeInput
   }
 
   export type UserUncheckedCreateWithoutSkillRequestsInput = {
@@ -15068,6 +19122,7 @@ export namespace Prisma {
     email: string
     emailVerified?: boolean
     phone?: string | null
+    phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
     location?: string | null
@@ -15078,6 +19133,9 @@ export namespace Prisma {
     opportunities?: OpportunityUncheckedCreateNestedManyWithoutEmployerInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutApplicantInput
     matchExplanations?: MatchExplanationUncheckedCreateNestedManyWithoutGraduateInput
+    otps?: PhoneOtpUncheckedCreateNestedManyWithoutUserInput
+    reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
+    reviewsReceived?: ReviewUncheckedCreateNestedManyWithoutRevieweeInput
   }
 
   export type UserCreateOrConnectWithoutSkillRequestsInput = {
@@ -15103,6 +19161,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15113,6 +19172,9 @@ export namespace Prisma {
     opportunities?: OpportunityUpdateManyWithoutEmployerNestedInput
     applications?: ApplicationUpdateManyWithoutApplicantNestedInput
     matchExplanations?: MatchExplanationUpdateManyWithoutGraduateNestedInput
+    otps?: PhoneOtpUpdateManyWithoutUserNestedInput
+    reviewsGiven?: ReviewUpdateManyWithoutReviewerNestedInput
+    reviewsReceived?: ReviewUpdateManyWithoutRevieweeNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSkillRequestsInput = {
@@ -15122,6 +19184,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15132,6 +19195,9 @@ export namespace Prisma {
     opportunities?: OpportunityUncheckedUpdateManyWithoutEmployerNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     matchExplanations?: MatchExplanationUncheckedUpdateManyWithoutGraduateNestedInput
+    otps?: PhoneOtpUncheckedUpdateManyWithoutUserNestedInput
+    reviewsGiven?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    reviewsReceived?: ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
   }
 
   export type UserSkillCreateManyUserInput = {
@@ -15179,6 +19245,34 @@ export namespace Prisma {
     status?: $Enums.SkillRequestStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type PhoneOtpCreateManyUserInput = {
+    id?: string
+    phone: string
+    codeHash: string
+    attempts?: number
+    expiresAt: Date | string
+    used?: boolean
+    createdAt?: Date | string
+  }
+
+  export type ReviewCreateManyReviewerInput = {
+    id?: string
+    applicationId: string
+    revieweeId: string
+    rating: number
+    comment?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ReviewCreateManyRevieweeInput = {
+    id?: string
+    applicationId: string
+    reviewerId: string
+    rating: number
+    comment?: string | null
+    createdAt?: Date | string
   }
 
   export type UserSkillUpdateWithoutUserInput = {
@@ -15260,6 +19354,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     opportunity?: OpportunityUpdateOneRequiredWithoutApplicationsNestedInput
+    reviews?: ReviewUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateWithoutApplicantInput = {
@@ -15269,6 +19364,7 @@ export namespace Prisma {
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: ReviewUncheckedUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateManyWithoutApplicantInput = {
@@ -15326,6 +19422,90 @@ export namespace Prisma {
     status?: EnumSkillRequestStatusFieldUpdateOperationsInput | $Enums.SkillRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PhoneOtpUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PhoneOtpUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PhoneOtpUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewUpdateWithoutReviewerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    application?: ApplicationUpdateOneRequiredWithoutReviewsNestedInput
+    reviewee?: UserUpdateOneRequiredWithoutReviewsReceivedNestedInput
+  }
+
+  export type ReviewUncheckedUpdateWithoutReviewerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationId?: StringFieldUpdateOperationsInput | string
+    revieweeId?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewUncheckedUpdateManyWithoutReviewerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationId?: StringFieldUpdateOperationsInput | string
+    revieweeId?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewUpdateWithoutRevieweeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    application?: ApplicationUpdateOneRequiredWithoutReviewsNestedInput
+    reviewer?: UserUpdateOneRequiredWithoutReviewsGivenNestedInput
+  }
+
+  export type ReviewUncheckedUpdateWithoutRevieweeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationId?: StringFieldUpdateOperationsInput | string
+    reviewerId?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewUncheckedUpdateManyWithoutRevieweeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationId?: StringFieldUpdateOperationsInput | string
+    reviewerId?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserSkillCreateManySkillInput = {
@@ -15420,6 +19600,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicant?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    reviews?: ReviewUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateWithoutOpportunityInput = {
@@ -15429,6 +19610,7 @@ export namespace Prisma {
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: ReviewUncheckedUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateManyWithoutOpportunityInput = {
@@ -15462,6 +19644,42 @@ export namespace Prisma {
     explanation?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewCreateManyApplicationInput = {
+    id?: string
+    reviewerId: string
+    revieweeId: string
+    rating: number
+    comment?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ReviewUpdateWithoutApplicationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewer?: UserUpdateOneRequiredWithoutReviewsGivenNestedInput
+    reviewee?: UserUpdateOneRequiredWithoutReviewsReceivedNestedInput
+  }
+
+  export type ReviewUncheckedUpdateWithoutApplicationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reviewerId?: StringFieldUpdateOperationsInput | string
+    revieweeId?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewUncheckedUpdateManyWithoutApplicationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reviewerId?: StringFieldUpdateOperationsInput | string
+    revieweeId?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

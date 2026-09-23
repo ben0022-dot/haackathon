@@ -52,7 +52,7 @@ export async function generateMatchExplanation({ opportunity, profile }) {
   ].join("\n");
 
   const res = await getGeminiClient().models.generateContent({
-    model: process.env.GEMINI_MODEL || "gemini-3.5-flash",
+    model: process.env.GEMINI_MODEL || "gemini-3-flash-preview",
     contents: prompt,
     config: {
       temperature: 0.6,
