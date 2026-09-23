@@ -103,14 +103,21 @@ export default function AdminPage() {
 
   useEffect(() => {
     if (!user) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- data load on mount
     loadPending();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   useEffect(() => {
     if (!user) return;
-    if (tab === "skill-requests") loadSkillRequests();
-    if (tab === "users") loadUsers();
+    if (tab === "skill-requests") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- data load on tab switch
+      loadSkillRequests();
+    }
+    if (tab === "users") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- data load on tab switch
+      loadUsers();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab, user]);
 
