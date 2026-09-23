@@ -87,9 +87,6 @@ export default function AppShell({ children }) {
 
   const accountLinks = user
     ? [
-        ...(isEmployer || isAdmin
-          ? [{ href: "/employer/opportunities/new", label: "Post a gig", icon: PlusCircle }]
-          : []),
         { href: "/applications", label: "Applications", icon: FileText },
         { href: "/profile", label: "Profile", icon: User },
       ]
