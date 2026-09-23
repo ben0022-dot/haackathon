@@ -5,17 +5,15 @@ import Link from "next/link";
 import {
   Briefcase,
   GraduationCap,
-  Sparkles,
   MapPin,
   CheckCircle2,
   ArrowRight,
   ShieldCheck,
   Zap,
-  Clock,
   Search,
-  Compass,
 } from "lucide-react";
 import { NeighborhoodDensityMap } from "@/components/map/NeighborhoodDensityMap";
+import LiveStats from "@/components/landing/LiveStats";
 
 interface HeroSectionProps {
   onCtaClick?: () => void;
@@ -26,8 +24,8 @@ interface HeroSectionProps {
 
 export function HeroSection({
   onCtaClick,
-  ctaText = "Find Opportunities",
-  ctaHref = "/opportunities",
+  ctaText = "Get started",
+  ctaHref = "/signup",
   className = "",
 }: HeroSectionProps) {
   const [selectedTrade, setSelectedTrade] = useState<string>("All Trades");
@@ -40,13 +38,6 @@ export function HeroSection({
     "Masonry & Construction",
     "Tailoring & Garments",
     "Catering & Hospitality",
-  ];
-
-  const stats = [
-    { value: "500+", label: "Certified TVET Graduates" },
-    { value: "120+", label: "Verified Local Gigs Active" },
-    { value: "KES 2,400", label: "Average Daily Artisan Rate" },
-    { value: "< 15 min", label: "Average Match Speed" },
   ];
 
   const recentDemand = [
@@ -260,12 +251,12 @@ export function HeroSection({
                 }}
               >
                 <Briefcase size={17} color="var(--primary, #00843d)" />
-                <span>Post an Opportunity</span>
+                <span>Post a gig</span>
               </Link>
 
-              {/* Tertiary CTA to AI Tools */}
+              {/* Tertiary CTA to browse opportunities */}
               <Link
-                href="/ai"
+                href="/opportunities"
                 className="btn btn-secondary"
                 style={{
                   display: "inline-flex",
@@ -281,32 +272,26 @@ export function HeroSection({
                   textDecoration: "none",
                 }}
               >
-                <Sparkles size={16} color="var(--accent, #d9a404)" />
-                <span>Trade AI Assistant</span>
-              </Link>
-
-              {/* Local Demand Density Map Link */}
-              <Link
-                href="/demand-map"
-                className="btn btn-secondary"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  padding: "14px 20px",
-                  fontSize: "0.95rem",
-                  fontWeight: 600,
-                  borderRadius: "999px",
-                  background: "var(--primary-soft, #e6f4ec)",
-                  color: "var(--primary-dark, #016b30)",
-                  border: "1px solid var(--primary, #00843d)",
-                  textDecoration: "none",
-                }}
-              >
-                <Compass size={16} color="var(--primary, #00843d)" />
-                <span>Interactive Demand Map</span>
+                <Search size={16} />
+                <span>Browse opportunities</span>
               </Link>
             </div>
+
+            {/* Free to use for everyone */}
+            <p
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                fontSize: "0.9rem",
+                fontWeight: 600,
+                color: "var(--primary-dark, #016b30)",
+                margin: "-16px 0 24px",
+              }}
+            >
+              <CheckCircle2 size={16} />
+              Free to use for everyone — no middlemen, no agency cuts.
+            </p>
 
             {/* Trust and Verification Badges */}
             <div
@@ -523,29 +508,7 @@ export function HeroSection({
             borderTop: "1px solid var(--border, #e6e4df)",
           }}
         >
-          {stats.map((stat, i) => (
-            <div key={i} style={{ textAlign: "left" }}>
-              <div
-                style={{
-                  fontSize: "1.6rem",
-                  fontWeight: 800,
-                  color: "var(--primary, #00843d)",
-                  lineHeight: 1.1,
-                }}
-              >
-                {stat.value}
-              </div>
-              <div
-                style={{
-                  fontSize: "0.82rem",
-                  color: "var(--text-secondary, #5c6a62)",
-                  marginTop: "4px",
-                }}
-              >
-                {stat.label}
-              </div>
-            </div>
-          ))}
+          <LiveStats />
         </div>
       </div>
     </section>

@@ -1,15 +1,17 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Space_Grotesk, Inter } from "next/font/google";
 import { AuthProvider } from "@/context/AuthContext";
 import "@/styles/globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const heading = Space_Grotesk({
+  variable: "--font-heading",
   subsets: ["latin"],
+  weight: ["500", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const body = Inter({
+  variable: "--font-body",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata = {
@@ -23,7 +25,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${heading.variable} ${body.variable}`}>
       <body>
         <AuthProvider>
           {children}

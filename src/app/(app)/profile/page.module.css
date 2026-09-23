@@ -43,3 +43,45 @@
   background: var(--background);
   font-size: 0.8rem;
 }
+
+.verificationCard {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.verificationTitle {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.verificationText {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.verificationNote {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.passwordSection {
+  margin-top: 6px;
+}
+
+.linkButton {
+  border: none;
+  background: none;
+  color: var(--primary-dark);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

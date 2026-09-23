@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import LoadingState from "@/components/LoadingState";
-import LocationSearch from "@/components/LocationSearch";
+import NeighborhoodPicker from "@/components/NeighborhoodPicker";
 import styles from "./page.module.css";
 
 const TYPE_OPTIONS = [
@@ -38,6 +38,7 @@ export default function NewOpportunityPage() {
     paymentType: "NEGOTIABLE",
     deadline: "",
   });
+  const [otherSkill, setOtherSkill] = useState("");
   const [message, setMessage] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -86,6 +87,20 @@ export default function NewOpportunityPage() {
     setSubmitting(true);
     try {
       const token = await user.getIdToken();
+      if (otherSkill.trim()) {
+        const skillRes = await fetch("/api/skill-requests", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ name: otherSkill }),
+        });
+        if (skillRes.ok) {
+          const skillData = await skillRes.json();
+          if (skillData.skill) setSelected((prev) => ({ ...prev, [skillData.skill.id]: true }));
+        }
+      }
       const res = await fetch("/api/opportunities", {
         method: "POST",
         headers: {
@@ -193,15 +208,28 @@ export default function NewOpportunityPage() {
                 </button>
               ))}
             </div>
+            <span className="field-hint">Select at least one required skill.</span>
+          </label>
+
+          <label className="field">
+            <span className="field-label">Other, please specify</span>
+            <input
+              type="text"
+              value={otherSkill}
+              onChange={(e) => setOtherSkill(e.target.value)}
+              placeholder="Can't find the skill? Type it here — e.g. Waterproofing"
+            />
+            <span className="field-hint">
+              New skills go to a moderation queue our team reviews within a day.
+            </span>
           </label>
 
           <label className="field">
             <span className="field-label field-required">Location</span>
-            <LocationSearch
+            <NeighborhoodPicker
               value={form.location}
               onChange={(location) => setForm({ ...form, location })}
-              placeholder="Githogoro, Nairobi"
-              autoCompleteProps={{ required: true }}
+              placeholder="Githogoro"
             />
           </label>
 

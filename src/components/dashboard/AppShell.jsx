@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -15,11 +14,7 @@ import {
   PlusCircle,
   LogIn,
   LogOut,
-  Menu,
-  X,
-  ChevronsLeft,
-  ChevronsRight,
-  ShieldCheck,
+  House,
 } from "lucide-react";
 import styles from "./AppShell.module.css";
 
@@ -31,47 +26,11 @@ export default function AppShell({ children }) {
   const isEmployer = profile?.role === "EMPLOYER";
   const isAdmin = profile?.role === "ADMIN";
   const dashboardHref = isEmployer ? "/employer" : isAdmin ? "/admin" : "/dashboard";
-
-  const [collapsed, setCollapsed] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const sidebarRef = useRef(null);
-
-  useEffect(() => {
-    if (!mobileOpen) return undefined;
-    function onKeyDown(e) {
-      if (e.key === "Escape") setMobileOpen(false);
-    }
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [mobileOpen]);
-
-  useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [mobileOpen]);
+  const dashboardLabel = isEmployer ? "Employment" : "Dashboard";
 
   async function handleLogout() {
     await logout();
     router.push("/");
-  }
-
-  const navMain = [
-    { href: dashboardHref, label: "Dashboard", icon: LayoutDashboard },
-    { href: "/opportunities", label: "Opportunities", icon: Briefcase },
-    { href: "/demand-map", label: "Demand Map", icon: Compass },
-    { href: "/ai", label: "AI Suite", icon: Sparkles },
-  ];
-
-  const navTools = [{ href: "/applications", label: "Applications", icon: FileText }];
-
-  if (user) {
-    navTools.push({ href: "/profile", label: "Profile", icon: User });
   }
 
   const isActive = (href) => {
@@ -81,197 +40,164 @@ export default function AppShell({ children }) {
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
-  function renderLink(item, group) {
-    const Icon = item.icon;
-    const active = isActive(item.href);
-    return (
-      <Link
-        key={`${group}-${item.href}`}
-        href={item.href}
-        className={`${styles.navLink} ${active ? styles.navLinkActive : ""}`}
-        aria-current={active ? "page" : undefined}
-        title={collapsed ? item.label : undefined}
-        onClick={() => setMobileOpen(false)}
-      >
-        <Icon size={18} strokeWidth={2} />
-        <span className={styles.navLabel}>{item.label}</span>
-      </Link>
-    );
-  }
+  const DESKTOP_LINKS = [
+    { href: "/opportunities", label: "Opportunities", icon: Briefcase },
+    { href: "/demand-map", label: "Demand Map", icon: Compass },
+    { href: "/ai", label: "AI Suite", icon: Sparkles },
+  ];
 
-  const showCollapseToggle = true;
+  const tabItems = isEmployer
+    ? [
+        { href: dashboardHref, label: "Employment", icon: House },
+        { href: "/opportunities", label: "Opportunities", icon: Briefcase },
+        { href: "/employer/opportunities/new", label: "Post gig", icon: PlusCircle },
+        { href: "/profile", label: "Profile", icon: User },
+      ]
+    : isAdmin
+    ? [
+        { href: dashboardHref, label: "Admin", icon: House },
+        { href: "/opportunities", label: "Opportunities", icon: Briefcase },
+        { href: "/applications", label: "Applications", icon: FileText },
+        { href: "/profile", label: "Profile", icon: User },
+      ]
+    : [
+        { href: dashboardHref, label: "Dashboard", icon: LayoutDashboard },
+        { href: "/opportunities", label: "Opportunities", icon: Briefcase },
+        { href: "/applications", label: "Applications", icon: FileText },
+        { href: "/profile", label: "Profile", icon: User },
+      ];
+
+  const guestTabs = [
+    { href: "/opportunities", label: "Opportunities", icon: Briefcase },
+    { href: "/demand-map", label: "Demand Map", icon: Compass },
+    { href: "/ai", label: "AI", icon: Sparkles },
+    { href: "/login", label: "Sign in", icon: LogIn },
+  ];
+
+  const tabs = user ? tabItems : guestTabs;
+
+  const tabActive = (href) => {
+    if (href === "/login") return false;
+    return isActive(href);
+  };
+
+  const nameInitial = (profile?.name || "U").charAt(0).toUpperCase();
 
   return (
     <div className={styles.shell}>
-      <header className={styles.topbar}>
-        <button
-          type="button"
-          className={styles.iconButton}
-          aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
-          aria-expanded={mobileOpen}
-          onClick={() => setMobileOpen((v) => !v)}
-        >
-          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
-
-        <Link href="/" className={styles.topBarBrand} aria-label="SpaceMakers home">
-          <Image src="/spacemakers.png" alt="" width={28} height={28} priority />
-        </Link>
-
-        <div className={styles.topbarSpacer} />
-
-        {!loading &&
-          (user ? (
-            <span className={styles.topbarUser}>
-              {profile?.name?.split(" ")[0] || "Hi"}
-            </span>
-          ) : (
-            <Link href="/login" className={styles.topbarCta}>
-              Sign In
-            </Link>
-          ))}
-      </header>
-
-      {mobileOpen && (
-        <button
-          type="button"
-          className={styles.backdrop}
-          aria-label="Close navigation"
-          onClick={() => setMobileOpen(false)}
-        />
-      )}
-
-      <aside
-        ref={sidebarRef}
-        className={[
-          styles.sidebar,
-          collapsed ? styles.sidebarCollapsed : "",
-          mobileOpen ? styles.sidebarOpen : "",
-        ].join(" ")}
-        aria-label="Sidebar navigation"
-      >
-        <div className={styles.sidebarBrand}>
-          <Link href="/" className={styles.brandInner} aria-label="SpaceMakers home">
-            <Image
-              src="/spacemakers.png"
-              alt="SpaceMakers"
-              width={34}
-              height={34}
-              priority
-              className={styles.brandLogo}
-            />
-            {!collapsed && <span className={styles.brandName}>SpaceMakers</span>}
+      <header className={styles.topNav} aria-label="Primary navigation">
+        <div className={styles.topNavInner}>
+          <Link href="/" className={styles.brand} aria-label="SpaceMakers home">
+            <Image src="/spacemakers.png" alt="SpaceMakers" width={32} height={32} priority />
+            <span className={styles.brandName}>SpaceMakers</span>
           </Link>
 
-          {showCollapseToggle && !mobileOpen && (
-            <button
-              type="button"
-              className={`${styles.iconButton} ${styles.collapseToggle}`}
-              onClick={() => setCollapsed((v) => !v)}
-              aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-              title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-            >
-              {collapsed ? <ChevronsRight size={18} /> : <ChevronsLeft size={18} />}
-            </button>
-          )}
-
-          {mobileOpen && (
-            <button
-              type="button"
-              className={styles.iconButton}
-              aria-label="Close navigation"
-              onClick={() => setMobileOpen(false)}
-            >
-              <X size={20} />
-            </button>
-          )}
-        </div>
-
-        <nav className={styles.sidebarNav}>
-          <div className={styles.navGroup}>
-            <p className={styles.navHeading}>Main</p>
-            {navMain.map((item) => renderLink(item, "main"))}
-          </div>
-
-          <div className={styles.navGroup}>
-            <p className={styles.navHeading}>My tools</p>
-            {navTools.map((item) => renderLink(item, "tool"))}
-          </div>
-
-          {!collapsed && (isEmployer || isAdmin) && (
-            <div className={styles.navGroup}>
-              {isAdmin && (
-                <Link href="/admin" className={styles.navLink}>
-                  <ShieldCheck size={18} strokeWidth={2} />
-                  <span className={styles.navLabel}>Admin</span>
+          <nav className={styles.topLinks}>
+            {DESKTOP_LINKS.map((item) => {
+              const Icon = item.icon;
+              const active = isActive(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`${styles.topLink} ${active ? styles.topLinkActive : ""}`}
+                  aria-current={active ? "page" : undefined}
+                >
+                  <Icon size={15} />
+                  <span>{item.label}</span>
                 </Link>
-              )}
-              <Link href="/employer/opportunities/new" className={styles.navLink}>
-                <PlusCircle size={18} strokeWidth={2} />
-                <span className={styles.navLabel}>Post Gig</span>
-              </Link>
-            </div>
-          )}
-        </nav>
+              );
+            })}
+            {user && (
+              <>
+                <Link
+                  href={dashboardHref}
+                  className={`${styles.topLink} ${isActive(dashboardHref) ? styles.topLinkActive : ""}`}
+                  aria-current={isActive(dashboardHref) ? "page" : undefined}
+                >
+                  <LayoutDashboard size={15} />
+                  <span>{dashboardLabel}</span>
+                </Link>
+                <Link
+                  href="/applications"
+                  className={`${styles.topLink} ${isActive("/applications") ? styles.topLinkActive : ""}`}
+                  aria-current={isActive("/applications") ? "page" : undefined}
+                >
+                  <FileText size={15} />
+                  <span>Applications</span>
+                </Link>
+                <Link
+                  href="/profile"
+                  className={`${styles.topLink} ${isActive("/profile") ? styles.topLinkActive : ""}`}
+                  aria-current={isActive("/profile") ? "page" : undefined}
+                >
+                  <User size={15} />
+                  <span>Profile</span>
+                </Link>
+              </>
+            )}
+          </nav>
 
-        <div className={styles.sidebarFooter}>
-          {loading ? (
-            <div className={styles.footerPlaceholder} aria-hidden="true" />
-          ) : user ? (
-            <div className={styles.userBox}>
-              <div className={styles.userBadge}>
-                <span className={styles.userInitial}>
-                  {(profile?.name || "U").charAt(0).toUpperCase()}
-                </span>
-                {!collapsed && (
-                  <span className={styles.userMeta}>
-                    <span className={styles.userName}>
-                      {profile?.name?.split(" ")[0] || "User"}
-                    </span>
-                    <span className={styles.userRole}>
-                      {isEmployer ? "Employer" : isAdmin ? "Admin" : "Artisan"}
-                    </span>
-                  </span>
+          <div className={styles.topActions}>
+            {loading ? (
+              <div className={styles.skeleton} aria-hidden="true" />
+            ) : user ? (
+              <>
+                {(isEmployer || isAdmin) && (
+                  <Link href="/employer/opportunities/new" className="btn btn-primary btn-sm">
+                    <PlusCircle size={16} />
+                    Post a gig
+                  </Link>
                 )}
-              </div>
-              {!collapsed && (
+                <div className={styles.userBadge}>
+                  <span className={styles.userInitial}>{nameInitial}</span>
+                  <span className={styles.userName}>
+                    {profile?.name?.split(" ")[0] || "User"}
+                  </span>
+                </div>
                 <button
                   type="button"
-                  className={styles.signOutButton}
+                  className={styles.signOut}
                   onClick={handleLogout}
                   title="Sign out of account"
                 >
                   <LogOut size={16} />
-                  <span>Sign Out</span>
+                  <span>Sign out</span>
                 </button>
-              )}
-              {collapsed && (
-                <button
-                  type="button"
-                  className={styles.iconButton}
-                  onClick={handleLogout}
-                  title="Sign out of account"
-                  aria-label="Sign out"
-                >
-                  <LogOut size={16} />
-                </button>
-              )}
-            </div>
-          ) : (
-            <div className={styles.guestBox}>
-              <Link href="/login" className={styles.guestLink}>
-                <LogIn size={16} />
-                <span>Sign In</span>
-              </Link>
-              <Link href="/signup" className={styles.guestLinkPrimary}>
-                <span>Get Started</span>
-              </Link>
-            </div>
-          )}
+              </>
+            ) : (
+              <>
+                <Link href="/login" className={styles.loginLink}>
+                  Log in
+                </Link>
+                <Link href="/signup" className="btn btn-primary btn-sm">
+                  Get started
+                </Link>
+              </>
+            )}
+          </div>
         </div>
-      </aside>
+      </header>
 
-      <div className={styles.content}>{children}</div>
+      <main className={styles.content}>{children}</main>
+
+      <nav className={styles.tabBar} aria-label="Bottom navigation">
+        {tabs.map((item) => {
+          const Icon = item.icon;
+          const active = tabActive(item.href);
+          return (
+            <Link
+              key={item.label}
+              href={item.href}
+              className={`${styles.tab} ${active ? styles.tabActive : ""}`}
+              aria-current={active ? "page" : undefined}
+            >
+              <Icon size={20} strokeWidth={active ? 2.4 : 2} />
+              <span>{item.label}</span>
+            </Link>
+          );
+        })}
+      </nav>
     </div>
   );
 }

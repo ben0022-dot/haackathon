@@ -125,6 +125,7 @@ exports.Prisma.UserScalarFieldEnum = {
   firebaseUid: 'firebaseUid',
   name: 'name',
   email: 'email',
+  emailVerified: 'emailVerified',
   phone: 'phone',
   role: 'role',
   bio: 'bio',
@@ -176,6 +177,24 @@ exports.Prisma.ApplicationScalarFieldEnum = {
   opportunityId: 'opportunityId',
   applicantId: 'applicantId',
   message: 'message',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MatchExplanationScalarFieldEnum = {
+  id: 'id',
+  graduateId: 'graduateId',
+  opportunityId: 'opportunityId',
+  explanation: 'explanation',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SkillRequestScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  employerId: 'employerId',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -235,13 +254,22 @@ exports.ApplicationStatus = exports.$Enums.ApplicationStatus = {
   COMPLETED: 'COMPLETED'
 };
 
+exports.SkillRequestStatus = exports.$Enums.SkillRequestStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  MERGED: 'MERGED',
+  REJECTED: 'REJECTED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Skill: 'Skill',
   UserSkill: 'UserSkill',
   Opportunity: 'Opportunity',
   OpportunitySkill: 'OpportunitySkill',
-  Application: 'Application'
+  Application: 'Application',
+  MatchExplanation: 'MatchExplanation',
+  SkillRequest: 'SkillRequest'
 };
 
 /**

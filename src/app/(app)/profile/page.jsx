@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import LoadingState from "@/components/LoadingState";
-import LocationSearch from "@/components/LocationSearch";
+import NeighborhoodPicker from "@/components/NeighborhoodPicker";
 import { profileCompletion } from "@/lib/matching";
 import styles from "./page.module.css";
 
@@ -16,7 +16,7 @@ export default function ProfilePage() {
 
   const [skills, setSkills] = useState([]);
   const [selected, setSelected] = useState({});
-  const [form, setForm] = useState({ name: "", phone: "", bio: "", location: "" });
+  const [form, setForm] = useState({ name: "", phone: "", bio: "", location: "", avatarUrl: "" });
   const [message, setMessage] = useState(null);
   const [saving, setSaving] = useState(false);
 
@@ -36,6 +36,7 @@ export default function ProfilePage() {
       phone: profile.phone || "",
       bio: profile.bio || "",
       location: profile.location || "",
+      avatarUrl: profile.avatarUrl || "",
     });
     const initial = {};
     (profile.skills || []).forEach((us) => {
@@ -133,6 +134,25 @@ export default function ProfilePage() {
         <span className={styles.completionLabel}>Profile {completion}% complete</span>
       </div>
 
+      <div className={`card ${styles.verificationCard}`}>
+        <div className={styles.verificationTitle}>Account status</div>
+        <p className={styles.verificationText}>
+          {profile.emailVerified ? (
+            <>
+              <span className={`status-pill status-success`}>Email verified</span>
+              <span className={styles.verificationNote}>Verified accounts can request verified opportunities.</span>
+            </>
+          ) : (
+            <>
+              <span className={`status-pill status-warning`}>Email not verified</span>
+              <span className={styles.verificationNote}>
+                Verify your email to unlock verified opportunities. A verification link was sent to {profile.email || "your inbox"}.
+              </span>
+            </>
+          )}
+        </p>
+      </div>
+
       <form className="form-card" onSubmit={handleSubmit} style={{ margin: "20px auto" }}>
         <div className="form-stack">
           <label className="field">
@@ -147,13 +167,23 @@ export default function ProfilePage() {
 
           <label className="field">
             <span className="field-label field-required">Location</span>
-            <LocationSearch
+            <NeighborhoodPicker
               value={form.location}
               onChange={(location) => setForm({ ...form, location })}
-              placeholder="Githogoro, Nairobi"
-              autoCompleteProps={{ required: true }}
+              placeholder="Githogoro"
             />
             <span className="field-hint">Where are you based? Employers search by location.</span>
+          </label>
+
+          <label className="field">
+            <span className="field-label">Profile photo URL</span>
+            <input
+              type="url"
+              value={form.avatarUrl}
+              onChange={(e) => setForm({ ...form, avatarUrl: e.target.value })}
+              placeholder="https://.../photo.jpg"
+            />
+            <span className="field-hint">Optional. Paste a link to your photo and we&apos;ll display it next to your name.</span>
           </label>
 
           <label className="field">

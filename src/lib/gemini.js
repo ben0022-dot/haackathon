@@ -66,3 +66,39 @@ export async function generateMatchExplanation({ opportunity, profile }) {
   }
   return text;
 }
+
+export async function getCachedMatchExplanation({
+  graduateId,
+  opportunityId,
+  profile,
+  opportunity,
+}) {
+  const { default: prisma } = await import("./prisma");
+
+  if (prisma?.matchExplanation?.findUnique) {
+    const existing = await prisma.matchExplanation.findUnique({
+      where: { graduateId_opportunityId: { graduateId, opportunityId } },
+    });
+    if (existing?.explanation) return existing.explanation;
+  }
+
+  let text;
+  try {
+    text = await generateMatchExplanation({ opportunity, profile });
+  } catch (err) {
+    return null;
+  }
+
+  if (prisma?.matchExplanation?.upsert) {
+    try {
+      await prisma.matchExplanation.upsert({
+        where: { graduateId_opportunityId: { graduateId, opportunityId } },
+        update: { explanation: text },
+        create: { graduateId, opportunityId, explanation: text },
+      });
+    } catch {
+      // Cache miss is non-fatal; the caller can re-derive it.
+    }
+  }
+  return text;
+}

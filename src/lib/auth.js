@@ -73,7 +73,26 @@ export async function requireUser(request) {
       firebaseUid: result.firebaseUid,
     };
   }
+
+  await syncEmailVerified(user, result.firebaseUid);
+
   return { user, firebaseUid: user.firebaseUid };
+}
+
+async function syncEmailVerified(user, firebaseUid) {
+  try {
+    const fbUser = await adminAuth.getUser(firebaseUid);
+    const emailVerified = Boolean(fbUser?.emailVerified);
+    if (user.emailVerified !== emailVerified) {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { emailVerified },
+      });
+      user.emailVerified = emailVerified;
+    }
+  } catch {
+    // Firebase sync is best-effort; fall back to the stored flag.
+  }
 }
 
 export function requireRole(user, roles) {

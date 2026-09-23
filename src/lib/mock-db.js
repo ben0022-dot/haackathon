@@ -394,6 +394,7 @@ class MockDatabase {
           firebaseUid: data.firebaseUid || id,
           name: data.name || "",
           email: data.email || `${id}@spacemakers.app`,
+          emailVerified: data.emailVerified || false,
           phone: data.phone || null,
           location: data.location || null,
           bio: data.bio || null,
@@ -633,6 +634,85 @@ class MockDatabase {
         return this._enrichApplication(this.applications[idx], include);
       },
     };
+
+    this.matchExplanation = {
+      _store: new Map(),
+      findUnique: async ({ where }) => {
+        if (where.graduateId_opportunityId) {
+          const key = `${where.graduateId_opportunityId.graduateId}__${where.graduateId_opportunityId.opportunityId}`;
+          return this.matchExplanation._store.get(key) || null;
+        }
+        if (where.id) {
+          for (const v of this.matchExplanation._store.values()) {
+            if (v.id === where.id) return v;
+          }
+        }
+        return null;
+      },
+      upsert: async ({ where, update, create }) => {
+        const key = `${where.graduateId_opportunityId.graduateId}__${where.graduateId_opportunityId.opportunityId}`;
+        const existing = this.matchExplanation._store.get(key);
+        if (existing) {
+          const merged = { ...existing, ...update, updatedAt: new Date() };
+          this.matchExplanation._store.set(key, merged);
+          return merged;
+        }
+        const created = {
+          id: `me-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+          graduateId: where.graduateId_opportunityId.graduateId,
+          opportunityId: where.graduateId_opportunityId.opportunityId,
+          explanation: create.explanation,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+        this.matchExplanation._store.set(key, created);
+        return created;
+      },
+    };
+
+    this.skillRequest = {
+      _store: [],
+      findMany: async ({ where, orderBy } = {}) => {
+        let list = this.skillRequest._store;
+        if (where) {
+          if (where.status) list = list.filter((s) => s.status === where.status);
+          if (where.employerId) list = list.filter((s) => s.employerId === where.employerId);
+        }
+        if (orderBy?.createdAt === "desc") {
+          list = list.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        }
+        return [...list];
+      },
+      findUnique: async ({ where }) => {
+        return this.skillRequest._store.find((s) => s.id === where.id) || null;
+      },
+      findFirst: async ({ where } = {}) => {
+        let list = this.skillRequest._store;
+        if (where) {
+          if (where.employerId) list = list.filter((s) => s.employerId === where.employerId);
+          if (where.name) list = list.filter((s) => s.name?.toLowerCase() === where.name.toLowerCase());
+        }
+        return list[0] || null;
+      },
+      create: async ({ data }) => {
+        const created = {
+          id: `sr-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+          name: data.name,
+          employerId: data.employerId,
+          status: data.status || "PENDING",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+        this.skillRequest._store.push(created);
+        return created;
+      },
+      update: async ({ where, data }) => {
+        const idx = this.skillRequest._store.findIndex((s) => s.id === where.id);
+        if (idx === -1) throw new Error("Skill request not found");
+        this.skillRequest._store[idx] = { ...this.skillRequest._store[idx], ...data, updatedAt: new Date() };
+        return this.skillRequest._store[idx];
+      },
+    };
   }
 
   _enrichUser(u, include) {
@@ -663,7 +743,7 @@ class MockDatabase {
     if (include?.employer) {
       const emp = this.users.find((u) => u.id === o.employerId);
       copy.employer = emp
-        ? { id: emp.id, name: emp.name, avatarUrl: emp.avatarUrl, location: emp.location }
+        ? { id: emp.id, name: emp.name, avatarUrl: emp.avatarUrl, location: emp.location, phone: emp.phone }
         : null;
     }
     if (include?._count?.applications) {

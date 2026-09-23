@@ -1,6 +1,8 @@
 import prisma from "@/lib/prisma";
 import { requireUser, requireRole } from "@/lib/auth";
 import { rankOpportunities } from "@/lib/matching";
+import { normalizeNeighborhood } from "@/lib/neighborhoods";
+import { getCachedMatchExplanation } from "@/lib/gemini";
 
 const PAGE_SIZE = 12;
 
@@ -13,7 +15,6 @@ function buildWhere(searchParams) {
     where.OR = [
       { title: { contains: q, mode: "insensitive" } },
       { description: { contains: q, mode: "insensitive" } },
-      { location: { contains: q, mode: "insensitive" } },
     ];
   }
 
@@ -26,7 +27,8 @@ function buildWhere(searchParams) {
 
   const location = searchParams.get("location");
   if (location) {
-    where.location = { contains: location, mode: "insensitive" };
+    const canonical = normalizeNeighborhood(location);
+    if (canonical) where.location = canonical;
   }
 
   const type = searchParams.get("type");
@@ -89,6 +91,17 @@ export async function GET(request) {
   let result = opportunities;
   if (dashboard && user.skills?.length) {
     result = rankOpportunities(opportunities, user);
+    result = await Promise.all(
+      result.map(async (opportunity) => {
+        const explanation = await getCachedMatchExplanation({
+          graduateId: user.id,
+          opportunityId: opportunity.id,
+          profile: user,
+          opportunity,
+        });
+        return { ...opportunity, explanation };
+      }),
+    );
   }
 
   return Response.json({ opportunities: result, total, page, pageSize: PAGE_SIZE });
@@ -128,6 +141,11 @@ export async function POST(request) {
   if (!location || !String(location).trim()) {
     return Response.json({ error: "Location is required." }, { status: 400 });
   }
+
+  const canonicalLocation = normalizeNeighborhood(location);
+  if (!canonicalLocation) {
+    return Response.json({ error: "Choose a neighborhood from the list." }, { status: 400 });
+  }
   if (!Array.isArray(skillIds) || skillIds.length === 0) {
     return Response.json({ error: "At least one required skill is needed." }, { status: 400 });
   }
@@ -166,7 +184,7 @@ export async function POST(request) {
         title: String(title).trim(),
         description: String(description).trim(),
         type: type || "GIG",
-        location: String(location).trim(),
+        location: canonicalLocation,
         payment: paymentValue,
         paymentType: paymentType || "NEGOTIABLE",
         deadline: deadlineDate,

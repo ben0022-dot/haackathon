@@ -1,6 +1,23 @@
 import prisma from "@/lib/prisma";
 import { requireUser } from "@/lib/auth";
 
+const PHONE_STATUSES = ["ACCEPTED", "COMPLETED"];
+
+function scrubUser(user, exposePhone) {
+  if (!user) return user;
+  const copy = { ...user };
+  if (!exposePhone) delete copy.phone;
+  return copy;
+}
+
+function scrubApplication(app, exposeApplicantPhone) {
+  const copy = { ...app };
+  if (copy.applicant) {
+    copy.applicant = scrubUser(copy.applicant, exposeApplicantPhone);
+  }
+  return copy;
+}
+
 export async function GET(request) {
   const { user, error } = await requireUser(request);
   if (error) return Response.json({ error: error.message }, { status: error.status });
@@ -24,7 +41,12 @@ export async function GET(request) {
       },
       orderBy: { createdAt: "desc" },
     });
-    return Response.json({ applications });
+
+    return Response.json({
+      applications: applications.map((app) =>
+        scrubApplication(app, PHONE_STATUSES.includes(app.status)),
+      ),
+    });
   }
 
   const applications = await prisma.application.findMany({
@@ -33,14 +55,25 @@ export async function GET(request) {
       opportunity: {
         include: {
           skills: { include: { skill: true } },
-          employer: { select: { id: true, name: true } },
+          employer: { select: { id: true, name: true, phone: true } },
         },
       },
     },
     orderBy: { createdAt: "desc" },
   });
 
-  return Response.json({ applications });
+  return Response.json({
+    applications: applications.map((app) => {
+      const copy = { ...app };
+      if (copy.opportunity?.employer) {
+        copy.opportunity.employer = scrubUser(
+          copy.opportunity.employer,
+          PHONE_STATUSES.includes(app.status),
+        );
+      }
+      return copy;
+    }),
+  });
 }
 
 export async function POST(request) {

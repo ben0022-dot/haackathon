@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 import { requireUser, requireRole } from "@/lib/auth";
-import { generateMatchExplanation } from "@/lib/gemini";
+import { getCachedMatchExplanation } from "@/lib/gemini";
 
 export async function GET(request, ctx) {
   const { user, error } = await requireUser(request);
@@ -25,7 +25,15 @@ export async function GET(request, ctx) {
   }
 
   try {
-    const explanation = await generateMatchExplanation({ opportunity, profile: user });
+    const explanation = await getCachedMatchExplanation({
+      graduateId: user.id,
+      opportunityId: opportunity.id,
+      profile: user,
+      opportunity,
+    });
+    if (!explanation) {
+      return Response.json({ error: "Could not generate an explanation right now." }, { status: 502 });
+    }
     return Response.json({ explanation });
   } catch (err) {
     console.error("Match explain error:", err);

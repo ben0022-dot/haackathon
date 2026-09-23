@@ -43,6 +43,16 @@ export type OpportunitySkill = $Result.DefaultSelection<Prisma.$OpportunitySkill
  * 
  */
 export type Application = $Result.DefaultSelection<Prisma.$ApplicationPayload>
+/**
+ * Model MatchExplanation
+ * 
+ */
+export type MatchExplanation = $Result.DefaultSelection<Prisma.$MatchExplanationPayload>
+/**
+ * Model SkillRequest
+ * 
+ */
+export type SkillRequest = $Result.DefaultSelection<Prisma.$SkillRequestPayload>
 
 /**
  * Enums
@@ -105,6 +115,16 @@ export const ApplicationStatus: {
 
 export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]
 
+
+export const SkillRequestStatus: {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  MERGED: 'MERGED',
+  REJECTED: 'REJECTED'
+};
+
+export type SkillRequestStatus = (typeof SkillRequestStatus)[keyof typeof SkillRequestStatus]
+
 }
 
 export type Role = $Enums.Role
@@ -130,6 +150,10 @@ export const PaymentType: typeof $Enums.PaymentType
 export type ApplicationStatus = $Enums.ApplicationStatus
 
 export const ApplicationStatus: typeof $Enums.ApplicationStatus
+
+export type SkillRequestStatus = $Enums.SkillRequestStatus
+
+export const SkillRequestStatus: typeof $Enums.SkillRequestStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -311,6 +335,26 @@ export class PrismaClient<
     * ```
     */
   get application(): Prisma.ApplicationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.matchExplanation`: Exposes CRUD operations for the **MatchExplanation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MatchExplanations
+    * const matchExplanations = await prisma.matchExplanation.findMany()
+    * ```
+    */
+  get matchExplanation(): Prisma.MatchExplanationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.skillRequest`: Exposes CRUD operations for the **SkillRequest** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SkillRequests
+    * const skillRequests = await prisma.skillRequest.findMany()
+    * ```
+    */
+  get skillRequest(): Prisma.SkillRequestDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -763,7 +807,9 @@ export namespace Prisma {
     UserSkill: 'UserSkill',
     Opportunity: 'Opportunity',
     OpportunitySkill: 'OpportunitySkill',
-    Application: 'Application'
+    Application: 'Application',
+    MatchExplanation: 'MatchExplanation',
+    SkillRequest: 'SkillRequest'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -779,7 +825,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "skill" | "userSkill" | "opportunity" | "opportunitySkill" | "application"
+      modelProps: "user" | "skill" | "userSkill" | "opportunity" | "opportunitySkill" | "application" | "matchExplanation" | "skillRequest"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1227,6 +1273,154 @@ export namespace Prisma {
           }
         }
       }
+      MatchExplanation: {
+        payload: Prisma.$MatchExplanationPayload<ExtArgs>
+        fields: Prisma.MatchExplanationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MatchExplanationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MatchExplanationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MatchExplanationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MatchExplanationPayload>
+          }
+          findFirst: {
+            args: Prisma.MatchExplanationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MatchExplanationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MatchExplanationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MatchExplanationPayload>
+          }
+          findMany: {
+            args: Prisma.MatchExplanationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MatchExplanationPayload>[]
+          }
+          create: {
+            args: Prisma.MatchExplanationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MatchExplanationPayload>
+          }
+          createMany: {
+            args: Prisma.MatchExplanationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MatchExplanationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MatchExplanationPayload>[]
+          }
+          delete: {
+            args: Prisma.MatchExplanationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MatchExplanationPayload>
+          }
+          update: {
+            args: Prisma.MatchExplanationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MatchExplanationPayload>
+          }
+          deleteMany: {
+            args: Prisma.MatchExplanationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MatchExplanationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MatchExplanationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MatchExplanationPayload>[]
+          }
+          upsert: {
+            args: Prisma.MatchExplanationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MatchExplanationPayload>
+          }
+          aggregate: {
+            args: Prisma.MatchExplanationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMatchExplanation>
+          }
+          groupBy: {
+            args: Prisma.MatchExplanationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MatchExplanationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MatchExplanationCountArgs<ExtArgs>
+            result: $Utils.Optional<MatchExplanationCountAggregateOutputType> | number
+          }
+        }
+      }
+      SkillRequest: {
+        payload: Prisma.$SkillRequestPayload<ExtArgs>
+        fields: Prisma.SkillRequestFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SkillRequestFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillRequestPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SkillRequestFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillRequestPayload>
+          }
+          findFirst: {
+            args: Prisma.SkillRequestFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillRequestPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SkillRequestFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillRequestPayload>
+          }
+          findMany: {
+            args: Prisma.SkillRequestFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillRequestPayload>[]
+          }
+          create: {
+            args: Prisma.SkillRequestCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillRequestPayload>
+          }
+          createMany: {
+            args: Prisma.SkillRequestCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SkillRequestCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillRequestPayload>[]
+          }
+          delete: {
+            args: Prisma.SkillRequestDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillRequestPayload>
+          }
+          update: {
+            args: Prisma.SkillRequestUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillRequestPayload>
+          }
+          deleteMany: {
+            args: Prisma.SkillRequestDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SkillRequestUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SkillRequestUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillRequestPayload>[]
+          }
+          upsert: {
+            args: Prisma.SkillRequestUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillRequestPayload>
+          }
+          aggregate: {
+            args: Prisma.SkillRequestAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSkillRequest>
+          }
+          groupBy: {
+            args: Prisma.SkillRequestGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SkillRequestGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SkillRequestCountArgs<ExtArgs>
+            result: $Utils.Optional<SkillRequestCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1356,6 +1550,8 @@ export namespace Prisma {
     opportunity?: OpportunityOmit
     opportunitySkill?: OpportunitySkillOmit
     application?: ApplicationOmit
+    matchExplanation?: MatchExplanationOmit
+    skillRequest?: SkillRequestOmit
   }
 
   /* Types for Logging */
@@ -1439,12 +1635,16 @@ export namespace Prisma {
     skills: number
     opportunities: number
     applications: number
+    matchExplanations: number
+    skillRequests: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     skills?: boolean | UserCountOutputTypeCountSkillsArgs
     opportunities?: boolean | UserCountOutputTypeCountOpportunitiesArgs
     applications?: boolean | UserCountOutputTypeCountApplicationsArgs
+    matchExplanations?: boolean | UserCountOutputTypeCountMatchExplanationsArgs
+    skillRequests?: boolean | UserCountOutputTypeCountSkillRequestsArgs
   }
 
   // Custom InputTypes
@@ -1477,6 +1677,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ApplicationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMatchExplanationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MatchExplanationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSkillRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SkillRequestWhereInput
   }
 
 
@@ -1527,11 +1741,13 @@ export namespace Prisma {
   export type OpportunityCountOutputType = {
     skills: number
     applications: number
+    matchExplanations: number
   }
 
   export type OpportunityCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     skills?: boolean | OpportunityCountOutputTypeCountSkillsArgs
     applications?: boolean | OpportunityCountOutputTypeCountApplicationsArgs
+    matchExplanations?: boolean | OpportunityCountOutputTypeCountMatchExplanationsArgs
   }
 
   // Custom InputTypes
@@ -1559,6 +1775,13 @@ export namespace Prisma {
     where?: ApplicationWhereInput
   }
 
+  /**
+   * OpportunityCountOutputType without action
+   */
+  export type OpportunityCountOutputTypeCountMatchExplanationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MatchExplanationWhereInput
+  }
+
 
   /**
    * Models
@@ -1579,6 +1802,7 @@ export namespace Prisma {
     firebaseUid: string | null
     name: string | null
     email: string | null
+    emailVerified: boolean | null
     phone: string | null
     role: $Enums.Role | null
     bio: string | null
@@ -1593,6 +1817,7 @@ export namespace Prisma {
     firebaseUid: string | null
     name: string | null
     email: string | null
+    emailVerified: boolean | null
     phone: string | null
     role: $Enums.Role | null
     bio: string | null
@@ -1607,6 +1832,7 @@ export namespace Prisma {
     firebaseUid: number
     name: number
     email: number
+    emailVerified: number
     phone: number
     role: number
     bio: number
@@ -1623,6 +1849,7 @@ export namespace Prisma {
     firebaseUid?: true
     name?: true
     email?: true
+    emailVerified?: true
     phone?: true
     role?: true
     bio?: true
@@ -1637,6 +1864,7 @@ export namespace Prisma {
     firebaseUid?: true
     name?: true
     email?: true
+    emailVerified?: true
     phone?: true
     role?: true
     bio?: true
@@ -1651,6 +1879,7 @@ export namespace Prisma {
     firebaseUid?: true
     name?: true
     email?: true
+    emailVerified?: true
     phone?: true
     role?: true
     bio?: true
@@ -1738,6 +1967,7 @@ export namespace Prisma {
     firebaseUid: string
     name: string
     email: string
+    emailVerified: boolean
     phone: string | null
     role: $Enums.Role
     bio: string | null
@@ -1769,6 +1999,7 @@ export namespace Prisma {
     firebaseUid?: boolean
     name?: boolean
     email?: boolean
+    emailVerified?: boolean
     phone?: boolean
     role?: boolean
     bio?: boolean
@@ -1779,6 +2010,8 @@ export namespace Prisma {
     skills?: boolean | User$skillsArgs<ExtArgs>
     opportunities?: boolean | User$opportunitiesArgs<ExtArgs>
     applications?: boolean | User$applicationsArgs<ExtArgs>
+    matchExplanations?: boolean | User$matchExplanationsArgs<ExtArgs>
+    skillRequests?: boolean | User$skillRequestsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1787,6 +2020,7 @@ export namespace Prisma {
     firebaseUid?: boolean
     name?: boolean
     email?: boolean
+    emailVerified?: boolean
     phone?: boolean
     role?: boolean
     bio?: boolean
@@ -1801,6 +2035,7 @@ export namespace Prisma {
     firebaseUid?: boolean
     name?: boolean
     email?: boolean
+    emailVerified?: boolean
     phone?: boolean
     role?: boolean
     bio?: boolean
@@ -1815,6 +2050,7 @@ export namespace Prisma {
     firebaseUid?: boolean
     name?: boolean
     email?: boolean
+    emailVerified?: boolean
     phone?: boolean
     role?: boolean
     bio?: boolean
@@ -1824,11 +2060,13 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firebaseUid" | "name" | "email" | "phone" | "role" | "bio" | "location" | "avatarUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firebaseUid" | "name" | "email" | "emailVerified" | "phone" | "role" | "bio" | "location" | "avatarUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     skills?: boolean | User$skillsArgs<ExtArgs>
     opportunities?: boolean | User$opportunitiesArgs<ExtArgs>
     applications?: boolean | User$applicationsArgs<ExtArgs>
+    matchExplanations?: boolean | User$matchExplanationsArgs<ExtArgs>
+    skillRequests?: boolean | User$skillRequestsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1840,12 +2078,15 @@ export namespace Prisma {
       skills: Prisma.$UserSkillPayload<ExtArgs>[]
       opportunities: Prisma.$OpportunityPayload<ExtArgs>[]
       applications: Prisma.$ApplicationPayload<ExtArgs>[]
+      matchExplanations: Prisma.$MatchExplanationPayload<ExtArgs>[]
+      skillRequests: Prisma.$SkillRequestPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       firebaseUid: string
       name: string
       email: string
+      emailVerified: boolean
       phone: string | null
       role: $Enums.Role
       bio: string | null
@@ -2250,6 +2491,8 @@ export namespace Prisma {
     skills<T extends User$skillsArgs<ExtArgs> = {}>(args?: Subset<T, User$skillsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     opportunities<T extends User$opportunitiesArgs<ExtArgs> = {}>(args?: Subset<T, User$opportunitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpportunityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     applications<T extends User$applicationsArgs<ExtArgs> = {}>(args?: Subset<T, User$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    matchExplanations<T extends User$matchExplanationsArgs<ExtArgs> = {}>(args?: Subset<T, User$matchExplanationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MatchExplanationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    skillRequests<T extends User$skillRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$skillRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2283,6 +2526,7 @@ export namespace Prisma {
     readonly firebaseUid: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
+    readonly emailVerified: FieldRef<"User", 'Boolean'>
     readonly phone: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
     readonly bio: FieldRef<"User", 'String'>
@@ -2752,6 +2996,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ApplicationScalarFieldEnum | ApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * User.matchExplanations
+   */
+  export type User$matchExplanationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MatchExplanation
+     */
+    select?: MatchExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MatchExplanation
+     */
+    omit?: MatchExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MatchExplanationInclude<ExtArgs> | null
+    where?: MatchExplanationWhereInput
+    orderBy?: MatchExplanationOrderByWithRelationInput | MatchExplanationOrderByWithRelationInput[]
+    cursor?: MatchExplanationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MatchExplanationScalarFieldEnum | MatchExplanationScalarFieldEnum[]
+  }
+
+  /**
+   * User.skillRequests
+   */
+  export type User$skillRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillRequest
+     */
+    select?: SkillRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillRequest
+     */
+    omit?: SkillRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillRequestInclude<ExtArgs> | null
+    where?: SkillRequestWhereInput
+    orderBy?: SkillRequestOrderByWithRelationInput | SkillRequestOrderByWithRelationInput[]
+    cursor?: SkillRequestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SkillRequestScalarFieldEnum | SkillRequestScalarFieldEnum[]
   }
 
   /**
@@ -5199,6 +5491,7 @@ export namespace Prisma {
     employer?: boolean | UserDefaultArgs<ExtArgs>
     skills?: boolean | Opportunity$skillsArgs<ExtArgs>
     applications?: boolean | Opportunity$applicationsArgs<ExtArgs>
+    matchExplanations?: boolean | Opportunity$matchExplanationsArgs<ExtArgs>
     _count?: boolean | OpportunityCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["opportunity"]>
 
@@ -5257,6 +5550,7 @@ export namespace Prisma {
     employer?: boolean | UserDefaultArgs<ExtArgs>
     skills?: boolean | Opportunity$skillsArgs<ExtArgs>
     applications?: boolean | Opportunity$applicationsArgs<ExtArgs>
+    matchExplanations?: boolean | Opportunity$matchExplanationsArgs<ExtArgs>
     _count?: boolean | OpportunityCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OpportunityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5272,6 +5566,7 @@ export namespace Prisma {
       employer: Prisma.$UserPayload<ExtArgs>
       skills: Prisma.$OpportunitySkillPayload<ExtArgs>[]
       applications: Prisma.$ApplicationPayload<ExtArgs>[]
+      matchExplanations: Prisma.$MatchExplanationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5684,6 +5979,7 @@ export namespace Prisma {
     employer<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     skills<T extends Opportunity$skillsArgs<ExtArgs> = {}>(args?: Subset<T, Opportunity$skillsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpportunitySkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     applications<T extends Opportunity$applicationsArgs<ExtArgs> = {}>(args?: Subset<T, Opportunity$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    matchExplanations<T extends Opportunity$matchExplanationsArgs<ExtArgs> = {}>(args?: Subset<T, Opportunity$matchExplanationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MatchExplanationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6172,6 +6468,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ApplicationScalarFieldEnum | ApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * Opportunity.matchExplanations
+   */
+  export type Opportunity$matchExplanationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MatchExplanation
+     */
+    select?: MatchExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MatchExplanation
+     */
+    omit?: MatchExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MatchExplanationInclude<ExtArgs> | null
+    where?: MatchExplanationWhereInput
+    orderBy?: MatchExplanationOrderByWithRelationInput | MatchExplanationOrderByWithRelationInput[]
+    cursor?: MatchExplanationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MatchExplanationScalarFieldEnum | MatchExplanationScalarFieldEnum[]
   }
 
   /**
@@ -8336,6 +8656,2166 @@ export namespace Prisma {
 
 
   /**
+   * Model MatchExplanation
+   */
+
+  export type AggregateMatchExplanation = {
+    _count: MatchExplanationCountAggregateOutputType | null
+    _min: MatchExplanationMinAggregateOutputType | null
+    _max: MatchExplanationMaxAggregateOutputType | null
+  }
+
+  export type MatchExplanationMinAggregateOutputType = {
+    id: string | null
+    graduateId: string | null
+    opportunityId: string | null
+    explanation: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MatchExplanationMaxAggregateOutputType = {
+    id: string | null
+    graduateId: string | null
+    opportunityId: string | null
+    explanation: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MatchExplanationCountAggregateOutputType = {
+    id: number
+    graduateId: number
+    opportunityId: number
+    explanation: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MatchExplanationMinAggregateInputType = {
+    id?: true
+    graduateId?: true
+    opportunityId?: true
+    explanation?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MatchExplanationMaxAggregateInputType = {
+    id?: true
+    graduateId?: true
+    opportunityId?: true
+    explanation?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MatchExplanationCountAggregateInputType = {
+    id?: true
+    graduateId?: true
+    opportunityId?: true
+    explanation?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MatchExplanationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MatchExplanation to aggregate.
+     */
+    where?: MatchExplanationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MatchExplanations to fetch.
+     */
+    orderBy?: MatchExplanationOrderByWithRelationInput | MatchExplanationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MatchExplanationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MatchExplanations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MatchExplanations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MatchExplanations
+    **/
+    _count?: true | MatchExplanationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MatchExplanationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MatchExplanationMaxAggregateInputType
+  }
+
+  export type GetMatchExplanationAggregateType<T extends MatchExplanationAggregateArgs> = {
+        [P in keyof T & keyof AggregateMatchExplanation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMatchExplanation[P]>
+      : GetScalarType<T[P], AggregateMatchExplanation[P]>
+  }
+
+
+
+
+  export type MatchExplanationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MatchExplanationWhereInput
+    orderBy?: MatchExplanationOrderByWithAggregationInput | MatchExplanationOrderByWithAggregationInput[]
+    by: MatchExplanationScalarFieldEnum[] | MatchExplanationScalarFieldEnum
+    having?: MatchExplanationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MatchExplanationCountAggregateInputType | true
+    _min?: MatchExplanationMinAggregateInputType
+    _max?: MatchExplanationMaxAggregateInputType
+  }
+
+  export type MatchExplanationGroupByOutputType = {
+    id: string
+    graduateId: string
+    opportunityId: string
+    explanation: string
+    createdAt: Date
+    updatedAt: Date
+    _count: MatchExplanationCountAggregateOutputType | null
+    _min: MatchExplanationMinAggregateOutputType | null
+    _max: MatchExplanationMaxAggregateOutputType | null
+  }
+
+  type GetMatchExplanationGroupByPayload<T extends MatchExplanationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MatchExplanationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MatchExplanationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MatchExplanationGroupByOutputType[P]>
+            : GetScalarType<T[P], MatchExplanationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MatchExplanationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    graduateId?: boolean
+    opportunityId?: boolean
+    explanation?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    graduate?: boolean | UserDefaultArgs<ExtArgs>
+    opportunity?: boolean | OpportunityDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["matchExplanation"]>
+
+  export type MatchExplanationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    graduateId?: boolean
+    opportunityId?: boolean
+    explanation?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    graduate?: boolean | UserDefaultArgs<ExtArgs>
+    opportunity?: boolean | OpportunityDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["matchExplanation"]>
+
+  export type MatchExplanationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    graduateId?: boolean
+    opportunityId?: boolean
+    explanation?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    graduate?: boolean | UserDefaultArgs<ExtArgs>
+    opportunity?: boolean | OpportunityDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["matchExplanation"]>
+
+  export type MatchExplanationSelectScalar = {
+    id?: boolean
+    graduateId?: boolean
+    opportunityId?: boolean
+    explanation?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MatchExplanationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "graduateId" | "opportunityId" | "explanation" | "createdAt" | "updatedAt", ExtArgs["result"]["matchExplanation"]>
+  export type MatchExplanationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    graduate?: boolean | UserDefaultArgs<ExtArgs>
+    opportunity?: boolean | OpportunityDefaultArgs<ExtArgs>
+  }
+  export type MatchExplanationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    graduate?: boolean | UserDefaultArgs<ExtArgs>
+    opportunity?: boolean | OpportunityDefaultArgs<ExtArgs>
+  }
+  export type MatchExplanationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    graduate?: boolean | UserDefaultArgs<ExtArgs>
+    opportunity?: boolean | OpportunityDefaultArgs<ExtArgs>
+  }
+
+  export type $MatchExplanationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MatchExplanation"
+    objects: {
+      graduate: Prisma.$UserPayload<ExtArgs>
+      opportunity: Prisma.$OpportunityPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      graduateId: string
+      opportunityId: string
+      explanation: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["matchExplanation"]>
+    composites: {}
+  }
+
+  type MatchExplanationGetPayload<S extends boolean | null | undefined | MatchExplanationDefaultArgs> = $Result.GetResult<Prisma.$MatchExplanationPayload, S>
+
+  type MatchExplanationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MatchExplanationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MatchExplanationCountAggregateInputType | true
+    }
+
+  export interface MatchExplanationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MatchExplanation'], meta: { name: 'MatchExplanation' } }
+    /**
+     * Find zero or one MatchExplanation that matches the filter.
+     * @param {MatchExplanationFindUniqueArgs} args - Arguments to find a MatchExplanation
+     * @example
+     * // Get one MatchExplanation
+     * const matchExplanation = await prisma.matchExplanation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MatchExplanationFindUniqueArgs>(args: SelectSubset<T, MatchExplanationFindUniqueArgs<ExtArgs>>): Prisma__MatchExplanationClient<$Result.GetResult<Prisma.$MatchExplanationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MatchExplanation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MatchExplanationFindUniqueOrThrowArgs} args - Arguments to find a MatchExplanation
+     * @example
+     * // Get one MatchExplanation
+     * const matchExplanation = await prisma.matchExplanation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MatchExplanationFindUniqueOrThrowArgs>(args: SelectSubset<T, MatchExplanationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MatchExplanationClient<$Result.GetResult<Prisma.$MatchExplanationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MatchExplanation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MatchExplanationFindFirstArgs} args - Arguments to find a MatchExplanation
+     * @example
+     * // Get one MatchExplanation
+     * const matchExplanation = await prisma.matchExplanation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MatchExplanationFindFirstArgs>(args?: SelectSubset<T, MatchExplanationFindFirstArgs<ExtArgs>>): Prisma__MatchExplanationClient<$Result.GetResult<Prisma.$MatchExplanationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MatchExplanation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MatchExplanationFindFirstOrThrowArgs} args - Arguments to find a MatchExplanation
+     * @example
+     * // Get one MatchExplanation
+     * const matchExplanation = await prisma.matchExplanation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MatchExplanationFindFirstOrThrowArgs>(args?: SelectSubset<T, MatchExplanationFindFirstOrThrowArgs<ExtArgs>>): Prisma__MatchExplanationClient<$Result.GetResult<Prisma.$MatchExplanationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MatchExplanations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MatchExplanationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MatchExplanations
+     * const matchExplanations = await prisma.matchExplanation.findMany()
+     * 
+     * // Get first 10 MatchExplanations
+     * const matchExplanations = await prisma.matchExplanation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const matchExplanationWithIdOnly = await prisma.matchExplanation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MatchExplanationFindManyArgs>(args?: SelectSubset<T, MatchExplanationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MatchExplanationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MatchExplanation.
+     * @param {MatchExplanationCreateArgs} args - Arguments to create a MatchExplanation.
+     * @example
+     * // Create one MatchExplanation
+     * const MatchExplanation = await prisma.matchExplanation.create({
+     *   data: {
+     *     // ... data to create a MatchExplanation
+     *   }
+     * })
+     * 
+     */
+    create<T extends MatchExplanationCreateArgs>(args: SelectSubset<T, MatchExplanationCreateArgs<ExtArgs>>): Prisma__MatchExplanationClient<$Result.GetResult<Prisma.$MatchExplanationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MatchExplanations.
+     * @param {MatchExplanationCreateManyArgs} args - Arguments to create many MatchExplanations.
+     * @example
+     * // Create many MatchExplanations
+     * const matchExplanation = await prisma.matchExplanation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MatchExplanationCreateManyArgs>(args?: SelectSubset<T, MatchExplanationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MatchExplanations and returns the data saved in the database.
+     * @param {MatchExplanationCreateManyAndReturnArgs} args - Arguments to create many MatchExplanations.
+     * @example
+     * // Create many MatchExplanations
+     * const matchExplanation = await prisma.matchExplanation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MatchExplanations and only return the `id`
+     * const matchExplanationWithIdOnly = await prisma.matchExplanation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MatchExplanationCreateManyAndReturnArgs>(args?: SelectSubset<T, MatchExplanationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MatchExplanationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MatchExplanation.
+     * @param {MatchExplanationDeleteArgs} args - Arguments to delete one MatchExplanation.
+     * @example
+     * // Delete one MatchExplanation
+     * const MatchExplanation = await prisma.matchExplanation.delete({
+     *   where: {
+     *     // ... filter to delete one MatchExplanation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MatchExplanationDeleteArgs>(args: SelectSubset<T, MatchExplanationDeleteArgs<ExtArgs>>): Prisma__MatchExplanationClient<$Result.GetResult<Prisma.$MatchExplanationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MatchExplanation.
+     * @param {MatchExplanationUpdateArgs} args - Arguments to update one MatchExplanation.
+     * @example
+     * // Update one MatchExplanation
+     * const matchExplanation = await prisma.matchExplanation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MatchExplanationUpdateArgs>(args: SelectSubset<T, MatchExplanationUpdateArgs<ExtArgs>>): Prisma__MatchExplanationClient<$Result.GetResult<Prisma.$MatchExplanationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MatchExplanations.
+     * @param {MatchExplanationDeleteManyArgs} args - Arguments to filter MatchExplanations to delete.
+     * @example
+     * // Delete a few MatchExplanations
+     * const { count } = await prisma.matchExplanation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MatchExplanationDeleteManyArgs>(args?: SelectSubset<T, MatchExplanationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MatchExplanations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MatchExplanationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MatchExplanations
+     * const matchExplanation = await prisma.matchExplanation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MatchExplanationUpdateManyArgs>(args: SelectSubset<T, MatchExplanationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MatchExplanations and returns the data updated in the database.
+     * @param {MatchExplanationUpdateManyAndReturnArgs} args - Arguments to update many MatchExplanations.
+     * @example
+     * // Update many MatchExplanations
+     * const matchExplanation = await prisma.matchExplanation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MatchExplanations and only return the `id`
+     * const matchExplanationWithIdOnly = await prisma.matchExplanation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MatchExplanationUpdateManyAndReturnArgs>(args: SelectSubset<T, MatchExplanationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MatchExplanationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MatchExplanation.
+     * @param {MatchExplanationUpsertArgs} args - Arguments to update or create a MatchExplanation.
+     * @example
+     * // Update or create a MatchExplanation
+     * const matchExplanation = await prisma.matchExplanation.upsert({
+     *   create: {
+     *     // ... data to create a MatchExplanation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MatchExplanation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MatchExplanationUpsertArgs>(args: SelectSubset<T, MatchExplanationUpsertArgs<ExtArgs>>): Prisma__MatchExplanationClient<$Result.GetResult<Prisma.$MatchExplanationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MatchExplanations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MatchExplanationCountArgs} args - Arguments to filter MatchExplanations to count.
+     * @example
+     * // Count the number of MatchExplanations
+     * const count = await prisma.matchExplanation.count({
+     *   where: {
+     *     // ... the filter for the MatchExplanations we want to count
+     *   }
+     * })
+    **/
+    count<T extends MatchExplanationCountArgs>(
+      args?: Subset<T, MatchExplanationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MatchExplanationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MatchExplanation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MatchExplanationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MatchExplanationAggregateArgs>(args: Subset<T, MatchExplanationAggregateArgs>): Prisma.PrismaPromise<GetMatchExplanationAggregateType<T>>
+
+    /**
+     * Group by MatchExplanation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MatchExplanationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MatchExplanationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MatchExplanationGroupByArgs['orderBy'] }
+        : { orderBy?: MatchExplanationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MatchExplanationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMatchExplanationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MatchExplanation model
+   */
+  readonly fields: MatchExplanationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MatchExplanation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MatchExplanationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    graduate<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    opportunity<T extends OpportunityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OpportunityDefaultArgs<ExtArgs>>): Prisma__OpportunityClient<$Result.GetResult<Prisma.$OpportunityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MatchExplanation model
+   */
+  interface MatchExplanationFieldRefs {
+    readonly id: FieldRef<"MatchExplanation", 'String'>
+    readonly graduateId: FieldRef<"MatchExplanation", 'String'>
+    readonly opportunityId: FieldRef<"MatchExplanation", 'String'>
+    readonly explanation: FieldRef<"MatchExplanation", 'String'>
+    readonly createdAt: FieldRef<"MatchExplanation", 'DateTime'>
+    readonly updatedAt: FieldRef<"MatchExplanation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MatchExplanation findUnique
+   */
+  export type MatchExplanationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MatchExplanation
+     */
+    select?: MatchExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MatchExplanation
+     */
+    omit?: MatchExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MatchExplanationInclude<ExtArgs> | null
+    /**
+     * Filter, which MatchExplanation to fetch.
+     */
+    where: MatchExplanationWhereUniqueInput
+  }
+
+  /**
+   * MatchExplanation findUniqueOrThrow
+   */
+  export type MatchExplanationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MatchExplanation
+     */
+    select?: MatchExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MatchExplanation
+     */
+    omit?: MatchExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MatchExplanationInclude<ExtArgs> | null
+    /**
+     * Filter, which MatchExplanation to fetch.
+     */
+    where: MatchExplanationWhereUniqueInput
+  }
+
+  /**
+   * MatchExplanation findFirst
+   */
+  export type MatchExplanationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MatchExplanation
+     */
+    select?: MatchExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MatchExplanation
+     */
+    omit?: MatchExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MatchExplanationInclude<ExtArgs> | null
+    /**
+     * Filter, which MatchExplanation to fetch.
+     */
+    where?: MatchExplanationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MatchExplanations to fetch.
+     */
+    orderBy?: MatchExplanationOrderByWithRelationInput | MatchExplanationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MatchExplanations.
+     */
+    cursor?: MatchExplanationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MatchExplanations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MatchExplanations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MatchExplanations.
+     */
+    distinct?: MatchExplanationScalarFieldEnum | MatchExplanationScalarFieldEnum[]
+  }
+
+  /**
+   * MatchExplanation findFirstOrThrow
+   */
+  export type MatchExplanationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MatchExplanation
+     */
+    select?: MatchExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MatchExplanation
+     */
+    omit?: MatchExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MatchExplanationInclude<ExtArgs> | null
+    /**
+     * Filter, which MatchExplanation to fetch.
+     */
+    where?: MatchExplanationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MatchExplanations to fetch.
+     */
+    orderBy?: MatchExplanationOrderByWithRelationInput | MatchExplanationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MatchExplanations.
+     */
+    cursor?: MatchExplanationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MatchExplanations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MatchExplanations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MatchExplanations.
+     */
+    distinct?: MatchExplanationScalarFieldEnum | MatchExplanationScalarFieldEnum[]
+  }
+
+  /**
+   * MatchExplanation findMany
+   */
+  export type MatchExplanationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MatchExplanation
+     */
+    select?: MatchExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MatchExplanation
+     */
+    omit?: MatchExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MatchExplanationInclude<ExtArgs> | null
+    /**
+     * Filter, which MatchExplanations to fetch.
+     */
+    where?: MatchExplanationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MatchExplanations to fetch.
+     */
+    orderBy?: MatchExplanationOrderByWithRelationInput | MatchExplanationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MatchExplanations.
+     */
+    cursor?: MatchExplanationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MatchExplanations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MatchExplanations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MatchExplanations.
+     */
+    distinct?: MatchExplanationScalarFieldEnum | MatchExplanationScalarFieldEnum[]
+  }
+
+  /**
+   * MatchExplanation create
+   */
+  export type MatchExplanationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MatchExplanation
+     */
+    select?: MatchExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MatchExplanation
+     */
+    omit?: MatchExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MatchExplanationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MatchExplanation.
+     */
+    data: XOR<MatchExplanationCreateInput, MatchExplanationUncheckedCreateInput>
+  }
+
+  /**
+   * MatchExplanation createMany
+   */
+  export type MatchExplanationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MatchExplanations.
+     */
+    data: MatchExplanationCreateManyInput | MatchExplanationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MatchExplanation createManyAndReturn
+   */
+  export type MatchExplanationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MatchExplanation
+     */
+    select?: MatchExplanationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MatchExplanation
+     */
+    omit?: MatchExplanationOmit<ExtArgs> | null
+    /**
+     * The data used to create many MatchExplanations.
+     */
+    data: MatchExplanationCreateManyInput | MatchExplanationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MatchExplanationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MatchExplanation update
+   */
+  export type MatchExplanationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MatchExplanation
+     */
+    select?: MatchExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MatchExplanation
+     */
+    omit?: MatchExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MatchExplanationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MatchExplanation.
+     */
+    data: XOR<MatchExplanationUpdateInput, MatchExplanationUncheckedUpdateInput>
+    /**
+     * Choose, which MatchExplanation to update.
+     */
+    where: MatchExplanationWhereUniqueInput
+  }
+
+  /**
+   * MatchExplanation updateMany
+   */
+  export type MatchExplanationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MatchExplanations.
+     */
+    data: XOR<MatchExplanationUpdateManyMutationInput, MatchExplanationUncheckedUpdateManyInput>
+    /**
+     * Filter which MatchExplanations to update
+     */
+    where?: MatchExplanationWhereInput
+    /**
+     * Limit how many MatchExplanations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MatchExplanation updateManyAndReturn
+   */
+  export type MatchExplanationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MatchExplanation
+     */
+    select?: MatchExplanationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MatchExplanation
+     */
+    omit?: MatchExplanationOmit<ExtArgs> | null
+    /**
+     * The data used to update MatchExplanations.
+     */
+    data: XOR<MatchExplanationUpdateManyMutationInput, MatchExplanationUncheckedUpdateManyInput>
+    /**
+     * Filter which MatchExplanations to update
+     */
+    where?: MatchExplanationWhereInput
+    /**
+     * Limit how many MatchExplanations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MatchExplanationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MatchExplanation upsert
+   */
+  export type MatchExplanationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MatchExplanation
+     */
+    select?: MatchExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MatchExplanation
+     */
+    omit?: MatchExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MatchExplanationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MatchExplanation to update in case it exists.
+     */
+    where: MatchExplanationWhereUniqueInput
+    /**
+     * In case the MatchExplanation found by the `where` argument doesn't exist, create a new MatchExplanation with this data.
+     */
+    create: XOR<MatchExplanationCreateInput, MatchExplanationUncheckedCreateInput>
+    /**
+     * In case the MatchExplanation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MatchExplanationUpdateInput, MatchExplanationUncheckedUpdateInput>
+  }
+
+  /**
+   * MatchExplanation delete
+   */
+  export type MatchExplanationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MatchExplanation
+     */
+    select?: MatchExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MatchExplanation
+     */
+    omit?: MatchExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MatchExplanationInclude<ExtArgs> | null
+    /**
+     * Filter which MatchExplanation to delete.
+     */
+    where: MatchExplanationWhereUniqueInput
+  }
+
+  /**
+   * MatchExplanation deleteMany
+   */
+  export type MatchExplanationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MatchExplanations to delete
+     */
+    where?: MatchExplanationWhereInput
+    /**
+     * Limit how many MatchExplanations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MatchExplanation without action
+   */
+  export type MatchExplanationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MatchExplanation
+     */
+    select?: MatchExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MatchExplanation
+     */
+    omit?: MatchExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MatchExplanationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SkillRequest
+   */
+
+  export type AggregateSkillRequest = {
+    _count: SkillRequestCountAggregateOutputType | null
+    _min: SkillRequestMinAggregateOutputType | null
+    _max: SkillRequestMaxAggregateOutputType | null
+  }
+
+  export type SkillRequestMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    employerId: string | null
+    status: $Enums.SkillRequestStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SkillRequestMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    employerId: string | null
+    status: $Enums.SkillRequestStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SkillRequestCountAggregateOutputType = {
+    id: number
+    name: number
+    employerId: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SkillRequestMinAggregateInputType = {
+    id?: true
+    name?: true
+    employerId?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SkillRequestMaxAggregateInputType = {
+    id?: true
+    name?: true
+    employerId?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SkillRequestCountAggregateInputType = {
+    id?: true
+    name?: true
+    employerId?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SkillRequestAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SkillRequest to aggregate.
+     */
+    where?: SkillRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SkillRequests to fetch.
+     */
+    orderBy?: SkillRequestOrderByWithRelationInput | SkillRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SkillRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SkillRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SkillRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SkillRequests
+    **/
+    _count?: true | SkillRequestCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SkillRequestMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SkillRequestMaxAggregateInputType
+  }
+
+  export type GetSkillRequestAggregateType<T extends SkillRequestAggregateArgs> = {
+        [P in keyof T & keyof AggregateSkillRequest]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSkillRequest[P]>
+      : GetScalarType<T[P], AggregateSkillRequest[P]>
+  }
+
+
+
+
+  export type SkillRequestGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SkillRequestWhereInput
+    orderBy?: SkillRequestOrderByWithAggregationInput | SkillRequestOrderByWithAggregationInput[]
+    by: SkillRequestScalarFieldEnum[] | SkillRequestScalarFieldEnum
+    having?: SkillRequestScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SkillRequestCountAggregateInputType | true
+    _min?: SkillRequestMinAggregateInputType
+    _max?: SkillRequestMaxAggregateInputType
+  }
+
+  export type SkillRequestGroupByOutputType = {
+    id: string
+    name: string
+    employerId: string
+    status: $Enums.SkillRequestStatus
+    createdAt: Date
+    updatedAt: Date
+    _count: SkillRequestCountAggregateOutputType | null
+    _min: SkillRequestMinAggregateOutputType | null
+    _max: SkillRequestMaxAggregateOutputType | null
+  }
+
+  type GetSkillRequestGroupByPayload<T extends SkillRequestGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SkillRequestGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SkillRequestGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SkillRequestGroupByOutputType[P]>
+            : GetScalarType<T[P], SkillRequestGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SkillRequestSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    employerId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    employer?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["skillRequest"]>
+
+  export type SkillRequestSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    employerId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    employer?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["skillRequest"]>
+
+  export type SkillRequestSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    employerId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    employer?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["skillRequest"]>
+
+  export type SkillRequestSelectScalar = {
+    id?: boolean
+    name?: boolean
+    employerId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SkillRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "employerId" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["skillRequest"]>
+  export type SkillRequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employer?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SkillRequestIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employer?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SkillRequestIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employer?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $SkillRequestPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SkillRequest"
+    objects: {
+      employer: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      employerId: string
+      status: $Enums.SkillRequestStatus
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["skillRequest"]>
+    composites: {}
+  }
+
+  type SkillRequestGetPayload<S extends boolean | null | undefined | SkillRequestDefaultArgs> = $Result.GetResult<Prisma.$SkillRequestPayload, S>
+
+  type SkillRequestCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SkillRequestFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SkillRequestCountAggregateInputType | true
+    }
+
+  export interface SkillRequestDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SkillRequest'], meta: { name: 'SkillRequest' } }
+    /**
+     * Find zero or one SkillRequest that matches the filter.
+     * @param {SkillRequestFindUniqueArgs} args - Arguments to find a SkillRequest
+     * @example
+     * // Get one SkillRequest
+     * const skillRequest = await prisma.skillRequest.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SkillRequestFindUniqueArgs>(args: SelectSubset<T, SkillRequestFindUniqueArgs<ExtArgs>>): Prisma__SkillRequestClient<$Result.GetResult<Prisma.$SkillRequestPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SkillRequest that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SkillRequestFindUniqueOrThrowArgs} args - Arguments to find a SkillRequest
+     * @example
+     * // Get one SkillRequest
+     * const skillRequest = await prisma.skillRequest.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SkillRequestFindUniqueOrThrowArgs>(args: SelectSubset<T, SkillRequestFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SkillRequestClient<$Result.GetResult<Prisma.$SkillRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SkillRequest that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillRequestFindFirstArgs} args - Arguments to find a SkillRequest
+     * @example
+     * // Get one SkillRequest
+     * const skillRequest = await prisma.skillRequest.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SkillRequestFindFirstArgs>(args?: SelectSubset<T, SkillRequestFindFirstArgs<ExtArgs>>): Prisma__SkillRequestClient<$Result.GetResult<Prisma.$SkillRequestPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SkillRequest that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillRequestFindFirstOrThrowArgs} args - Arguments to find a SkillRequest
+     * @example
+     * // Get one SkillRequest
+     * const skillRequest = await prisma.skillRequest.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SkillRequestFindFirstOrThrowArgs>(args?: SelectSubset<T, SkillRequestFindFirstOrThrowArgs<ExtArgs>>): Prisma__SkillRequestClient<$Result.GetResult<Prisma.$SkillRequestPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SkillRequests that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillRequestFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SkillRequests
+     * const skillRequests = await prisma.skillRequest.findMany()
+     * 
+     * // Get first 10 SkillRequests
+     * const skillRequests = await prisma.skillRequest.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const skillRequestWithIdOnly = await prisma.skillRequest.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SkillRequestFindManyArgs>(args?: SelectSubset<T, SkillRequestFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SkillRequest.
+     * @param {SkillRequestCreateArgs} args - Arguments to create a SkillRequest.
+     * @example
+     * // Create one SkillRequest
+     * const SkillRequest = await prisma.skillRequest.create({
+     *   data: {
+     *     // ... data to create a SkillRequest
+     *   }
+     * })
+     * 
+     */
+    create<T extends SkillRequestCreateArgs>(args: SelectSubset<T, SkillRequestCreateArgs<ExtArgs>>): Prisma__SkillRequestClient<$Result.GetResult<Prisma.$SkillRequestPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SkillRequests.
+     * @param {SkillRequestCreateManyArgs} args - Arguments to create many SkillRequests.
+     * @example
+     * // Create many SkillRequests
+     * const skillRequest = await prisma.skillRequest.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SkillRequestCreateManyArgs>(args?: SelectSubset<T, SkillRequestCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SkillRequests and returns the data saved in the database.
+     * @param {SkillRequestCreateManyAndReturnArgs} args - Arguments to create many SkillRequests.
+     * @example
+     * // Create many SkillRequests
+     * const skillRequest = await prisma.skillRequest.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SkillRequests and only return the `id`
+     * const skillRequestWithIdOnly = await prisma.skillRequest.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SkillRequestCreateManyAndReturnArgs>(args?: SelectSubset<T, SkillRequestCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillRequestPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SkillRequest.
+     * @param {SkillRequestDeleteArgs} args - Arguments to delete one SkillRequest.
+     * @example
+     * // Delete one SkillRequest
+     * const SkillRequest = await prisma.skillRequest.delete({
+     *   where: {
+     *     // ... filter to delete one SkillRequest
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SkillRequestDeleteArgs>(args: SelectSubset<T, SkillRequestDeleteArgs<ExtArgs>>): Prisma__SkillRequestClient<$Result.GetResult<Prisma.$SkillRequestPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SkillRequest.
+     * @param {SkillRequestUpdateArgs} args - Arguments to update one SkillRequest.
+     * @example
+     * // Update one SkillRequest
+     * const skillRequest = await prisma.skillRequest.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SkillRequestUpdateArgs>(args: SelectSubset<T, SkillRequestUpdateArgs<ExtArgs>>): Prisma__SkillRequestClient<$Result.GetResult<Prisma.$SkillRequestPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SkillRequests.
+     * @param {SkillRequestDeleteManyArgs} args - Arguments to filter SkillRequests to delete.
+     * @example
+     * // Delete a few SkillRequests
+     * const { count } = await prisma.skillRequest.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SkillRequestDeleteManyArgs>(args?: SelectSubset<T, SkillRequestDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SkillRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillRequestUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SkillRequests
+     * const skillRequest = await prisma.skillRequest.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SkillRequestUpdateManyArgs>(args: SelectSubset<T, SkillRequestUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SkillRequests and returns the data updated in the database.
+     * @param {SkillRequestUpdateManyAndReturnArgs} args - Arguments to update many SkillRequests.
+     * @example
+     * // Update many SkillRequests
+     * const skillRequest = await prisma.skillRequest.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SkillRequests and only return the `id`
+     * const skillRequestWithIdOnly = await prisma.skillRequest.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SkillRequestUpdateManyAndReturnArgs>(args: SelectSubset<T, SkillRequestUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillRequestPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SkillRequest.
+     * @param {SkillRequestUpsertArgs} args - Arguments to update or create a SkillRequest.
+     * @example
+     * // Update or create a SkillRequest
+     * const skillRequest = await prisma.skillRequest.upsert({
+     *   create: {
+     *     // ... data to create a SkillRequest
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SkillRequest we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SkillRequestUpsertArgs>(args: SelectSubset<T, SkillRequestUpsertArgs<ExtArgs>>): Prisma__SkillRequestClient<$Result.GetResult<Prisma.$SkillRequestPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SkillRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillRequestCountArgs} args - Arguments to filter SkillRequests to count.
+     * @example
+     * // Count the number of SkillRequests
+     * const count = await prisma.skillRequest.count({
+     *   where: {
+     *     // ... the filter for the SkillRequests we want to count
+     *   }
+     * })
+    **/
+    count<T extends SkillRequestCountArgs>(
+      args?: Subset<T, SkillRequestCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SkillRequestCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SkillRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillRequestAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SkillRequestAggregateArgs>(args: Subset<T, SkillRequestAggregateArgs>): Prisma.PrismaPromise<GetSkillRequestAggregateType<T>>
+
+    /**
+     * Group by SkillRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillRequestGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SkillRequestGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SkillRequestGroupByArgs['orderBy'] }
+        : { orderBy?: SkillRequestGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SkillRequestGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSkillRequestGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SkillRequest model
+   */
+  readonly fields: SkillRequestFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SkillRequest.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SkillRequestClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    employer<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SkillRequest model
+   */
+  interface SkillRequestFieldRefs {
+    readonly id: FieldRef<"SkillRequest", 'String'>
+    readonly name: FieldRef<"SkillRequest", 'String'>
+    readonly employerId: FieldRef<"SkillRequest", 'String'>
+    readonly status: FieldRef<"SkillRequest", 'SkillRequestStatus'>
+    readonly createdAt: FieldRef<"SkillRequest", 'DateTime'>
+    readonly updatedAt: FieldRef<"SkillRequest", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SkillRequest findUnique
+   */
+  export type SkillRequestFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillRequest
+     */
+    select?: SkillRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillRequest
+     */
+    omit?: SkillRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillRequest to fetch.
+     */
+    where: SkillRequestWhereUniqueInput
+  }
+
+  /**
+   * SkillRequest findUniqueOrThrow
+   */
+  export type SkillRequestFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillRequest
+     */
+    select?: SkillRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillRequest
+     */
+    omit?: SkillRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillRequest to fetch.
+     */
+    where: SkillRequestWhereUniqueInput
+  }
+
+  /**
+   * SkillRequest findFirst
+   */
+  export type SkillRequestFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillRequest
+     */
+    select?: SkillRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillRequest
+     */
+    omit?: SkillRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillRequest to fetch.
+     */
+    where?: SkillRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SkillRequests to fetch.
+     */
+    orderBy?: SkillRequestOrderByWithRelationInput | SkillRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SkillRequests.
+     */
+    cursor?: SkillRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SkillRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SkillRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SkillRequests.
+     */
+    distinct?: SkillRequestScalarFieldEnum | SkillRequestScalarFieldEnum[]
+  }
+
+  /**
+   * SkillRequest findFirstOrThrow
+   */
+  export type SkillRequestFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillRequest
+     */
+    select?: SkillRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillRequest
+     */
+    omit?: SkillRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillRequest to fetch.
+     */
+    where?: SkillRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SkillRequests to fetch.
+     */
+    orderBy?: SkillRequestOrderByWithRelationInput | SkillRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SkillRequests.
+     */
+    cursor?: SkillRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SkillRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SkillRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SkillRequests.
+     */
+    distinct?: SkillRequestScalarFieldEnum | SkillRequestScalarFieldEnum[]
+  }
+
+  /**
+   * SkillRequest findMany
+   */
+  export type SkillRequestFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillRequest
+     */
+    select?: SkillRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillRequest
+     */
+    omit?: SkillRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillRequests to fetch.
+     */
+    where?: SkillRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SkillRequests to fetch.
+     */
+    orderBy?: SkillRequestOrderByWithRelationInput | SkillRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SkillRequests.
+     */
+    cursor?: SkillRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SkillRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SkillRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SkillRequests.
+     */
+    distinct?: SkillRequestScalarFieldEnum | SkillRequestScalarFieldEnum[]
+  }
+
+  /**
+   * SkillRequest create
+   */
+  export type SkillRequestCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillRequest
+     */
+    select?: SkillRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillRequest
+     */
+    omit?: SkillRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SkillRequest.
+     */
+    data: XOR<SkillRequestCreateInput, SkillRequestUncheckedCreateInput>
+  }
+
+  /**
+   * SkillRequest createMany
+   */
+  export type SkillRequestCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SkillRequests.
+     */
+    data: SkillRequestCreateManyInput | SkillRequestCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SkillRequest createManyAndReturn
+   */
+  export type SkillRequestCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillRequest
+     */
+    select?: SkillRequestSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillRequest
+     */
+    omit?: SkillRequestOmit<ExtArgs> | null
+    /**
+     * The data used to create many SkillRequests.
+     */
+    data: SkillRequestCreateManyInput | SkillRequestCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillRequestIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SkillRequest update
+   */
+  export type SkillRequestUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillRequest
+     */
+    select?: SkillRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillRequest
+     */
+    omit?: SkillRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SkillRequest.
+     */
+    data: XOR<SkillRequestUpdateInput, SkillRequestUncheckedUpdateInput>
+    /**
+     * Choose, which SkillRequest to update.
+     */
+    where: SkillRequestWhereUniqueInput
+  }
+
+  /**
+   * SkillRequest updateMany
+   */
+  export type SkillRequestUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SkillRequests.
+     */
+    data: XOR<SkillRequestUpdateManyMutationInput, SkillRequestUncheckedUpdateManyInput>
+    /**
+     * Filter which SkillRequests to update
+     */
+    where?: SkillRequestWhereInput
+    /**
+     * Limit how many SkillRequests to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SkillRequest updateManyAndReturn
+   */
+  export type SkillRequestUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillRequest
+     */
+    select?: SkillRequestSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillRequest
+     */
+    omit?: SkillRequestOmit<ExtArgs> | null
+    /**
+     * The data used to update SkillRequests.
+     */
+    data: XOR<SkillRequestUpdateManyMutationInput, SkillRequestUncheckedUpdateManyInput>
+    /**
+     * Filter which SkillRequests to update
+     */
+    where?: SkillRequestWhereInput
+    /**
+     * Limit how many SkillRequests to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillRequestIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SkillRequest upsert
+   */
+  export type SkillRequestUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillRequest
+     */
+    select?: SkillRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillRequest
+     */
+    omit?: SkillRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillRequestInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SkillRequest to update in case it exists.
+     */
+    where: SkillRequestWhereUniqueInput
+    /**
+     * In case the SkillRequest found by the `where` argument doesn't exist, create a new SkillRequest with this data.
+     */
+    create: XOR<SkillRequestCreateInput, SkillRequestUncheckedCreateInput>
+    /**
+     * In case the SkillRequest was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SkillRequestUpdateInput, SkillRequestUncheckedUpdateInput>
+  }
+
+  /**
+   * SkillRequest delete
+   */
+  export type SkillRequestDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillRequest
+     */
+    select?: SkillRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillRequest
+     */
+    omit?: SkillRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillRequestInclude<ExtArgs> | null
+    /**
+     * Filter which SkillRequest to delete.
+     */
+    where: SkillRequestWhereUniqueInput
+  }
+
+  /**
+   * SkillRequest deleteMany
+   */
+  export type SkillRequestDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SkillRequests to delete
+     */
+    where?: SkillRequestWhereInput
+    /**
+     * Limit how many SkillRequests to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SkillRequest without action
+   */
+  export type SkillRequestDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillRequest
+     */
+    select?: SkillRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillRequest
+     */
+    omit?: SkillRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillRequestInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -8354,6 +10834,7 @@ export namespace Prisma {
     firebaseUid: 'firebaseUid',
     name: 'name',
     email: 'email',
+    emailVerified: 'emailVerified',
     phone: 'phone',
     role: 'role',
     bio: 'bio',
@@ -8428,6 +10909,30 @@ export namespace Prisma {
   export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
 
 
+  export const MatchExplanationScalarFieldEnum: {
+    id: 'id',
+    graduateId: 'graduateId',
+    opportunityId: 'opportunityId',
+    explanation: 'explanation',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MatchExplanationScalarFieldEnum = (typeof MatchExplanationScalarFieldEnum)[keyof typeof MatchExplanationScalarFieldEnum]
+
+
+  export const SkillRequestScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    employerId: 'employerId',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SkillRequestScalarFieldEnum = (typeof SkillRequestScalarFieldEnum)[keyof typeof SkillRequestScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -8468,6 +10973,13 @@ export namespace Prisma {
    * Reference to a field of type 'String[]'
    */
   export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -8570,13 +11082,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'ApplicationStatus'
    */
   export type EnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus'>
@@ -8587,6 +11092,20 @@ export namespace Prisma {
    * Reference to a field of type 'ApplicationStatus[]'
    */
   export type ListEnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SkillRequestStatus'
+   */
+  export type EnumSkillRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SkillRequestStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'SkillRequestStatus[]'
+   */
+  export type ListEnumSkillRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SkillRequestStatus[]'>
     
 
 
@@ -8615,6 +11134,7 @@ export namespace Prisma {
     firebaseUid?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
+    emailVerified?: BoolFilter<"User"> | boolean
     phone?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     bio?: StringNullableFilter<"User"> | string | null
@@ -8625,6 +11145,8 @@ export namespace Prisma {
     skills?: UserSkillListRelationFilter
     opportunities?: OpportunityListRelationFilter
     applications?: ApplicationListRelationFilter
+    matchExplanations?: MatchExplanationListRelationFilter
+    skillRequests?: SkillRequestListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -8632,6 +11154,7 @@ export namespace Prisma {
     firebaseUid?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    emailVerified?: SortOrder
     phone?: SortOrderInput | SortOrder
     role?: SortOrder
     bio?: SortOrderInput | SortOrder
@@ -8642,6 +11165,8 @@ export namespace Prisma {
     skills?: UserSkillOrderByRelationAggregateInput
     opportunities?: OpportunityOrderByRelationAggregateInput
     applications?: ApplicationOrderByRelationAggregateInput
+    matchExplanations?: MatchExplanationOrderByRelationAggregateInput
+    skillRequests?: SkillRequestOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -8652,6 +11177,7 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
+    emailVerified?: BoolFilter<"User"> | boolean
     phone?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     bio?: StringNullableFilter<"User"> | string | null
@@ -8662,6 +11188,8 @@ export namespace Prisma {
     skills?: UserSkillListRelationFilter
     opportunities?: OpportunityListRelationFilter
     applications?: ApplicationListRelationFilter
+    matchExplanations?: MatchExplanationListRelationFilter
+    skillRequests?: SkillRequestListRelationFilter
   }, "id" | "firebaseUid" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -8669,6 +11197,7 @@ export namespace Prisma {
     firebaseUid?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    emailVerified?: SortOrder
     phone?: SortOrderInput | SortOrder
     role?: SortOrder
     bio?: SortOrderInput | SortOrder
@@ -8689,6 +11218,7 @@ export namespace Prisma {
     firebaseUid?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
+    emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
     phone?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     bio?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -8830,6 +11360,7 @@ export namespace Prisma {
     employer?: XOR<UserScalarRelationFilter, UserWhereInput>
     skills?: OpportunitySkillListRelationFilter
     applications?: ApplicationListRelationFilter
+    matchExplanations?: MatchExplanationListRelationFilter
   }
 
   export type OpportunityOrderByWithRelationInput = {
@@ -8849,6 +11380,7 @@ export namespace Prisma {
     employer?: UserOrderByWithRelationInput
     skills?: OpportunitySkillOrderByRelationAggregateInput
     applications?: ApplicationOrderByRelationAggregateInput
+    matchExplanations?: MatchExplanationOrderByRelationAggregateInput
   }
 
   export type OpportunityWhereUniqueInput = Prisma.AtLeast<{
@@ -8871,6 +11403,7 @@ export namespace Prisma {
     employer?: XOR<UserScalarRelationFilter, UserWhereInput>
     skills?: OpportunitySkillListRelationFilter
     applications?: ApplicationListRelationFilter
+    matchExplanations?: MatchExplanationListRelationFilter
   }, "id">
 
   export type OpportunityOrderByWithAggregationInput = {
@@ -9031,11 +11564,136 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Application"> | Date | string
   }
 
+  export type MatchExplanationWhereInput = {
+    AND?: MatchExplanationWhereInput | MatchExplanationWhereInput[]
+    OR?: MatchExplanationWhereInput[]
+    NOT?: MatchExplanationWhereInput | MatchExplanationWhereInput[]
+    id?: StringFilter<"MatchExplanation"> | string
+    graduateId?: StringFilter<"MatchExplanation"> | string
+    opportunityId?: StringFilter<"MatchExplanation"> | string
+    explanation?: StringFilter<"MatchExplanation"> | string
+    createdAt?: DateTimeFilter<"MatchExplanation"> | Date | string
+    updatedAt?: DateTimeFilter<"MatchExplanation"> | Date | string
+    graduate?: XOR<UserScalarRelationFilter, UserWhereInput>
+    opportunity?: XOR<OpportunityScalarRelationFilter, OpportunityWhereInput>
+  }
+
+  export type MatchExplanationOrderByWithRelationInput = {
+    id?: SortOrder
+    graduateId?: SortOrder
+    opportunityId?: SortOrder
+    explanation?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    graduate?: UserOrderByWithRelationInput
+    opportunity?: OpportunityOrderByWithRelationInput
+  }
+
+  export type MatchExplanationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    graduateId_opportunityId?: MatchExplanationGraduateIdOpportunityIdCompoundUniqueInput
+    AND?: MatchExplanationWhereInput | MatchExplanationWhereInput[]
+    OR?: MatchExplanationWhereInput[]
+    NOT?: MatchExplanationWhereInput | MatchExplanationWhereInput[]
+    graduateId?: StringFilter<"MatchExplanation"> | string
+    opportunityId?: StringFilter<"MatchExplanation"> | string
+    explanation?: StringFilter<"MatchExplanation"> | string
+    createdAt?: DateTimeFilter<"MatchExplanation"> | Date | string
+    updatedAt?: DateTimeFilter<"MatchExplanation"> | Date | string
+    graduate?: XOR<UserScalarRelationFilter, UserWhereInput>
+    opportunity?: XOR<OpportunityScalarRelationFilter, OpportunityWhereInput>
+  }, "id" | "graduateId_opportunityId">
+
+  export type MatchExplanationOrderByWithAggregationInput = {
+    id?: SortOrder
+    graduateId?: SortOrder
+    opportunityId?: SortOrder
+    explanation?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MatchExplanationCountOrderByAggregateInput
+    _max?: MatchExplanationMaxOrderByAggregateInput
+    _min?: MatchExplanationMinOrderByAggregateInput
+  }
+
+  export type MatchExplanationScalarWhereWithAggregatesInput = {
+    AND?: MatchExplanationScalarWhereWithAggregatesInput | MatchExplanationScalarWhereWithAggregatesInput[]
+    OR?: MatchExplanationScalarWhereWithAggregatesInput[]
+    NOT?: MatchExplanationScalarWhereWithAggregatesInput | MatchExplanationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MatchExplanation"> | string
+    graduateId?: StringWithAggregatesFilter<"MatchExplanation"> | string
+    opportunityId?: StringWithAggregatesFilter<"MatchExplanation"> | string
+    explanation?: StringWithAggregatesFilter<"MatchExplanation"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"MatchExplanation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MatchExplanation"> | Date | string
+  }
+
+  export type SkillRequestWhereInput = {
+    AND?: SkillRequestWhereInput | SkillRequestWhereInput[]
+    OR?: SkillRequestWhereInput[]
+    NOT?: SkillRequestWhereInput | SkillRequestWhereInput[]
+    id?: StringFilter<"SkillRequest"> | string
+    name?: StringFilter<"SkillRequest"> | string
+    employerId?: StringFilter<"SkillRequest"> | string
+    status?: EnumSkillRequestStatusFilter<"SkillRequest"> | $Enums.SkillRequestStatus
+    createdAt?: DateTimeFilter<"SkillRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"SkillRequest"> | Date | string
+    employer?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type SkillRequestOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    employerId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    employer?: UserOrderByWithRelationInput
+  }
+
+  export type SkillRequestWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SkillRequestWhereInput | SkillRequestWhereInput[]
+    OR?: SkillRequestWhereInput[]
+    NOT?: SkillRequestWhereInput | SkillRequestWhereInput[]
+    name?: StringFilter<"SkillRequest"> | string
+    employerId?: StringFilter<"SkillRequest"> | string
+    status?: EnumSkillRequestStatusFilter<"SkillRequest"> | $Enums.SkillRequestStatus
+    createdAt?: DateTimeFilter<"SkillRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"SkillRequest"> | Date | string
+    employer?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type SkillRequestOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    employerId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SkillRequestCountOrderByAggregateInput
+    _max?: SkillRequestMaxOrderByAggregateInput
+    _min?: SkillRequestMinOrderByAggregateInput
+  }
+
+  export type SkillRequestScalarWhereWithAggregatesInput = {
+    AND?: SkillRequestScalarWhereWithAggregatesInput | SkillRequestScalarWhereWithAggregatesInput[]
+    OR?: SkillRequestScalarWhereWithAggregatesInput[]
+    NOT?: SkillRequestScalarWhereWithAggregatesInput | SkillRequestScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SkillRequest"> | string
+    name?: StringWithAggregatesFilter<"SkillRequest"> | string
+    employerId?: StringWithAggregatesFilter<"SkillRequest"> | string
+    status?: EnumSkillRequestStatusWithAggregatesFilter<"SkillRequest"> | $Enums.SkillRequestStatus
+    createdAt?: DateTimeWithAggregatesFilter<"SkillRequest"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SkillRequest"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     firebaseUid: string
     name: string
     email: string
+    emailVerified?: boolean
     phone?: string | null
     role?: $Enums.Role
     bio?: string | null
@@ -9046,6 +11704,8 @@ export namespace Prisma {
     skills?: UserSkillCreateNestedManyWithoutUserInput
     opportunities?: OpportunityCreateNestedManyWithoutEmployerInput
     applications?: ApplicationCreateNestedManyWithoutApplicantInput
+    matchExplanations?: MatchExplanationCreateNestedManyWithoutGraduateInput
+    skillRequests?: SkillRequestCreateNestedManyWithoutEmployerInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -9053,6 +11713,7 @@ export namespace Prisma {
     firebaseUid: string
     name: string
     email: string
+    emailVerified?: boolean
     phone?: string | null
     role?: $Enums.Role
     bio?: string | null
@@ -9063,6 +11724,8 @@ export namespace Prisma {
     skills?: UserSkillUncheckedCreateNestedManyWithoutUserInput
     opportunities?: OpportunityUncheckedCreateNestedManyWithoutEmployerInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    matchExplanations?: MatchExplanationUncheckedCreateNestedManyWithoutGraduateInput
+    skillRequests?: SkillRequestUncheckedCreateNestedManyWithoutEmployerInput
   }
 
   export type UserUpdateInput = {
@@ -9070,6 +11733,7 @@ export namespace Prisma {
     firebaseUid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9080,6 +11744,8 @@ export namespace Prisma {
     skills?: UserSkillUpdateManyWithoutUserNestedInput
     opportunities?: OpportunityUpdateManyWithoutEmployerNestedInput
     applications?: ApplicationUpdateManyWithoutApplicantNestedInput
+    matchExplanations?: MatchExplanationUpdateManyWithoutGraduateNestedInput
+    skillRequests?: SkillRequestUpdateManyWithoutEmployerNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9087,6 +11753,7 @@ export namespace Prisma {
     firebaseUid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9097,6 +11764,8 @@ export namespace Prisma {
     skills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput
     opportunities?: OpportunityUncheckedUpdateManyWithoutEmployerNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    matchExplanations?: MatchExplanationUncheckedUpdateManyWithoutGraduateNestedInput
+    skillRequests?: SkillRequestUncheckedUpdateManyWithoutEmployerNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -9104,6 +11773,7 @@ export namespace Prisma {
     firebaseUid: string
     name: string
     email: string
+    emailVerified?: boolean
     phone?: string | null
     role?: $Enums.Role
     bio?: string | null
@@ -9118,6 +11788,7 @@ export namespace Prisma {
     firebaseUid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9132,6 +11803,7 @@ export namespace Prisma {
     firebaseUid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9268,6 +11940,7 @@ export namespace Prisma {
     employer: UserCreateNestedOneWithoutOpportunitiesInput
     skills?: OpportunitySkillCreateNestedManyWithoutOpportunityInput
     applications?: ApplicationCreateNestedManyWithoutOpportunityInput
+    matchExplanations?: MatchExplanationCreateNestedManyWithoutOpportunityInput
   }
 
   export type OpportunityUncheckedCreateInput = {
@@ -9286,6 +11959,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     skills?: OpportunitySkillUncheckedCreateNestedManyWithoutOpportunityInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutOpportunityInput
+    matchExplanations?: MatchExplanationUncheckedCreateNestedManyWithoutOpportunityInput
   }
 
   export type OpportunityUpdateInput = {
@@ -9304,6 +11978,7 @@ export namespace Prisma {
     employer?: UserUpdateOneRequiredWithoutOpportunitiesNestedInput
     skills?: OpportunitySkillUpdateManyWithoutOpportunityNestedInput
     applications?: ApplicationUpdateManyWithoutOpportunityNestedInput
+    matchExplanations?: MatchExplanationUpdateManyWithoutOpportunityNestedInput
   }
 
   export type OpportunityUncheckedUpdateInput = {
@@ -9322,6 +11997,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     skills?: OpportunitySkillUncheckedUpdateManyWithoutOpportunityNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutOpportunityNestedInput
+    matchExplanations?: MatchExplanationUncheckedUpdateManyWithoutOpportunityNestedInput
   }
 
   export type OpportunityCreateManyInput = {
@@ -9479,6 +12155,129 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MatchExplanationCreateInput = {
+    id?: string
+    explanation: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    graduate: UserCreateNestedOneWithoutMatchExplanationsInput
+    opportunity: OpportunityCreateNestedOneWithoutMatchExplanationsInput
+  }
+
+  export type MatchExplanationUncheckedCreateInput = {
+    id?: string
+    graduateId: string
+    opportunityId: string
+    explanation: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MatchExplanationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    explanation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    graduate?: UserUpdateOneRequiredWithoutMatchExplanationsNestedInput
+    opportunity?: OpportunityUpdateOneRequiredWithoutMatchExplanationsNestedInput
+  }
+
+  export type MatchExplanationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    graduateId?: StringFieldUpdateOperationsInput | string
+    opportunityId?: StringFieldUpdateOperationsInput | string
+    explanation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MatchExplanationCreateManyInput = {
+    id?: string
+    graduateId: string
+    opportunityId: string
+    explanation: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MatchExplanationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    explanation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MatchExplanationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    graduateId?: StringFieldUpdateOperationsInput | string
+    opportunityId?: StringFieldUpdateOperationsInput | string
+    explanation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillRequestCreateInput = {
+    id?: string
+    name: string
+    status?: $Enums.SkillRequestStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employer: UserCreateNestedOneWithoutSkillRequestsInput
+  }
+
+  export type SkillRequestUncheckedCreateInput = {
+    id?: string
+    name: string
+    employerId: string
+    status?: $Enums.SkillRequestStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SkillRequestUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    status?: EnumSkillRequestStatusFieldUpdateOperationsInput | $Enums.SkillRequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employer?: UserUpdateOneRequiredWithoutSkillRequestsNestedInput
+  }
+
+  export type SkillRequestUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    employerId?: StringFieldUpdateOperationsInput | string
+    status?: EnumSkillRequestStatusFieldUpdateOperationsInput | $Enums.SkillRequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillRequestCreateManyInput = {
+    id?: string
+    name: string
+    employerId: string
+    status?: $Enums.SkillRequestStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SkillRequestUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    status?: EnumSkillRequestStatusFieldUpdateOperationsInput | $Enums.SkillRequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillRequestUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    employerId?: StringFieldUpdateOperationsInput | string
+    status?: EnumSkillRequestStatusFieldUpdateOperationsInput | $Enums.SkillRequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -9492,6 +12291,11 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -9545,6 +12349,18 @@ export namespace Prisma {
     none?: ApplicationWhereInput
   }
 
+  export type MatchExplanationListRelationFilter = {
+    every?: MatchExplanationWhereInput
+    some?: MatchExplanationWhereInput
+    none?: MatchExplanationWhereInput
+  }
+
+  export type SkillRequestListRelationFilter = {
+    every?: SkillRequestWhereInput
+    some?: SkillRequestWhereInput
+    none?: SkillRequestWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -9562,11 +12378,20 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type MatchExplanationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SkillRequestOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     firebaseUid?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    emailVerified?: SortOrder
     phone?: SortOrder
     role?: SortOrder
     bio?: SortOrder
@@ -9581,6 +12406,7 @@ export namespace Prisma {
     firebaseUid?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    emailVerified?: SortOrder
     phone?: SortOrder
     role?: SortOrder
     bio?: SortOrder
@@ -9595,6 +12421,7 @@ export namespace Prisma {
     firebaseUid?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    emailVerified?: SortOrder
     phone?: SortOrder
     role?: SortOrder
     bio?: SortOrder
@@ -9620,6 +12447,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -9794,11 +12629,6 @@ export namespace Prisma {
     not?: NestedEnumOpportunityStatusFilter<$PrismaModel> | $Enums.OpportunityStatus
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type OpportunityCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -9915,14 +12745,6 @@ export namespace Prisma {
     _max?: NestedEnumOpportunityStatusFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type OpportunityScalarRelationFilter = {
     is?: OpportunityWhereInput
     isNot?: OpportunityWhereInput
@@ -10003,6 +12825,82 @@ export namespace Prisma {
     _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
   }
 
+  export type MatchExplanationGraduateIdOpportunityIdCompoundUniqueInput = {
+    graduateId: string
+    opportunityId: string
+  }
+
+  export type MatchExplanationCountOrderByAggregateInput = {
+    id?: SortOrder
+    graduateId?: SortOrder
+    opportunityId?: SortOrder
+    explanation?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MatchExplanationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    graduateId?: SortOrder
+    opportunityId?: SortOrder
+    explanation?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MatchExplanationMinOrderByAggregateInput = {
+    id?: SortOrder
+    graduateId?: SortOrder
+    opportunityId?: SortOrder
+    explanation?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumSkillRequestStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SkillRequestStatus | EnumSkillRequestStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SkillRequestStatus[] | ListEnumSkillRequestStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SkillRequestStatus[] | ListEnumSkillRequestStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSkillRequestStatusFilter<$PrismaModel> | $Enums.SkillRequestStatus
+  }
+
+  export type SkillRequestCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    employerId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SkillRequestMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    employerId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SkillRequestMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    employerId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumSkillRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SkillRequestStatus | EnumSkillRequestStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SkillRequestStatus[] | ListEnumSkillRequestStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SkillRequestStatus[] | ListEnumSkillRequestStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSkillRequestStatusWithAggregatesFilter<$PrismaModel> | $Enums.SkillRequestStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSkillRequestStatusFilter<$PrismaModel>
+    _max?: NestedEnumSkillRequestStatusFilter<$PrismaModel>
+  }
+
   export type UserSkillCreateNestedManyWithoutUserInput = {
     create?: XOR<UserSkillCreateWithoutUserInput, UserSkillUncheckedCreateWithoutUserInput> | UserSkillCreateWithoutUserInput[] | UserSkillUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserSkillCreateOrConnectWithoutUserInput | UserSkillCreateOrConnectWithoutUserInput[]
@@ -10022,6 +12920,20 @@ export namespace Prisma {
     connectOrCreate?: ApplicationCreateOrConnectWithoutApplicantInput | ApplicationCreateOrConnectWithoutApplicantInput[]
     createMany?: ApplicationCreateManyApplicantInputEnvelope
     connect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
+  }
+
+  export type MatchExplanationCreateNestedManyWithoutGraduateInput = {
+    create?: XOR<MatchExplanationCreateWithoutGraduateInput, MatchExplanationUncheckedCreateWithoutGraduateInput> | MatchExplanationCreateWithoutGraduateInput[] | MatchExplanationUncheckedCreateWithoutGraduateInput[]
+    connectOrCreate?: MatchExplanationCreateOrConnectWithoutGraduateInput | MatchExplanationCreateOrConnectWithoutGraduateInput[]
+    createMany?: MatchExplanationCreateManyGraduateInputEnvelope
+    connect?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+  }
+
+  export type SkillRequestCreateNestedManyWithoutEmployerInput = {
+    create?: XOR<SkillRequestCreateWithoutEmployerInput, SkillRequestUncheckedCreateWithoutEmployerInput> | SkillRequestCreateWithoutEmployerInput[] | SkillRequestUncheckedCreateWithoutEmployerInput[]
+    connectOrCreate?: SkillRequestCreateOrConnectWithoutEmployerInput | SkillRequestCreateOrConnectWithoutEmployerInput[]
+    createMany?: SkillRequestCreateManyEmployerInputEnvelope
+    connect?: SkillRequestWhereUniqueInput | SkillRequestWhereUniqueInput[]
   }
 
   export type UserSkillUncheckedCreateNestedManyWithoutUserInput = {
@@ -10045,8 +12957,26 @@ export namespace Prisma {
     connect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
   }
 
+  export type MatchExplanationUncheckedCreateNestedManyWithoutGraduateInput = {
+    create?: XOR<MatchExplanationCreateWithoutGraduateInput, MatchExplanationUncheckedCreateWithoutGraduateInput> | MatchExplanationCreateWithoutGraduateInput[] | MatchExplanationUncheckedCreateWithoutGraduateInput[]
+    connectOrCreate?: MatchExplanationCreateOrConnectWithoutGraduateInput | MatchExplanationCreateOrConnectWithoutGraduateInput[]
+    createMany?: MatchExplanationCreateManyGraduateInputEnvelope
+    connect?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+  }
+
+  export type SkillRequestUncheckedCreateNestedManyWithoutEmployerInput = {
+    create?: XOR<SkillRequestCreateWithoutEmployerInput, SkillRequestUncheckedCreateWithoutEmployerInput> | SkillRequestCreateWithoutEmployerInput[] | SkillRequestUncheckedCreateWithoutEmployerInput[]
+    connectOrCreate?: SkillRequestCreateOrConnectWithoutEmployerInput | SkillRequestCreateOrConnectWithoutEmployerInput[]
+    createMany?: SkillRequestCreateManyEmployerInputEnvelope
+    connect?: SkillRequestWhereUniqueInput | SkillRequestWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -10103,6 +13033,34 @@ export namespace Prisma {
     deleteMany?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
   }
 
+  export type MatchExplanationUpdateManyWithoutGraduateNestedInput = {
+    create?: XOR<MatchExplanationCreateWithoutGraduateInput, MatchExplanationUncheckedCreateWithoutGraduateInput> | MatchExplanationCreateWithoutGraduateInput[] | MatchExplanationUncheckedCreateWithoutGraduateInput[]
+    connectOrCreate?: MatchExplanationCreateOrConnectWithoutGraduateInput | MatchExplanationCreateOrConnectWithoutGraduateInput[]
+    upsert?: MatchExplanationUpsertWithWhereUniqueWithoutGraduateInput | MatchExplanationUpsertWithWhereUniqueWithoutGraduateInput[]
+    createMany?: MatchExplanationCreateManyGraduateInputEnvelope
+    set?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+    disconnect?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+    delete?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+    connect?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+    update?: MatchExplanationUpdateWithWhereUniqueWithoutGraduateInput | MatchExplanationUpdateWithWhereUniqueWithoutGraduateInput[]
+    updateMany?: MatchExplanationUpdateManyWithWhereWithoutGraduateInput | MatchExplanationUpdateManyWithWhereWithoutGraduateInput[]
+    deleteMany?: MatchExplanationScalarWhereInput | MatchExplanationScalarWhereInput[]
+  }
+
+  export type SkillRequestUpdateManyWithoutEmployerNestedInput = {
+    create?: XOR<SkillRequestCreateWithoutEmployerInput, SkillRequestUncheckedCreateWithoutEmployerInput> | SkillRequestCreateWithoutEmployerInput[] | SkillRequestUncheckedCreateWithoutEmployerInput[]
+    connectOrCreate?: SkillRequestCreateOrConnectWithoutEmployerInput | SkillRequestCreateOrConnectWithoutEmployerInput[]
+    upsert?: SkillRequestUpsertWithWhereUniqueWithoutEmployerInput | SkillRequestUpsertWithWhereUniqueWithoutEmployerInput[]
+    createMany?: SkillRequestCreateManyEmployerInputEnvelope
+    set?: SkillRequestWhereUniqueInput | SkillRequestWhereUniqueInput[]
+    disconnect?: SkillRequestWhereUniqueInput | SkillRequestWhereUniqueInput[]
+    delete?: SkillRequestWhereUniqueInput | SkillRequestWhereUniqueInput[]
+    connect?: SkillRequestWhereUniqueInput | SkillRequestWhereUniqueInput[]
+    update?: SkillRequestUpdateWithWhereUniqueWithoutEmployerInput | SkillRequestUpdateWithWhereUniqueWithoutEmployerInput[]
+    updateMany?: SkillRequestUpdateManyWithWhereWithoutEmployerInput | SkillRequestUpdateManyWithWhereWithoutEmployerInput[]
+    deleteMany?: SkillRequestScalarWhereInput | SkillRequestScalarWhereInput[]
+  }
+
   export type UserSkillUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserSkillCreateWithoutUserInput, UserSkillUncheckedCreateWithoutUserInput> | UserSkillCreateWithoutUserInput[] | UserSkillUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserSkillCreateOrConnectWithoutUserInput | UserSkillCreateOrConnectWithoutUserInput[]
@@ -10143,6 +13101,34 @@ export namespace Prisma {
     update?: ApplicationUpdateWithWhereUniqueWithoutApplicantInput | ApplicationUpdateWithWhereUniqueWithoutApplicantInput[]
     updateMany?: ApplicationUpdateManyWithWhereWithoutApplicantInput | ApplicationUpdateManyWithWhereWithoutApplicantInput[]
     deleteMany?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
+  }
+
+  export type MatchExplanationUncheckedUpdateManyWithoutGraduateNestedInput = {
+    create?: XOR<MatchExplanationCreateWithoutGraduateInput, MatchExplanationUncheckedCreateWithoutGraduateInput> | MatchExplanationCreateWithoutGraduateInput[] | MatchExplanationUncheckedCreateWithoutGraduateInput[]
+    connectOrCreate?: MatchExplanationCreateOrConnectWithoutGraduateInput | MatchExplanationCreateOrConnectWithoutGraduateInput[]
+    upsert?: MatchExplanationUpsertWithWhereUniqueWithoutGraduateInput | MatchExplanationUpsertWithWhereUniqueWithoutGraduateInput[]
+    createMany?: MatchExplanationCreateManyGraduateInputEnvelope
+    set?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+    disconnect?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+    delete?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+    connect?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+    update?: MatchExplanationUpdateWithWhereUniqueWithoutGraduateInput | MatchExplanationUpdateWithWhereUniqueWithoutGraduateInput[]
+    updateMany?: MatchExplanationUpdateManyWithWhereWithoutGraduateInput | MatchExplanationUpdateManyWithWhereWithoutGraduateInput[]
+    deleteMany?: MatchExplanationScalarWhereInput | MatchExplanationScalarWhereInput[]
+  }
+
+  export type SkillRequestUncheckedUpdateManyWithoutEmployerNestedInput = {
+    create?: XOR<SkillRequestCreateWithoutEmployerInput, SkillRequestUncheckedCreateWithoutEmployerInput> | SkillRequestCreateWithoutEmployerInput[] | SkillRequestUncheckedCreateWithoutEmployerInput[]
+    connectOrCreate?: SkillRequestCreateOrConnectWithoutEmployerInput | SkillRequestCreateOrConnectWithoutEmployerInput[]
+    upsert?: SkillRequestUpsertWithWhereUniqueWithoutEmployerInput | SkillRequestUpsertWithWhereUniqueWithoutEmployerInput[]
+    createMany?: SkillRequestCreateManyEmployerInputEnvelope
+    set?: SkillRequestWhereUniqueInput | SkillRequestWhereUniqueInput[]
+    disconnect?: SkillRequestWhereUniqueInput | SkillRequestWhereUniqueInput[]
+    delete?: SkillRequestWhereUniqueInput | SkillRequestWhereUniqueInput[]
+    connect?: SkillRequestWhereUniqueInput | SkillRequestWhereUniqueInput[]
+    update?: SkillRequestUpdateWithWhereUniqueWithoutEmployerInput | SkillRequestUpdateWithWhereUniqueWithoutEmployerInput[]
+    updateMany?: SkillRequestUpdateManyWithWhereWithoutEmployerInput | SkillRequestUpdateManyWithWhereWithoutEmployerInput[]
+    deleteMany?: SkillRequestScalarWhereInput | SkillRequestScalarWhereInput[]
   }
 
   export type UserSkillCreateNestedManyWithoutSkillInput = {
@@ -10281,6 +13267,13 @@ export namespace Prisma {
     connect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
   }
 
+  export type MatchExplanationCreateNestedManyWithoutOpportunityInput = {
+    create?: XOR<MatchExplanationCreateWithoutOpportunityInput, MatchExplanationUncheckedCreateWithoutOpportunityInput> | MatchExplanationCreateWithoutOpportunityInput[] | MatchExplanationUncheckedCreateWithoutOpportunityInput[]
+    connectOrCreate?: MatchExplanationCreateOrConnectWithoutOpportunityInput | MatchExplanationCreateOrConnectWithoutOpportunityInput[]
+    createMany?: MatchExplanationCreateManyOpportunityInputEnvelope
+    connect?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+  }
+
   export type OpportunitySkillUncheckedCreateNestedManyWithoutOpportunityInput = {
     create?: XOR<OpportunitySkillCreateWithoutOpportunityInput, OpportunitySkillUncheckedCreateWithoutOpportunityInput> | OpportunitySkillCreateWithoutOpportunityInput[] | OpportunitySkillUncheckedCreateWithoutOpportunityInput[]
     connectOrCreate?: OpportunitySkillCreateOrConnectWithoutOpportunityInput | OpportunitySkillCreateOrConnectWithoutOpportunityInput[]
@@ -10293,6 +13286,13 @@ export namespace Prisma {
     connectOrCreate?: ApplicationCreateOrConnectWithoutOpportunityInput | ApplicationCreateOrConnectWithoutOpportunityInput[]
     createMany?: ApplicationCreateManyOpportunityInputEnvelope
     connect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
+  }
+
+  export type MatchExplanationUncheckedCreateNestedManyWithoutOpportunityInput = {
+    create?: XOR<MatchExplanationCreateWithoutOpportunityInput, MatchExplanationUncheckedCreateWithoutOpportunityInput> | MatchExplanationCreateWithoutOpportunityInput[] | MatchExplanationUncheckedCreateWithoutOpportunityInput[]
+    connectOrCreate?: MatchExplanationCreateOrConnectWithoutOpportunityInput | MatchExplanationCreateOrConnectWithoutOpportunityInput[]
+    createMany?: MatchExplanationCreateManyOpportunityInputEnvelope
+    connect?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
   }
 
   export type EnumOpportunityTypeFieldUpdateOperationsInput = {
@@ -10317,10 +13317,6 @@ export namespace Prisma {
 
   export type EnumOpportunityStatusFieldUpdateOperationsInput = {
     set?: $Enums.OpportunityStatus
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type UserUpdateOneRequiredWithoutOpportunitiesNestedInput = {
@@ -10359,6 +13355,20 @@ export namespace Prisma {
     deleteMany?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
   }
 
+  export type MatchExplanationUpdateManyWithoutOpportunityNestedInput = {
+    create?: XOR<MatchExplanationCreateWithoutOpportunityInput, MatchExplanationUncheckedCreateWithoutOpportunityInput> | MatchExplanationCreateWithoutOpportunityInput[] | MatchExplanationUncheckedCreateWithoutOpportunityInput[]
+    connectOrCreate?: MatchExplanationCreateOrConnectWithoutOpportunityInput | MatchExplanationCreateOrConnectWithoutOpportunityInput[]
+    upsert?: MatchExplanationUpsertWithWhereUniqueWithoutOpportunityInput | MatchExplanationUpsertWithWhereUniqueWithoutOpportunityInput[]
+    createMany?: MatchExplanationCreateManyOpportunityInputEnvelope
+    set?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+    disconnect?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+    delete?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+    connect?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+    update?: MatchExplanationUpdateWithWhereUniqueWithoutOpportunityInput | MatchExplanationUpdateWithWhereUniqueWithoutOpportunityInput[]
+    updateMany?: MatchExplanationUpdateManyWithWhereWithoutOpportunityInput | MatchExplanationUpdateManyWithWhereWithoutOpportunityInput[]
+    deleteMany?: MatchExplanationScalarWhereInput | MatchExplanationScalarWhereInput[]
+  }
+
   export type OpportunitySkillUncheckedUpdateManyWithoutOpportunityNestedInput = {
     create?: XOR<OpportunitySkillCreateWithoutOpportunityInput, OpportunitySkillUncheckedCreateWithoutOpportunityInput> | OpportunitySkillCreateWithoutOpportunityInput[] | OpportunitySkillUncheckedCreateWithoutOpportunityInput[]
     connectOrCreate?: OpportunitySkillCreateOrConnectWithoutOpportunityInput | OpportunitySkillCreateOrConnectWithoutOpportunityInput[]
@@ -10385,6 +13395,20 @@ export namespace Prisma {
     update?: ApplicationUpdateWithWhereUniqueWithoutOpportunityInput | ApplicationUpdateWithWhereUniqueWithoutOpportunityInput[]
     updateMany?: ApplicationUpdateManyWithWhereWithoutOpportunityInput | ApplicationUpdateManyWithWhereWithoutOpportunityInput[]
     deleteMany?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
+  }
+
+  export type MatchExplanationUncheckedUpdateManyWithoutOpportunityNestedInput = {
+    create?: XOR<MatchExplanationCreateWithoutOpportunityInput, MatchExplanationUncheckedCreateWithoutOpportunityInput> | MatchExplanationCreateWithoutOpportunityInput[] | MatchExplanationUncheckedCreateWithoutOpportunityInput[]
+    connectOrCreate?: MatchExplanationCreateOrConnectWithoutOpportunityInput | MatchExplanationCreateOrConnectWithoutOpportunityInput[]
+    upsert?: MatchExplanationUpsertWithWhereUniqueWithoutOpportunityInput | MatchExplanationUpsertWithWhereUniqueWithoutOpportunityInput[]
+    createMany?: MatchExplanationCreateManyOpportunityInputEnvelope
+    set?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+    disconnect?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+    delete?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+    connect?: MatchExplanationWhereUniqueInput | MatchExplanationWhereUniqueInput[]
+    update?: MatchExplanationUpdateWithWhereUniqueWithoutOpportunityInput | MatchExplanationUpdateWithWhereUniqueWithoutOpportunityInput[]
+    updateMany?: MatchExplanationUpdateManyWithWhereWithoutOpportunityInput | MatchExplanationUpdateManyWithWhereWithoutOpportunityInput[]
+    deleteMany?: MatchExplanationScalarWhereInput | MatchExplanationScalarWhereInput[]
   }
 
   export type OpportunityCreateNestedOneWithoutSkillsInput = {
@@ -10447,6 +13471,52 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutApplicationsInput, UserUpdateWithoutApplicationsInput>, UserUncheckedUpdateWithoutApplicationsInput>
   }
 
+  export type UserCreateNestedOneWithoutMatchExplanationsInput = {
+    create?: XOR<UserCreateWithoutMatchExplanationsInput, UserUncheckedCreateWithoutMatchExplanationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMatchExplanationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type OpportunityCreateNestedOneWithoutMatchExplanationsInput = {
+    create?: XOR<OpportunityCreateWithoutMatchExplanationsInput, OpportunityUncheckedCreateWithoutMatchExplanationsInput>
+    connectOrCreate?: OpportunityCreateOrConnectWithoutMatchExplanationsInput
+    connect?: OpportunityWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutMatchExplanationsNestedInput = {
+    create?: XOR<UserCreateWithoutMatchExplanationsInput, UserUncheckedCreateWithoutMatchExplanationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMatchExplanationsInput
+    upsert?: UserUpsertWithoutMatchExplanationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMatchExplanationsInput, UserUpdateWithoutMatchExplanationsInput>, UserUncheckedUpdateWithoutMatchExplanationsInput>
+  }
+
+  export type OpportunityUpdateOneRequiredWithoutMatchExplanationsNestedInput = {
+    create?: XOR<OpportunityCreateWithoutMatchExplanationsInput, OpportunityUncheckedCreateWithoutMatchExplanationsInput>
+    connectOrCreate?: OpportunityCreateOrConnectWithoutMatchExplanationsInput
+    upsert?: OpportunityUpsertWithoutMatchExplanationsInput
+    connect?: OpportunityWhereUniqueInput
+    update?: XOR<XOR<OpportunityUpdateToOneWithWhereWithoutMatchExplanationsInput, OpportunityUpdateWithoutMatchExplanationsInput>, OpportunityUncheckedUpdateWithoutMatchExplanationsInput>
+  }
+
+  export type UserCreateNestedOneWithoutSkillRequestsInput = {
+    create?: XOR<UserCreateWithoutSkillRequestsInput, UserUncheckedCreateWithoutSkillRequestsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSkillRequestsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumSkillRequestStatusFieldUpdateOperationsInput = {
+    set?: $Enums.SkillRequestStatus
+  }
+
+  export type UserUpdateOneRequiredWithoutSkillRequestsNestedInput = {
+    create?: XOR<UserCreateWithoutSkillRequestsInput, UserUncheckedCreateWithoutSkillRequestsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSkillRequestsInput
+    upsert?: UserUpsertWithoutSkillRequestsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSkillRequestsInput, UserUpdateWithoutSkillRequestsInput>, UserUncheckedUpdateWithoutSkillRequestsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -10459,6 +13529,11 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
@@ -10519,6 +13594,14 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -10622,11 +13705,6 @@ export namespace Prisma {
     not?: NestedEnumOpportunityStatusFilter<$PrismaModel> | $Enums.OpportunityStatus
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedEnumOpportunityTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.OpportunityType | EnumOpportunityTypeFieldRefInput<$PrismaModel>
     in?: $Enums.OpportunityType[] | ListEnumOpportunityTypeFieldRefInput<$PrismaModel>
@@ -10698,14 +13776,6 @@ export namespace Prisma {
     _max?: NestedEnumOpportunityStatusFilter<$PrismaModel>
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type NestedEnumApplicationStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
@@ -10721,6 +13791,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
     _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSkillRequestStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SkillRequestStatus | EnumSkillRequestStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SkillRequestStatus[] | ListEnumSkillRequestStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SkillRequestStatus[] | ListEnumSkillRequestStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSkillRequestStatusFilter<$PrismaModel> | $Enums.SkillRequestStatus
+  }
+
+  export type NestedEnumSkillRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SkillRequestStatus | EnumSkillRequestStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SkillRequestStatus[] | ListEnumSkillRequestStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SkillRequestStatus[] | ListEnumSkillRequestStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSkillRequestStatusWithAggregatesFilter<$PrismaModel> | $Enums.SkillRequestStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSkillRequestStatusFilter<$PrismaModel>
+    _max?: NestedEnumSkillRequestStatusFilter<$PrismaModel>
   }
 
   export type UserSkillCreateWithoutUserInput = {
@@ -10762,6 +13849,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     skills?: OpportunitySkillCreateNestedManyWithoutOpportunityInput
     applications?: ApplicationCreateNestedManyWithoutOpportunityInput
+    matchExplanations?: MatchExplanationCreateNestedManyWithoutOpportunityInput
   }
 
   export type OpportunityUncheckedCreateWithoutEmployerInput = {
@@ -10779,6 +13867,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     skills?: OpportunitySkillUncheckedCreateNestedManyWithoutOpportunityInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutOpportunityInput
+    matchExplanations?: MatchExplanationUncheckedCreateNestedManyWithoutOpportunityInput
   }
 
   export type OpportunityCreateOrConnectWithoutEmployerInput = {
@@ -10816,6 +13905,58 @@ export namespace Prisma {
 
   export type ApplicationCreateManyApplicantInputEnvelope = {
     data: ApplicationCreateManyApplicantInput | ApplicationCreateManyApplicantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MatchExplanationCreateWithoutGraduateInput = {
+    id?: string
+    explanation: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    opportunity: OpportunityCreateNestedOneWithoutMatchExplanationsInput
+  }
+
+  export type MatchExplanationUncheckedCreateWithoutGraduateInput = {
+    id?: string
+    opportunityId: string
+    explanation: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MatchExplanationCreateOrConnectWithoutGraduateInput = {
+    where: MatchExplanationWhereUniqueInput
+    create: XOR<MatchExplanationCreateWithoutGraduateInput, MatchExplanationUncheckedCreateWithoutGraduateInput>
+  }
+
+  export type MatchExplanationCreateManyGraduateInputEnvelope = {
+    data: MatchExplanationCreateManyGraduateInput | MatchExplanationCreateManyGraduateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SkillRequestCreateWithoutEmployerInput = {
+    id?: string
+    name: string
+    status?: $Enums.SkillRequestStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SkillRequestUncheckedCreateWithoutEmployerInput = {
+    id?: string
+    name: string
+    status?: $Enums.SkillRequestStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SkillRequestCreateOrConnectWithoutEmployerInput = {
+    where: SkillRequestWhereUniqueInput
+    create: XOR<SkillRequestCreateWithoutEmployerInput, SkillRequestUncheckedCreateWithoutEmployerInput>
+  }
+
+  export type SkillRequestCreateManyEmployerInputEnvelope = {
+    data: SkillRequestCreateManyEmployerInput | SkillRequestCreateManyEmployerInput[]
     skipDuplicates?: boolean
   }
 
@@ -10910,6 +14051,62 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Application"> | Date | string
   }
 
+  export type MatchExplanationUpsertWithWhereUniqueWithoutGraduateInput = {
+    where: MatchExplanationWhereUniqueInput
+    update: XOR<MatchExplanationUpdateWithoutGraduateInput, MatchExplanationUncheckedUpdateWithoutGraduateInput>
+    create: XOR<MatchExplanationCreateWithoutGraduateInput, MatchExplanationUncheckedCreateWithoutGraduateInput>
+  }
+
+  export type MatchExplanationUpdateWithWhereUniqueWithoutGraduateInput = {
+    where: MatchExplanationWhereUniqueInput
+    data: XOR<MatchExplanationUpdateWithoutGraduateInput, MatchExplanationUncheckedUpdateWithoutGraduateInput>
+  }
+
+  export type MatchExplanationUpdateManyWithWhereWithoutGraduateInput = {
+    where: MatchExplanationScalarWhereInput
+    data: XOR<MatchExplanationUpdateManyMutationInput, MatchExplanationUncheckedUpdateManyWithoutGraduateInput>
+  }
+
+  export type MatchExplanationScalarWhereInput = {
+    AND?: MatchExplanationScalarWhereInput | MatchExplanationScalarWhereInput[]
+    OR?: MatchExplanationScalarWhereInput[]
+    NOT?: MatchExplanationScalarWhereInput | MatchExplanationScalarWhereInput[]
+    id?: StringFilter<"MatchExplanation"> | string
+    graduateId?: StringFilter<"MatchExplanation"> | string
+    opportunityId?: StringFilter<"MatchExplanation"> | string
+    explanation?: StringFilter<"MatchExplanation"> | string
+    createdAt?: DateTimeFilter<"MatchExplanation"> | Date | string
+    updatedAt?: DateTimeFilter<"MatchExplanation"> | Date | string
+  }
+
+  export type SkillRequestUpsertWithWhereUniqueWithoutEmployerInput = {
+    where: SkillRequestWhereUniqueInput
+    update: XOR<SkillRequestUpdateWithoutEmployerInput, SkillRequestUncheckedUpdateWithoutEmployerInput>
+    create: XOR<SkillRequestCreateWithoutEmployerInput, SkillRequestUncheckedCreateWithoutEmployerInput>
+  }
+
+  export type SkillRequestUpdateWithWhereUniqueWithoutEmployerInput = {
+    where: SkillRequestWhereUniqueInput
+    data: XOR<SkillRequestUpdateWithoutEmployerInput, SkillRequestUncheckedUpdateWithoutEmployerInput>
+  }
+
+  export type SkillRequestUpdateManyWithWhereWithoutEmployerInput = {
+    where: SkillRequestScalarWhereInput
+    data: XOR<SkillRequestUpdateManyMutationInput, SkillRequestUncheckedUpdateManyWithoutEmployerInput>
+  }
+
+  export type SkillRequestScalarWhereInput = {
+    AND?: SkillRequestScalarWhereInput | SkillRequestScalarWhereInput[]
+    OR?: SkillRequestScalarWhereInput[]
+    NOT?: SkillRequestScalarWhereInput | SkillRequestScalarWhereInput[]
+    id?: StringFilter<"SkillRequest"> | string
+    name?: StringFilter<"SkillRequest"> | string
+    employerId?: StringFilter<"SkillRequest"> | string
+    status?: EnumSkillRequestStatusFilter<"SkillRequest"> | $Enums.SkillRequestStatus
+    createdAt?: DateTimeFilter<"SkillRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"SkillRequest"> | Date | string
+  }
+
   export type UserSkillCreateWithoutSkillInput = {
     id?: string
     experienceLevel?: $Enums.ExperienceLevel
@@ -11000,6 +14197,7 @@ export namespace Prisma {
     firebaseUid: string
     name: string
     email: string
+    emailVerified?: boolean
     phone?: string | null
     role?: $Enums.Role
     bio?: string | null
@@ -11009,6 +14207,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     opportunities?: OpportunityCreateNestedManyWithoutEmployerInput
     applications?: ApplicationCreateNestedManyWithoutApplicantInput
+    matchExplanations?: MatchExplanationCreateNestedManyWithoutGraduateInput
+    skillRequests?: SkillRequestCreateNestedManyWithoutEmployerInput
   }
 
   export type UserUncheckedCreateWithoutSkillsInput = {
@@ -11016,6 +14216,7 @@ export namespace Prisma {
     firebaseUid: string
     name: string
     email: string
+    emailVerified?: boolean
     phone?: string | null
     role?: $Enums.Role
     bio?: string | null
@@ -11025,6 +14226,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     opportunities?: OpportunityUncheckedCreateNestedManyWithoutEmployerInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    matchExplanations?: MatchExplanationUncheckedCreateNestedManyWithoutGraduateInput
+    skillRequests?: SkillRequestUncheckedCreateNestedManyWithoutEmployerInput
   }
 
   export type UserCreateOrConnectWithoutSkillsInput = {
@@ -11069,6 +14272,7 @@ export namespace Prisma {
     firebaseUid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11078,6 +14282,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     opportunities?: OpportunityUpdateManyWithoutEmployerNestedInput
     applications?: ApplicationUpdateManyWithoutApplicantNestedInput
+    matchExplanations?: MatchExplanationUpdateManyWithoutGraduateNestedInput
+    skillRequests?: SkillRequestUpdateManyWithoutEmployerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSkillsInput = {
@@ -11085,6 +14291,7 @@ export namespace Prisma {
     firebaseUid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11094,6 +14301,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     opportunities?: OpportunityUncheckedUpdateManyWithoutEmployerNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    matchExplanations?: MatchExplanationUncheckedUpdateManyWithoutGraduateNestedInput
+    skillRequests?: SkillRequestUncheckedUpdateManyWithoutEmployerNestedInput
   }
 
   export type SkillUpsertWithoutUsersInput = {
@@ -11128,6 +14337,7 @@ export namespace Prisma {
     firebaseUid: string
     name: string
     email: string
+    emailVerified?: boolean
     phone?: string | null
     role?: $Enums.Role
     bio?: string | null
@@ -11137,6 +14347,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     skills?: UserSkillCreateNestedManyWithoutUserInput
     applications?: ApplicationCreateNestedManyWithoutApplicantInput
+    matchExplanations?: MatchExplanationCreateNestedManyWithoutGraduateInput
+    skillRequests?: SkillRequestCreateNestedManyWithoutEmployerInput
   }
 
   export type UserUncheckedCreateWithoutOpportunitiesInput = {
@@ -11144,6 +14356,7 @@ export namespace Prisma {
     firebaseUid: string
     name: string
     email: string
+    emailVerified?: boolean
     phone?: string | null
     role?: $Enums.Role
     bio?: string | null
@@ -11153,6 +14366,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     skills?: UserSkillUncheckedCreateNestedManyWithoutUserInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    matchExplanations?: MatchExplanationUncheckedCreateNestedManyWithoutGraduateInput
+    skillRequests?: SkillRequestUncheckedCreateNestedManyWithoutEmployerInput
   }
 
   export type UserCreateOrConnectWithoutOpportunitiesInput = {
@@ -11208,6 +14423,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MatchExplanationCreateWithoutOpportunityInput = {
+    id?: string
+    explanation: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    graduate: UserCreateNestedOneWithoutMatchExplanationsInput
+  }
+
+  export type MatchExplanationUncheckedCreateWithoutOpportunityInput = {
+    id?: string
+    graduateId: string
+    explanation: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MatchExplanationCreateOrConnectWithoutOpportunityInput = {
+    where: MatchExplanationWhereUniqueInput
+    create: XOR<MatchExplanationCreateWithoutOpportunityInput, MatchExplanationUncheckedCreateWithoutOpportunityInput>
+  }
+
+  export type MatchExplanationCreateManyOpportunityInputEnvelope = {
+    data: MatchExplanationCreateManyOpportunityInput | MatchExplanationCreateManyOpportunityInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutOpportunitiesInput = {
     update: XOR<UserUpdateWithoutOpportunitiesInput, UserUncheckedUpdateWithoutOpportunitiesInput>
     create: XOR<UserCreateWithoutOpportunitiesInput, UserUncheckedCreateWithoutOpportunitiesInput>
@@ -11224,6 +14465,7 @@ export namespace Prisma {
     firebaseUid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11233,6 +14475,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     skills?: UserSkillUpdateManyWithoutUserNestedInput
     applications?: ApplicationUpdateManyWithoutApplicantNestedInput
+    matchExplanations?: MatchExplanationUpdateManyWithoutGraduateNestedInput
+    skillRequests?: SkillRequestUpdateManyWithoutEmployerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOpportunitiesInput = {
@@ -11240,6 +14484,7 @@ export namespace Prisma {
     firebaseUid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11249,6 +14494,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     skills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    matchExplanations?: MatchExplanationUncheckedUpdateManyWithoutGraduateNestedInput
+    skillRequests?: SkillRequestUncheckedUpdateManyWithoutEmployerNestedInput
   }
 
   export type OpportunitySkillUpsertWithWhereUniqueWithoutOpportunityInput = {
@@ -11283,6 +14530,22 @@ export namespace Prisma {
     data: XOR<ApplicationUpdateManyMutationInput, ApplicationUncheckedUpdateManyWithoutOpportunityInput>
   }
 
+  export type MatchExplanationUpsertWithWhereUniqueWithoutOpportunityInput = {
+    where: MatchExplanationWhereUniqueInput
+    update: XOR<MatchExplanationUpdateWithoutOpportunityInput, MatchExplanationUncheckedUpdateWithoutOpportunityInput>
+    create: XOR<MatchExplanationCreateWithoutOpportunityInput, MatchExplanationUncheckedCreateWithoutOpportunityInput>
+  }
+
+  export type MatchExplanationUpdateWithWhereUniqueWithoutOpportunityInput = {
+    where: MatchExplanationWhereUniqueInput
+    data: XOR<MatchExplanationUpdateWithoutOpportunityInput, MatchExplanationUncheckedUpdateWithoutOpportunityInput>
+  }
+
+  export type MatchExplanationUpdateManyWithWhereWithoutOpportunityInput = {
+    where: MatchExplanationScalarWhereInput
+    data: XOR<MatchExplanationUpdateManyMutationInput, MatchExplanationUncheckedUpdateManyWithoutOpportunityInput>
+  }
+
   export type OpportunityCreateWithoutSkillsInput = {
     id?: string
     title: string
@@ -11298,6 +14561,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     employer: UserCreateNestedOneWithoutOpportunitiesInput
     applications?: ApplicationCreateNestedManyWithoutOpportunityInput
+    matchExplanations?: MatchExplanationCreateNestedManyWithoutOpportunityInput
   }
 
   export type OpportunityUncheckedCreateWithoutSkillsInput = {
@@ -11315,6 +14579,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     applications?: ApplicationUncheckedCreateNestedManyWithoutOpportunityInput
+    matchExplanations?: MatchExplanationUncheckedCreateNestedManyWithoutOpportunityInput
   }
 
   export type OpportunityCreateOrConnectWithoutSkillsInput = {
@@ -11369,6 +14634,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employer?: UserUpdateOneRequiredWithoutOpportunitiesNestedInput
     applications?: ApplicationUpdateManyWithoutOpportunityNestedInput
+    matchExplanations?: MatchExplanationUpdateManyWithoutOpportunityNestedInput
   }
 
   export type OpportunityUncheckedUpdateWithoutSkillsInput = {
@@ -11386,6 +14652,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applications?: ApplicationUncheckedUpdateManyWithoutOpportunityNestedInput
+    matchExplanations?: MatchExplanationUncheckedUpdateManyWithoutOpportunityNestedInput
   }
 
   export type SkillUpsertWithoutOpportunitiesInput = {
@@ -11430,6 +14697,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     employer: UserCreateNestedOneWithoutOpportunitiesInput
     skills?: OpportunitySkillCreateNestedManyWithoutOpportunityInput
+    matchExplanations?: MatchExplanationCreateNestedManyWithoutOpportunityInput
   }
 
   export type OpportunityUncheckedCreateWithoutApplicationsInput = {
@@ -11447,6 +14715,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     skills?: OpportunitySkillUncheckedCreateNestedManyWithoutOpportunityInput
+    matchExplanations?: MatchExplanationUncheckedCreateNestedManyWithoutOpportunityInput
   }
 
   export type OpportunityCreateOrConnectWithoutApplicationsInput = {
@@ -11459,6 +14728,7 @@ export namespace Prisma {
     firebaseUid: string
     name: string
     email: string
+    emailVerified?: boolean
     phone?: string | null
     role?: $Enums.Role
     bio?: string | null
@@ -11468,6 +14738,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     skills?: UserSkillCreateNestedManyWithoutUserInput
     opportunities?: OpportunityCreateNestedManyWithoutEmployerInput
+    matchExplanations?: MatchExplanationCreateNestedManyWithoutGraduateInput
+    skillRequests?: SkillRequestCreateNestedManyWithoutEmployerInput
   }
 
   export type UserUncheckedCreateWithoutApplicationsInput = {
@@ -11475,6 +14747,7 @@ export namespace Prisma {
     firebaseUid: string
     name: string
     email: string
+    emailVerified?: boolean
     phone?: string | null
     role?: $Enums.Role
     bio?: string | null
@@ -11484,6 +14757,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     skills?: UserSkillUncheckedCreateNestedManyWithoutUserInput
     opportunities?: OpportunityUncheckedCreateNestedManyWithoutEmployerInput
+    matchExplanations?: MatchExplanationUncheckedCreateNestedManyWithoutGraduateInput
+    skillRequests?: SkillRequestUncheckedCreateNestedManyWithoutEmployerInput
   }
 
   export type UserCreateOrConnectWithoutApplicationsInput = {
@@ -11517,6 +14792,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employer?: UserUpdateOneRequiredWithoutOpportunitiesNestedInput
     skills?: OpportunitySkillUpdateManyWithoutOpportunityNestedInput
+    matchExplanations?: MatchExplanationUpdateManyWithoutOpportunityNestedInput
   }
 
   export type OpportunityUncheckedUpdateWithoutApplicationsInput = {
@@ -11534,6 +14810,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     skills?: OpportunitySkillUncheckedUpdateManyWithoutOpportunityNestedInput
+    matchExplanations?: MatchExplanationUncheckedUpdateManyWithoutOpportunityNestedInput
   }
 
   export type UserUpsertWithoutApplicationsInput = {
@@ -11552,6 +14829,7 @@ export namespace Prisma {
     firebaseUid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11561,6 +14839,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     skills?: UserSkillUpdateManyWithoutUserNestedInput
     opportunities?: OpportunityUpdateManyWithoutEmployerNestedInput
+    matchExplanations?: MatchExplanationUpdateManyWithoutGraduateNestedInput
+    skillRequests?: SkillRequestUpdateManyWithoutEmployerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApplicationsInput = {
@@ -11568,6 +14848,7 @@ export namespace Prisma {
     firebaseUid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11577,6 +14858,280 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     skills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput
     opportunities?: OpportunityUncheckedUpdateManyWithoutEmployerNestedInput
+    matchExplanations?: MatchExplanationUncheckedUpdateManyWithoutGraduateNestedInput
+    skillRequests?: SkillRequestUncheckedUpdateManyWithoutEmployerNestedInput
+  }
+
+  export type UserCreateWithoutMatchExplanationsInput = {
+    id?: string
+    firebaseUid: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    phone?: string | null
+    role?: $Enums.Role
+    bio?: string | null
+    location?: string | null
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    skills?: UserSkillCreateNestedManyWithoutUserInput
+    opportunities?: OpportunityCreateNestedManyWithoutEmployerInput
+    applications?: ApplicationCreateNestedManyWithoutApplicantInput
+    skillRequests?: SkillRequestCreateNestedManyWithoutEmployerInput
+  }
+
+  export type UserUncheckedCreateWithoutMatchExplanationsInput = {
+    id?: string
+    firebaseUid: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    phone?: string | null
+    role?: $Enums.Role
+    bio?: string | null
+    location?: string | null
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    skills?: UserSkillUncheckedCreateNestedManyWithoutUserInput
+    opportunities?: OpportunityUncheckedCreateNestedManyWithoutEmployerInput
+    applications?: ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    skillRequests?: SkillRequestUncheckedCreateNestedManyWithoutEmployerInput
+  }
+
+  export type UserCreateOrConnectWithoutMatchExplanationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMatchExplanationsInput, UserUncheckedCreateWithoutMatchExplanationsInput>
+  }
+
+  export type OpportunityCreateWithoutMatchExplanationsInput = {
+    id?: string
+    title: string
+    description: string
+    type?: $Enums.OpportunityType
+    location: string
+    payment?: number | null
+    paymentType?: $Enums.PaymentType
+    deadline?: Date | string | null
+    status?: $Enums.OpportunityStatus
+    verified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employer: UserCreateNestedOneWithoutOpportunitiesInput
+    skills?: OpportunitySkillCreateNestedManyWithoutOpportunityInput
+    applications?: ApplicationCreateNestedManyWithoutOpportunityInput
+  }
+
+  export type OpportunityUncheckedCreateWithoutMatchExplanationsInput = {
+    id?: string
+    title: string
+    description: string
+    type?: $Enums.OpportunityType
+    location: string
+    payment?: number | null
+    paymentType?: $Enums.PaymentType
+    deadline?: Date | string | null
+    employerId: string
+    status?: $Enums.OpportunityStatus
+    verified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    skills?: OpportunitySkillUncheckedCreateNestedManyWithoutOpportunityInput
+    applications?: ApplicationUncheckedCreateNestedManyWithoutOpportunityInput
+  }
+
+  export type OpportunityCreateOrConnectWithoutMatchExplanationsInput = {
+    where: OpportunityWhereUniqueInput
+    create: XOR<OpportunityCreateWithoutMatchExplanationsInput, OpportunityUncheckedCreateWithoutMatchExplanationsInput>
+  }
+
+  export type UserUpsertWithoutMatchExplanationsInput = {
+    update: XOR<UserUpdateWithoutMatchExplanationsInput, UserUncheckedUpdateWithoutMatchExplanationsInput>
+    create: XOR<UserCreateWithoutMatchExplanationsInput, UserUncheckedCreateWithoutMatchExplanationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMatchExplanationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMatchExplanationsInput, UserUncheckedUpdateWithoutMatchExplanationsInput>
+  }
+
+  export type UserUpdateWithoutMatchExplanationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firebaseUid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    skills?: UserSkillUpdateManyWithoutUserNestedInput
+    opportunities?: OpportunityUpdateManyWithoutEmployerNestedInput
+    applications?: ApplicationUpdateManyWithoutApplicantNestedInput
+    skillRequests?: SkillRequestUpdateManyWithoutEmployerNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMatchExplanationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firebaseUid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    skills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput
+    opportunities?: OpportunityUncheckedUpdateManyWithoutEmployerNestedInput
+    applications?: ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    skillRequests?: SkillRequestUncheckedUpdateManyWithoutEmployerNestedInput
+  }
+
+  export type OpportunityUpsertWithoutMatchExplanationsInput = {
+    update: XOR<OpportunityUpdateWithoutMatchExplanationsInput, OpportunityUncheckedUpdateWithoutMatchExplanationsInput>
+    create: XOR<OpportunityCreateWithoutMatchExplanationsInput, OpportunityUncheckedCreateWithoutMatchExplanationsInput>
+    where?: OpportunityWhereInput
+  }
+
+  export type OpportunityUpdateToOneWithWhereWithoutMatchExplanationsInput = {
+    where?: OpportunityWhereInput
+    data: XOR<OpportunityUpdateWithoutMatchExplanationsInput, OpportunityUncheckedUpdateWithoutMatchExplanationsInput>
+  }
+
+  export type OpportunityUpdateWithoutMatchExplanationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    type?: EnumOpportunityTypeFieldUpdateOperationsInput | $Enums.OpportunityType
+    location?: StringFieldUpdateOperationsInput | string
+    payment?: NullableIntFieldUpdateOperationsInput | number | null
+    paymentType?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumOpportunityStatusFieldUpdateOperationsInput | $Enums.OpportunityStatus
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employer?: UserUpdateOneRequiredWithoutOpportunitiesNestedInput
+    skills?: OpportunitySkillUpdateManyWithoutOpportunityNestedInput
+    applications?: ApplicationUpdateManyWithoutOpportunityNestedInput
+  }
+
+  export type OpportunityUncheckedUpdateWithoutMatchExplanationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    type?: EnumOpportunityTypeFieldUpdateOperationsInput | $Enums.OpportunityType
+    location?: StringFieldUpdateOperationsInput | string
+    payment?: NullableIntFieldUpdateOperationsInput | number | null
+    paymentType?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employerId?: StringFieldUpdateOperationsInput | string
+    status?: EnumOpportunityStatusFieldUpdateOperationsInput | $Enums.OpportunityStatus
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    skills?: OpportunitySkillUncheckedUpdateManyWithoutOpportunityNestedInput
+    applications?: ApplicationUncheckedUpdateManyWithoutOpportunityNestedInput
+  }
+
+  export type UserCreateWithoutSkillRequestsInput = {
+    id?: string
+    firebaseUid: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    phone?: string | null
+    role?: $Enums.Role
+    bio?: string | null
+    location?: string | null
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    skills?: UserSkillCreateNestedManyWithoutUserInput
+    opportunities?: OpportunityCreateNestedManyWithoutEmployerInput
+    applications?: ApplicationCreateNestedManyWithoutApplicantInput
+    matchExplanations?: MatchExplanationCreateNestedManyWithoutGraduateInput
+  }
+
+  export type UserUncheckedCreateWithoutSkillRequestsInput = {
+    id?: string
+    firebaseUid: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    phone?: string | null
+    role?: $Enums.Role
+    bio?: string | null
+    location?: string | null
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    skills?: UserSkillUncheckedCreateNestedManyWithoutUserInput
+    opportunities?: OpportunityUncheckedCreateNestedManyWithoutEmployerInput
+    applications?: ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    matchExplanations?: MatchExplanationUncheckedCreateNestedManyWithoutGraduateInput
+  }
+
+  export type UserCreateOrConnectWithoutSkillRequestsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSkillRequestsInput, UserUncheckedCreateWithoutSkillRequestsInput>
+  }
+
+  export type UserUpsertWithoutSkillRequestsInput = {
+    update: XOR<UserUpdateWithoutSkillRequestsInput, UserUncheckedUpdateWithoutSkillRequestsInput>
+    create: XOR<UserCreateWithoutSkillRequestsInput, UserUncheckedCreateWithoutSkillRequestsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSkillRequestsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSkillRequestsInput, UserUncheckedUpdateWithoutSkillRequestsInput>
+  }
+
+  export type UserUpdateWithoutSkillRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firebaseUid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    skills?: UserSkillUpdateManyWithoutUserNestedInput
+    opportunities?: OpportunityUpdateManyWithoutEmployerNestedInput
+    applications?: ApplicationUpdateManyWithoutApplicantNestedInput
+    matchExplanations?: MatchExplanationUpdateManyWithoutGraduateNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSkillRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firebaseUid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    skills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput
+    opportunities?: OpportunityUncheckedUpdateManyWithoutEmployerNestedInput
+    applications?: ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    matchExplanations?: MatchExplanationUncheckedUpdateManyWithoutGraduateNestedInput
   }
 
   export type UserSkillCreateManyUserInput = {
@@ -11606,6 +15161,22 @@ export namespace Prisma {
     opportunityId: string
     message: string
     status?: $Enums.ApplicationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MatchExplanationCreateManyGraduateInput = {
+    id?: string
+    opportunityId: string
+    explanation: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SkillRequestCreateManyEmployerInput = {
+    id?: string
+    name: string
+    status?: $Enums.SkillRequestStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11646,6 +15217,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     skills?: OpportunitySkillUpdateManyWithoutOpportunityNestedInput
     applications?: ApplicationUpdateManyWithoutOpportunityNestedInput
+    matchExplanations?: MatchExplanationUpdateManyWithoutOpportunityNestedInput
   }
 
   export type OpportunityUncheckedUpdateWithoutEmployerInput = {
@@ -11663,6 +15235,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     skills?: OpportunitySkillUncheckedUpdateManyWithoutOpportunityNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutOpportunityNestedInput
+    matchExplanations?: MatchExplanationUncheckedUpdateManyWithoutOpportunityNestedInput
   }
 
   export type OpportunityUncheckedUpdateManyWithoutEmployerInput = {
@@ -11703,6 +15276,54 @@ export namespace Prisma {
     opportunityId?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MatchExplanationUpdateWithoutGraduateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    explanation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    opportunity?: OpportunityUpdateOneRequiredWithoutMatchExplanationsNestedInput
+  }
+
+  export type MatchExplanationUncheckedUpdateWithoutGraduateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    opportunityId?: StringFieldUpdateOperationsInput | string
+    explanation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MatchExplanationUncheckedUpdateManyWithoutGraduateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    opportunityId?: StringFieldUpdateOperationsInput | string
+    explanation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillRequestUpdateWithoutEmployerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    status?: EnumSkillRequestStatusFieldUpdateOperationsInput | $Enums.SkillRequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillRequestUncheckedUpdateWithoutEmployerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    status?: EnumSkillRequestStatusFieldUpdateOperationsInput | $Enums.SkillRequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillRequestUncheckedUpdateManyWithoutEmployerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    status?: EnumSkillRequestStatusFieldUpdateOperationsInput | $Enums.SkillRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11769,6 +15390,14 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type MatchExplanationCreateManyOpportunityInput = {
+    id?: string
+    graduateId: string
+    explanation: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type OpportunitySkillUpdateWithoutOpportunityInput = {
     id?: StringFieldUpdateOperationsInput | string
     skill?: SkillUpdateOneRequiredWithoutOpportunitiesNestedInput
@@ -11807,6 +15436,30 @@ export namespace Prisma {
     applicantId?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MatchExplanationUpdateWithoutOpportunityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    explanation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    graduate?: UserUpdateOneRequiredWithoutMatchExplanationsNestedInput
+  }
+
+  export type MatchExplanationUncheckedUpdateWithoutOpportunityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    graduateId?: StringFieldUpdateOperationsInput | string
+    explanation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MatchExplanationUncheckedUpdateManyWithoutOpportunityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    graduateId?: StringFieldUpdateOperationsInput | string
+    explanation?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

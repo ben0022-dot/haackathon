@@ -13,6 +13,7 @@ import {
   Briefcase,
   UserCheck,
   Zap,
+  ShieldCheck,
 } from "lucide-react";
 
 const STEPS = [
@@ -30,6 +31,24 @@ const STEPS = [
     num: "3",
     title: "Apply and get connected",
     text: "Apply with one tap, track progress on your personal dashboard, and get connected directly with zero middleman fees.",
+  },
+];
+
+const EMPLOYER_STEPS = [
+  {
+    num: "1",
+    title: "Post an opportunity",
+    text: "Describe the work, choose your neighborhood, and pick the skills you need from our TVET trade list.",
+  },
+  {
+    num: "2",
+    title: "Review matched applicants",
+    text: "We surface skilled tradespeople near you, ranked by fit, with honest profiles and experience levels.",
+  },
+  {
+    num: "3",
+    title: "Accept and connect",
+    text: "Accept the right applicant to unlock their number, agree on price and dates directly — no agency fees.",
   },
 ];
 
@@ -94,7 +113,7 @@ export default function Home() {
                 </div>
                 <h3 style={{ fontSize: "1.15rem", marginBottom: 6 }}>Opportunities Directory</h3>
                 <p style={{ fontSize: "0.88rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>
-                  Browse 120+ verified local jobs and gigs across Nairobi. Filter by TVET trade, location, and budget.
+                  Browse verified local jobs and gigs across Nairobi. Filter by TVET trade, neighborhood, and budget.
                 </p>
               </div>
               <Link href="/opportunities" style={{ marginTop: 16, fontSize: "0.88rem", fontWeight: 700, color: "var(--primary)", display: "inline-flex", alignItems: "center", gap: 4 }}>
@@ -250,16 +269,62 @@ export default function Home() {
         <div className={styles.sectionInner}>
           <h2 className={styles.sectionTitle}>
             How it works
-            <span className={styles.sectionEm}> — three steps to your next paid gig</span>
+            <span className={styles.sectionEm}> — for graduates and employers</span>
           </h2>
-          <div className={styles.steps}>
-            {STEPS.map((step) => (
-              <div className={styles.stepCard} key={step.num}>
-                <span className={styles.stepNum}>{step.num}</span>
-                <h3>{step.title}</h3>
-                <p>{step.text}</p>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 28, marginTop: 28 }}>
+            <div>
+              <Link href="/signup" style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 12, fontSize: "0.9rem", fontWeight: 800, color: "var(--primary-dark)", textDecoration: "none" }}>
+                <Briefcase size={16} /> For graduates &amp; artisans
+              </Link>
+              <div className={styles.steps}>
+                {STEPS.map((step) => (
+                  <div className={styles.stepCard} key={step.num}>
+                    <span className={styles.stepNum}>{step.num}</span>
+                    <h3>{step.title}</h3>
+                    <p>{step.text}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            <div>
+              <Link href="/signup?role=EMPLOYER" style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 12, fontSize: "0.9rem", fontWeight: 800, color: "var(--accent-700, #b45326)", textDecoration: "none" }}>
+                <UserCheck size={16} /> For employers
+              </Link>
+              <div className={styles.steps}>
+                {EMPLOYER_STEPS.map((step) => (
+                  <div className={styles.stepCard} key={step.num}>
+                    <span className={styles.stepNum}>{step.num}</span>
+                    <h3>{step.title}</h3>
+                    <p>{step.text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Honest trust section */}
+      <section className={styles.section}>
+        <div className={styles.sectionInner}>
+          <div style={{ maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
+            <span className="badge badge-skill" style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 12 }}>
+              <ShieldCheck size={14} /> Built on trust
+            </span>
+            <h2 className={styles.sectionTitle}>Honest about what we verify</h2>
+            <p style={{ color: "var(--text-secondary)", fontSize: "1rem", lineHeight: 1.7, marginBottom: 20 }}>
+              We don&apos;t run background checks on tradespeople. Every graduate profile shows their
+              experience level and trade skills clearly, and verified <i>opportunities</i> mean the
+              employer confirmed their business details with us. What you see is what you get —
+              decide with your eyes open.
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 10 }}>
+              <span className="badge badge-verified">Verified opportunity = employer confirmed their details</span>
+              <span className="badge badge-skill">Every profile shows real skills &amp; experience level</span>
+              <span className="badge">Zero middleman fees on both sides</span>
+            </div>
           </div>
         </div>
       </section>

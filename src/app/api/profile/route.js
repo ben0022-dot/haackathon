@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import { getFirebaseUid, requireUser } from "@/lib/auth";
 import { adminAuth } from "@/lib/firebase-admin";
+import { normalizeNeighborhood } from "@/lib/neighborhoods";
 
 export async function GET(request) {
   const { user, error } = await requireUser(request);
@@ -94,13 +95,21 @@ export async function PATCH(request) {
     return Response.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const { name, phone, bio, location, role, skillIds, experienceLevels } = body;
+  const { name, phone, bio, location, role, skillIds, experienceLevels, avatarUrl } = body;
 
   const updateData = {};
   if (typeof name === "string" && name.trim()) updateData.name = name.trim();
   if (typeof phone === "string") updateData.phone = phone.trim() || null;
   if (typeof bio === "string") updateData.bio = bio.trim() || null;
-  if (typeof location === "string" && location.trim()) updateData.location = location.trim();
+  if (typeof avatarUrl === "string") updateData.avatarUrl = avatarUrl.trim() || null;
+
+  if (typeof location === "string" && location.trim()) {
+    const canonical = normalizeNeighborhood(location);
+    if (!canonical) {
+      return Response.json({ error: "Choose a neighborhood from the list." }, { status: 400 });
+    }
+    updateData.location = canonical;
+  }
 
   if (role && ["GRADUATE", "EMPLOYER"].includes(role)) {
     if (user.role === "ADMIN") {

@@ -40,21 +40,21 @@ const GRADUATES = [
   {
     name: "Brian Otieno",
     email: "brian.demo@spacemakers.app",
-    location: "Githogoro, Nairobi",
+    location: "Githogoro",
     bio: "TVET graduate. Comfortable with both electrical installations and plumbing repairs.",
     roles: { Electrical: "INTERMEDIATE", Plumbing: "INTERMEDIATE" },
   },
   {
     name: "Wanjiku Njeri",
     email: "wanjiku.demo@spacemakers.app",
-    location: "Githogoro, Nairobi",
+    location: "Githogoro",
     bio: "Catering graduate who also sews school uniforms for local families.",
     roles: { Tailoring: "ADVANCED", Catering: "INTERMEDIATE" },
   },
   {
     name: "David Mwangi",
     email: "david.demo@spacemakers.app",
-    location: "Muthaiga, Nairobi",
+    location: "Muthaiga",
     bio: "ICT technician, comfortable with computer repair and network setup.",
     roles: { ICT: "ADVANCED", Carpentry: "BEGINNER" },
   },
@@ -64,13 +64,13 @@ const EMPLOYERS = [
   {
     name: "Mama Njeri's Eatery",
     email: "eatery.demo@spacemakers.app",
-    location: "Githogoro, Nairobi",
+    location: "Githogoro",
     bio: "Local eatery hiring catering and kitchen staff for events.",
   },
   {
     name: "Umoja Hardware & Electrical",
     email: "hardware.demo@spacemakers.app",
-    location: "Runda, Nairobi",
+    location: "Runda",
     bio: "Hardware shop that takes on wiring and installation jobs.",
   },
 ];
@@ -78,15 +78,15 @@ const EMPLOYERS = [
 const ADMIN = {
   name: "SpaceMakers Admin",
   email: "admin.spacemakers@spacemakers.app",
-  location: "Githogoro, Nairobi",
+  location: "Githogoro",
   bio: "Platform administrator.",
 };
 
 async function upsertUser({ name, email, location, bio, role, firebaseUid }) {
   await prisma.user.upsert({
     where: { firebaseUid },
-    update: { name, email, location, bio, role },
-    create: { firebaseUid, name, email, location, bio, role },
+    update: { name, email, location, bio, role, emailVerified: true },
+    create: { firebaseUid, name, email, location, bio, role, emailVerified: true },
   });
   return prisma.user.findUnique({ where: { firebaseUid } });
 }
@@ -200,7 +200,7 @@ async function main() {
   const household = {
     name: "Mrs. Mbugua",
     email: "mbugua.demo@spacemakers.app",
-    location: "Gigiri, Nairobi",
+    location: "Gigiri",
     bio: "Homeowner who needs regular skilled help around the house.",
   };
   const householdUid = await ensureFirebaseUser(household.email, household.name, "EMPLOYER");
@@ -220,7 +220,7 @@ async function main() {
       description:
         "Rewiring a 2-bedroom house in Githogoro. Must be able to install sockets, switchboards and lighting. Materials will be provided.",
       type: "GIG",
-      location: "Githogoro, Nairobi",
+      location: "Githogoro",
       payment: 2500,
       paymentType: "FIXED",
       employerId: hardware.id,
@@ -233,7 +233,7 @@ async function main() {
       description:
         "Assist with food prep, serving and cleanup for a wedding in Runda on Saturday. Catering experience needed.",
       type: "GIG",
-      location: "Runda, Nairobi",
+      location: "Runda",
       payment: 1800,
       paymentType: "PER_DAY",
       employerId: eatery.id,
@@ -246,7 +246,7 @@ async function main() {
       description:
         "Need a tailor to make 30 school uniforms before next term. Fabric provided. Payment per set.",
       type: "CONTRACT",
-      location: "Githogoro, Nairobi",
+      location: "Githogoro",
       payment: 600,
       paymentType: "PER_DAY",
       employerId: householdUser.id,
@@ -259,7 +259,7 @@ async function main() {
       description:
         "Fix leaking pipes and a blocked sink in a Muthaiga home. Small job, can be done in one day.",
       type: "SERVICE_REQUEST",
-      location: "Muthaiga, Nairobi",
+      location: "Muthaiga",
       payment: 1500,
       paymentType: "FIXED",
       employerId: householdUser.id,
@@ -272,7 +272,7 @@ async function main() {
       description:
         "Help set up computers and a small network for a local shop. Also install office software.",
       type: "GIG",
-      location: "Gigiri, Nairobi",
+      location: "Gigiri",
       payment: 2000,
       paymentType: "FIXED",
       employerId: hardware.id,
@@ -285,7 +285,7 @@ async function main() {
       description:
         "Help build shelves and repair wooden furniture for a weekend project in Githogoro.",
       type: "GIG",
-      location: "Githogoro, Nairobi",
+      location: "Githogoro",
       payment: 1000,
       paymentType: "PER_DAY",
       employerId: householdUser.id,
@@ -298,7 +298,7 @@ async function main() {
       description:
         "Event next month needs 3 helpers for setup, serving and cleanup. Catering experience preferred.",
       type: "JOB",
-      location: "Githogoro, Nairobi",
+      location: "Githogoro",
       payment: 1200,
       paymentType: "PER_DAY",
       employerId: eatery.id,
@@ -311,7 +311,7 @@ async function main() {
       description:
         "Repair cracked sections of a compound wall in Muthaiga. Masonry experience required.",
       type: "CONTRACT",
-      location: "Muthaiga, Nairobi",
+      location: "Muthaiga",
       payment: 3500,
       paymentType: "FIXED",
       employerId: householdUser.id,
@@ -324,7 +324,7 @@ async function main() {
       description:
         "Assist with servicing small motorbikes at a garage in Eastleigh. Basic mechanic knowledge needed.",
       type: "APPRENTICESHIP",
-      location: "Eastleigh, Nairobi",
+      location: "Parklands",
       payment: 800,
       paymentType: "PER_DAY",
       employerId: hardware.id,
@@ -337,7 +337,7 @@ async function main() {
       description:
         "Weekend assistant at a busy barbershop. Experience with haircuts needed.",
       type: "GIG",
-      location: "Githogoro, Nairobi",
+      location: "Githogoro",
       payment: 750,
       paymentType: "PER_DAY",
       employerId: eatery.id,
@@ -350,7 +350,7 @@ async function main() {
       description:
         "Weld and repaint a metal gate and window grilles in Gigiri. Tools can be arranged.",
       type: "GIG",
-      location: "Gigiri, Nairobi",
+      location: "Gigiri",
       payment: 3000,
       paymentType: "FIXED",
       employerId: householdUser.id,
@@ -363,7 +363,7 @@ async function main() {
       description:
         "Full-time kitchen porter at the eatery. Willing to train the right person.",
       type: "JOB",
-      location: "Githogoro, Nairobi",
+      location: "Githogoro",
       payment: 900,
       paymentType: "PER_DAY",
       employerId: eatery.id,
@@ -378,7 +378,11 @@ async function main() {
   for (const [index, seed] of OPPORTUNITY_SEEDS.entries()) {
     const existing = await prisma.opportunity.findFirst({ where: { title: seed.title } });
     if (existing) {
-      opportunities.push(existing);
+      const full = await prisma.opportunity.findUnique({
+        where: { id: existing.id },
+        include: { skills: { include: { skill: true } } },
+      });
+      opportunities.push(full);
       continue;
     }
     const deadline = seed.type === "CONTRACT" ? new Date(now + 10 * 864e5) : seed.type === "JOB" ? new Date(now + 14 * 864e5) : new Date(now + 5 * 864e5);

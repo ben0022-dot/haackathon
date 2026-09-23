@@ -48,21 +48,24 @@ enum ApplicationStatus {
 }
 
 model User {
-  id          String   @id @default(cuid())
-  firebaseUid String   @unique
-  name        String
-  email       String   @unique
-  phone       String?
-  role        Role     @default(GRADUATE)
-  bio         String?
-  location    String?
-  avatarUrl   String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String   @id @default(cuid())
+  firebaseUid   String   @unique
+  name          String
+  email         String   @unique
+  emailVerified Boolean  @default(false)
+  phone         String?
+  role          Role     @default(GRADUATE)
+  bio           String?
+  location      String?
+  avatarUrl     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   skills        UserSkill[]
   opportunities Opportunity[] @relation("employerOpportunities")
   applications  Application[]
+  matchExplanations MatchExplanation[] @relation("explanationGraduate")
+  skillRequests SkillRequest[] @relation("skillRequestEmployer")
 }
 
 model Skill {
@@ -106,6 +109,7 @@ model Opportunity {
   employer     User                 @relation("employerOpportunities", fields: [employerId], references: [id], onDelete: Cascade)
   skills       OpportunitySkill[]
   applications Application[]
+  matchExplanations MatchExplanation[]
 }
 
 model OpportunitySkill {
@@ -132,4 +136,38 @@ model Application {
   applicant   User        @relation(fields: [applicantId], references: [id], onDelete: Cascade)
 
   @@unique([opportunityId, applicantId])
+}
+
+model MatchExplanation {
+  id            String   @id @default(cuid())
+  graduateId    String
+  opportunityId String
+  explanation   String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  graduate    User        @relation("explanationGraduate", fields: [graduateId], references: [id], onDelete: Cascade)
+  opportunity Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+
+  @@unique([graduateId, opportunityId])
+}
+
+model SkillRequest {
+  id         String   @id @default(cuid())
+  name       String
+  employerId String
+  status     SkillRequestStatus @default(PENDING)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  employer User @relation("skillRequestEmployer", fields: [employerId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+}
+
+enum SkillRequestStatus {
+  PENDING
+  APPROVED
+  MERGED
+  REJECTED
 }

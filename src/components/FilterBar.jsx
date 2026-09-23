@@ -1,5 +1,7 @@
 "use client";
 
+import { NEIGHBORHOODS } from "@/lib/neighborhoods";
+
 const SKILL_OPTIONS = [
   "Electrical",
   "Tailoring",
@@ -13,14 +15,7 @@ const SKILL_OPTIONS = [
   "Hairdressing",
 ];
 
-const LOCATION_OPTIONS = [
-  "Githogoro",
-  "Runda",
-  "Muthaiga",
-  "Gigiri",
-  "Eastleigh",
-  "Parklands",
-];
+const LOCATION_OPTIONS = NEIGHBORHOODS;
 
 const TYPE_OPTIONS = [
   { value: "JOB", label: "Job" },
