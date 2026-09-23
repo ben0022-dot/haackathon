@@ -114,6 +114,44 @@
   font-weight: 700;
 }
 
+.links a:focus-visible,
+.logoutButton:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.userActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.navSkeleton {
+  display: none;
+  flex: 1;
+  height: 34px;
+  margin-left: 20px;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    var(--background) 25%,
+    var(--border) 50%,
+    var(--background) 75%
+  );
+  background-size: 200% 100%;
+  animation: navShimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes navShimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
 .userBadge {
   display: inline-flex;
   align-items: center;

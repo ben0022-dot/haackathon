@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import styles from "./Navbar.module.css";
 import {
@@ -17,19 +17,35 @@ import {
   FileText,
 } from "lucide-react";
 
+const PRIMARY_LINKS = [
+  { href: "/", label: "Home", icon: null },
+  { href: "/opportunities", label: "Opportunities", icon: Briefcase },
+  { href: "/demand-map", label: "Demand Map", icon: Compass },
+  { href: "/ai", label: "AI Suite", icon: Sparkles },
+];
+
+const USER_LINKS = [
+  { href: "/applications", label: "Applications", icon: FileText },
+  { href: "/profile", label: "Profile", icon: User },
+];
+
+const DESKTOP_BREAKPOINT = 860;
+
+function isActive(href, pathname) {
+  if (href === "/") return pathname === "/";
+  if (href === "/opportunities") {
+    return pathname.startsWith("/opportunities") && !pathname.includes("/new");
+  }
+  return pathname.startsWith(href);
+}
+
 export default function Navbar() {
   const { user, profile, logout, loading } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
-  const [open, setOpen] = useState(false);
 
   const isEmployer = profile?.role === "EMPLOYER";
   const isAdmin = profile?.role === "ADMIN";
-
-  function handleLogout() {
-    logout();
-    router.push("/");
-  }
 
   const dashboardHref = isEmployer
     ? "/employer"
@@ -42,32 +58,101 @@ export default function Navbar() {
     pathname.startsWith("/employer") ||
     pathname.startsWith("/admin");
 
+  const [open, setOpen] = useState(false);
+  const drawerRef = useRef(null);
+  const hamburgerRef = useRef(null);
+
+  useEffect(() => {
+    function onResize() {
+      if (window.innerWidth >= DESKTOP_BREAKPOINT) setOpen(false);
+    }
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const { overflow: previousOverflow } = document.body.style;
+    document.body.style.overflow = "hidden";
+
+    function handleKeyDown(event) {
+      if (event.key === "Escape") {
+        setOpen(false);
+        hamburgerRef.current?.focus();
+        return;
+      }
+      if (event.key !== "Tab" || !drawerRef.current) return;
+
+      const focusable = Array.from(
+        drawerRef.current.querySelectorAll(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((el) => el.offsetParent !== null);
+
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    drawerRef.current?.querySelector("a, button")?.focus();
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open]);
+
+  async function handleLogout() {
+    await logout();
+    router.push("/");
+  }
+
   if (loading) {
     return (
-      <nav className={styles.nav}>
+      <nav className={styles.nav} aria-label="Primary navigation">
         <div className={styles.navInner}>
           <Link href="/" className={styles.brand}>
             Space<span className={styles.brandAccent}>Makers</span>
           </Link>
+          <div className={styles.navSkeleton} aria-hidden="true" />
         </div>
       </nav>
     );
   }
 
+  const navItems = [
+    ...PRIMARY_LINKS,
+    ...(user ? [{ href: dashboardHref, label: "Dashboard", icon: LayoutDashboard }] : []),
+  ];
+
+  const isNavItemActive = (href) =>
+    href === dashboardHref ? isDashboardActive : isActive(href, pathname);
+
   return (
-    <nav className={styles.nav}>
+    <nav className={styles.nav} aria-label="Primary navigation">
       <div className={styles.navInner}>
-        {/* Brand Logo -> Always to Landing Page */}
         <Link href="/" className={styles.brand}>
-          <span>Space<span className={styles.brandAccent}>Makers</span></span>
+          Space<span className={styles.brandAccent}>Makers</span>
         </Link>
 
-        {/* Hamburger button for mobile devices */}
         <button
+          ref={hamburgerRef}
           type="button"
           className={styles.hamburger}
-          aria-label="Toggle navigation menu"
+          aria-label={open ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={open}
+          aria-controls="nav-drawer"
           onClick={() => setOpen((v) => !v)}
         >
           <span className={styles.bar} />
@@ -75,102 +160,47 @@ export default function Navbar() {
           <span className={styles.bar} />
         </button>
 
-        {/* Navigation links drawer / bar */}
         <div
+          id="nav-drawer"
+          ref={drawerRef}
           className={`${styles.links} ${open ? styles.linksOpen : ""}`}
           onClick={() => setOpen(false)}
         >
-          {/* Primary Navigation Hub */}
           <div className={styles.navGroup}>
-            {/* Landing / Home Page */}
-            <Link
-              href="/"
-              className={pathname === "/" ? styles.activeLink : undefined}
-            >
-              Home
-            </Link>
-
-            {/* Opportunities Directory */}
-            <Link
-              href="/opportunities"
-              className={
-                pathname.startsWith("/opportunities") &&
-                !pathname.includes("/new")
-                  ? styles.activeLink
-                  : undefined
-              }
-            >
-              <Briefcase size={15} />
-              <span>Opportunities</span>
-            </Link>
-
-            {/* Interactive Demand Map */}
-            <Link
-              href="/demand-map"
-              className={
-                pathname.startsWith("/demand-map") ? styles.activeLink : undefined
-              }
-            >
-              <Compass size={15} />
-              <span>Demand Map</span>
-            </Link>
-
-            {/* Dedicated Dashboard */}
-            <Link
-              href={user ? dashboardHref : "/dashboard"}
-              className={isDashboardActive ? styles.activeLink : undefined}
-            >
-              <LayoutDashboard size={15} />
-              <span>Dashboard</span>
-            </Link>
-
-            {/* AI Career & Trade Suite */}
-            <Link
-              href="/ai"
-              className={
-                pathname.startsWith("/ai") ? styles.activeLink : undefined
-              }
-              style={{
-                color: pathname.startsWith("/ai")
-                  ? "var(--primary-dark)"
-                  : undefined,
-              }}
-            >
-              <Sparkles size={14} color="var(--primary)" />
-              <span>AI Suite</span>
-            </Link>
-
-            {/* Authenticated-only sublinks: Applications & Profile */}
-            {user && (
-              <>
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const active = isNavItemActive(item.href);
+              return (
                 <Link
-                  href="/applications"
-                  className={
-                    pathname.startsWith("/applications")
-                      ? styles.activeLink
-                      : undefined
-                  }
+                  key={item.href}
+                  href={item.href}
+                  className={active ? styles.activeLink : undefined}
+                  aria-current={active ? "page" : undefined}
                 >
-                  <FileText size={15} />
-                  <span>Applications</span>
+                  {Icon && <Icon size={15} />}
+                  <span>{item.label}</span>
                 </Link>
+              );
+            })}
 
-                <Link
-                  href="/profile"
-                  className={
-                    pathname.startsWith("/profile")
-                      ? styles.activeLink
-                      : undefined
-                  }
-                >
-                  <User size={15} />
-                  <span>Profile</span>
-                </Link>
-              </>
-            )}
+            {user &&
+              USER_LINKS.map((item) => {
+                const Icon = item.icon;
+                const active = isActive(item.href, pathname);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={active ? styles.activeLink : undefined}
+                    aria-current={active ? "page" : undefined}
+                  >
+                    {Icon && <Icon size={15} />}
+                    <span>{item.label}</span>
+                  </Link>
+                );
+              })}
           </div>
 
-          {/* Account Authentication & Action Group */}
           <div className={styles.authGroup}>
             {user && (isEmployer || isAdmin) && (
               <Link
@@ -193,14 +223,7 @@ export default function Navbar() {
                 </Link>
               </>
             ) : (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                  flexWrap: "wrap",
-                }}
-              >
+              <div className={styles.userActions}>
                 <div className={styles.userBadge}>
                   <span>{profile?.name ? profile.name.split(" ")[0] : "User"}</span>
                   <span className={styles.roleTag}>
