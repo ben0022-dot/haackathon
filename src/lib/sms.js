@@ -1,6 +1,7 @@
 import crypto from "node:crypto";
 
-const AT_API = "https://api.africastalking.com/version1/messaging";
+const AT_PRODUCTION_API = "https://api.africastalking.com/version1/messaging";
+const AT_SANDBOX_API = "https://api.sandbox.africastalking.com/version1/messaging";
 
 export function generateOtp(length = 6) {
   const max = 10 ** length;
@@ -27,12 +28,14 @@ export function smsProviderConfigured() {
 
 export function sendSms(phone, message) {
   if (smsProviderConfigured()) {
+    const sandbox = process.env.AT_USERNAME === "sandbox";
+    const endpoint = sandbox ? AT_SANDBOX_API : AT_PRODUCTION_API;
     const body = new URLSearchParams({
       username: process.env.AT_USERNAME,
       to: phone,
       message,
     });
-    return fetch(AT_API, {
+    return fetch(endpoint, {
       method: "POST",
       headers: {
         apiKey: process.env.AT_API_KEY,
@@ -44,7 +47,7 @@ export function sendSms(phone, message) {
       .then(async (res) => {
         const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error(data?.error || "SMS provider error");
-        return { ok: true, dev: false };
+        return { ok: true, dev: sandbox };
       })
       .catch((err) => ({ ok: false, dev: false, error: err?.message }));
   }
