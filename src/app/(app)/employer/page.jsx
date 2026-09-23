@@ -184,9 +184,6 @@ export default function EmployerPage() {
         <div className="empty-state card">
           <h3>You haven&apos;t posted an opportunity yet.</h3>
           <p>Post your first opportunity and reach skilled people nearby.</p>
-          <div style={{ marginTop: 16 }}>
-            <Link href="/employer/opportunities/new" className="btn btn-primary">Post an opportunity</Link>
-          </div>
         </div>
       ) : (
         <section className="section">
