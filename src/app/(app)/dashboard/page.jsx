@@ -16,6 +16,7 @@ export default function DashboardPage() {
   const { user, profile, loading } = useAuth();
   const [opportunities, setOpportunities] = useState([]);
   const [fetching, setFetching] = useState(true);
+  const [error, setError] = useState("");
   const [verifyMessage, setVerifyMessage] = useState("");
   const [resending, setResending] = useState(false);
 
@@ -42,16 +43,25 @@ export default function DashboardPage() {
     let cancelled = false;
     async function load() {
       try {
+        setError("");
         const token = await user.getIdToken();
         const res = await fetch("/api/opportunities?dashboard=true", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
-        if (!cancelled && res.ok) {
-          setOpportunities(data.opportunities || []);
+        if (!cancelled) {
+          if (res.ok) {
+            setOpportunities(data.opportunities || []);
+          } else {
+            setOpportunities([]);
+            setError(data.error || "Could not load your opportunities.");
+          }
         }
       } catch {
-        if (!cancelled) setOpportunities([]);
+        if (!cancelled) {
+          setOpportunities([]);
+          setError("Could not load your opportunities. Check your connection and try again.");
+        }
       } finally {
         if (!cancelled) setFetching(false);
       }
@@ -103,6 +113,8 @@ export default function DashboardPage() {
           </button>
         </div>
       )}
+
+      {error && <p className="alert alert-error" role="alert">{error}</p>}
 
       <div className={styles.profileCard}>
         <div className={styles.profileInfo}>

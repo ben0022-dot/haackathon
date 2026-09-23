@@ -48,10 +48,23 @@ export default function NewOpportunityPage() {
 
   useEffect(() => {
     if (!user) return;
-    fetch("/api/skills", { headers: { Authorization: `Bearer ${user.accessToken}` } })
-      .then((r) => r.json())
-      .then((data) => setSkills(data.skills || []))
-      .catch(() => setSkills([]));
+    let cancelled = false;
+    async function loadSkills() {
+      try {
+        const token = await user.getIdToken();
+        const res = await fetch("/api/skills", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (!cancelled) setSkills(data.skills || []);
+      } catch {
+        if (!cancelled) setSkills([]);
+      }
+    }
+    loadSkills();
+    return () => {
+      cancelled = true;
+    };
   }, [user]);
 
   function toggleSkill(id) {
@@ -87,6 +100,7 @@ export default function NewOpportunityPage() {
     setSubmitting(true);
     try {
       const token = await user.getIdToken();
+      let customSkillNote = null;
       if (otherSkill.trim()) {
         const skillRes = await fetch("/api/skill-requests", {
           method: "POST",
@@ -98,7 +112,11 @@ export default function NewOpportunityPage() {
         });
         if (skillRes.ok) {
           const skillData = await skillRes.json();
-          if (skillData.skill) setSelected((prev) => ({ ...prev, [skillData.skill.id]: true }));
+          if (skillData.skill) {
+            setSelected((prev) => ({ ...prev, [skillData.skill.id]: true }));
+          } else if (skillData.request) {
+            customSkillNote = skillData.request.name;
+          }
         }
       }
       const res = await fetch("/api/opportunities", {
@@ -122,7 +140,9 @@ export default function NewOpportunityPage() {
       }
       setMessage({
         type: "success",
-        text: "Your opportunity has been submitted for verification.",
+        text: customSkillNote
+          ? `Your opportunity has been submitted for verification. Custom skill "${customSkillNote}" was sent to moderation and will be available to attach once approved.`
+          : "Your opportunity has been submitted for verification.",
       });
       setSubmitting(false);
       setTimeout(() => router.push("/employer"), 1400);

@@ -245,6 +245,18 @@ export default function OpportunityDetailPage() {
       <div style={{ marginTop: 16 }}>
         {hasApplied ? (
           <div className="alert alert-success">You have applied for this opportunity.</div>
+        ) : !profile ? (
+          <div className="empty-state card">
+            <h3>Create your profile to apply.</h3>
+            <p>
+              You need a profile with your skills and location before you can apply.
+            </p>
+            <div style={{ marginTop: 16 }}>
+              <Link href="/profile" className="btn btn-primary">
+                Set up my profile
+              </Link>
+            </div>
+          </div>
         ) : canApply && !showForm ? (
           <button
             type="button"

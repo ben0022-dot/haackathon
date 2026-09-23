@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import LoadingState from "@/components/LoadingState";
@@ -29,8 +29,25 @@ export default function ProfilePage() {
     refreshProfile();
   }, [loading, user, profile, refreshProfile]);
 
-  const authHeaders = useCallback(() => {
-    return user ? { Authorization: `Bearer ${user.accessToken || ""}` } : {};
+  useEffect(() => {
+    if (!user) return;
+    let cancelled = false;
+    async function loadSkills() {
+      try {
+        const token = await user.getIdToken();
+        const res = await fetch("/api/skills", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (!cancelled) setSkills(data.skills || []);
+      } catch {
+        if (!cancelled) setSkills([]);
+      }
+    }
+    loadSkills();
+    return () => {
+      cancelled = true;
+    };
   }, [user]);
 
   const [previousProfile, setPreviousProfile] = useState(null);
@@ -49,14 +66,6 @@ export default function ProfilePage() {
     });
     setSelected(initial);
   }
-
-  useEffect(() => {
-    if (!user) return;
-    fetch("/api/skills", { headers: authHeaders() })
-      .then((r) => r.json())
-      .then((data) => setSkills(data.skills || []))
-      .catch(() => setSkills([]));
-  }, [user, authHeaders]);
 
   function toggleSkill(id) {
     setSelected((prev) => {
@@ -117,6 +126,33 @@ export default function ProfilePage() {
     }
   }
 
+  async function handleCreateProfile() {
+    setMessage(null);
+    try {
+      const token = await user.getIdToken();
+      const name =
+        user.displayName ||
+        (user.email ? user.email.split("@")[0] : "").trim() ||
+        "New member";
+      const res = await fetch("/api/profile", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ name }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setMessage({ type: "error", text: data.error || "Could not create your profile." });
+        return;
+      }
+      await refreshProfile();
+    } catch {
+      setMessage({ type: "error", text: "Could not create your profile. Try again." });
+    }
+  }
+
   if (loading || !user) return <LoadingState message="Loading your profile..." />;
   if (!profile) {
     return (
@@ -134,10 +170,15 @@ export default function ProfilePage() {
             <button type="button" className="btn btn-primary" onClick={() => refreshProfile()}>
               Retry
             </button>
-            <button type="button" className="btn btn-secondary" onClick={() => router.push("/signup")}>
+            <button type="button" className="btn btn-secondary" onClick={handleCreateProfile}>
               Create profile
             </button>
           </div>
+          {message && (
+            <p className={`alert ${message.type === "success" ? "alert-success" : "alert-error"}`} role="alert">
+              {message.text}
+            </p>
+          )}
         </div>
       </main>
     );

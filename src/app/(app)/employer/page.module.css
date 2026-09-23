@@ -42,6 +42,12 @@
   gap: 12px;
 }
 
+.oppActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .applicantsTitle {
   font-size: 0.95rem;
   text-transform: uppercase;

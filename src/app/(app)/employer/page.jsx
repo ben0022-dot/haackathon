@@ -16,6 +16,7 @@ export default function EmployerPage() {
   const [activeId, setActiveId] = useState(null);
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState("");
+  const [busyId, setBusyId] = useState(null);
 
   useEffect(() => {
     if (!loading && !user) router.push("/login");
@@ -54,6 +55,19 @@ export default function EmployerPage() {
     };
   }, [user]);
 
+  async function loadApplicants() {
+    try {
+      const token = await user.getIdToken();
+      const appRes = await fetch("/api/applications?as=employer", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const appData = await appRes.json();
+      if (appRes.ok) setApplicants(appData.applications || []);
+    } catch {
+      // keep existing data
+    }
+  }
+
   async function updateStatus(applicationId, status) {
     try {
       const token = await user.getIdToken();
@@ -73,8 +87,57 @@ export default function EmployerPage() {
       setApplicants((prev) =>
         prev.map((a) => (a.id === applicationId ? { ...a, status } : a)),
       );
+      await loadApplicants();
     } catch {
       setError("Could not update application.");
+    }
+  }
+
+  async function toggleStatus(opportunity) {
+    const next = opportunity.status === "OPEN" ? "CLOSED" : "OPEN";
+    setBusyId(opportunity.id);
+    try {
+      const token = await user.getIdToken();
+      const res = await fetch(`/api/opportunities/${opportunity.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status: next }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "Could not update opportunity.");
+        return;
+      }
+      setOpportunities((prev) =>
+        prev.map((o) => (o.id === opportunity.id ? { ...o, status: next } : o)),
+      );
+    } catch {
+      setError("Could not update opportunity.");
+    } finally {
+      setBusyId(null);
+    }
+  }
+
+  async function deleteOpportunity(opportunity) {
+    if (!window.confirm(`Delete "${opportunity.title}"? This cannot be undone.`)) return;
+    try {
+      const token = await user.getIdToken();
+      const res = await fetch(`/api/opportunities/${opportunity.id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "Could not delete opportunity.");
+        return;
+      }
+      setOpportunities((prev) => prev.filter((o) => o.id !== opportunity.id));
+      setApplicants((prev) => prev.filter((a) => a.opportunity.id !== opportunity.id));
+    } catch {
+      setError("Could not delete opportunity.");
     }
   }
 
@@ -158,6 +221,23 @@ export default function EmployerPage() {
 
                   {isOpen && (
                     <div className={styles.applicants}>
+                      <div className={styles.oppActions}>
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-secondary"
+                          onClick={() => toggleStatus(opportunity)}
+                          disabled={busyId === opportunity.id}
+                        >
+                          {opportunity.status === "OPEN" ? "Close" : "Reopen"}
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-danger-soft"
+                          onClick={() => deleteOpportunity(opportunity)}
+                        >
+                          Delete
+                        </button>
+                      </div>
                       <h3 className={styles.applicantsTitle}>Applicants</h3>
                       {apps.length === 0 ? (
                         <p className={styles.noApplicants}>
