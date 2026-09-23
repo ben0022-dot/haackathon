@@ -4,6 +4,8 @@
 
 SpaceMakers matches trained tradespeople with verified, localized gigs right in their neighbourhood — no agencies, no middlemen. It pairs a ranked job marketplace with an AI trade-advisor suite (chat, real-time voice, and Google Maps/Search grounding) to help graduates find, prepare for, and win local work.
 
+**Challenge → Solution:** Youth unemployment is acute in Nairobi's lower-income communities. TVET graduates finish trade school with real, marketable skills, yet no reliable local channel connects them to earning opportunities — generic job boards are invisible to the gigs families and small businesses actually need. **SpaceMakers closes the loop between local demand ("I need an electrician this weekend") and verified local supply ("I trained, I'm two streets away, hire me").**
+
 ## 1. Validated challenge statement
 
 Youth unemployment is acute in Nairobi's lower-income communities. In Githogoro, TVET graduates finish trade school with real, marketable skills — electrical, tailoring, catering, plumbing, ICT — yet there is **no reliable, local channel that connects them to earning opportunities**. Traditional job boards are generic, digital-only, and invisible to the local gigs that families and small businesses actually need: a house rewired, uniforms stitched, a wedding catered. The result: skilled graduates remain idle while money walks past their door.
