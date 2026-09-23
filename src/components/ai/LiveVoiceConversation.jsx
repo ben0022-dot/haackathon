@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Mic, MicOff, Volume2, Radio, AlertCircle, Play, Square, MessageSquare } from "lucide-react";
+import { auth } from "../../lib/firebase";
 
 // Helpers for 16-bit PCM little-endian conversion
 function floatTo16BitPCM(float32Array) {
@@ -57,6 +58,16 @@ export default function LiveVoiceConversation() {
   const nextStartTimeRef = useRef(0);
   const activeSourcesRef = useRef([]);
   const isMutedRef = useRef(false);
+  const userEndedRef = useRef(false);
+  const mountedRef = useRef(true);
+  const reconnectAttemptRef = useRef(0);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
   useEffect(() => {
     isMutedRef.current = isMuted;
@@ -161,6 +172,7 @@ export default function LiveVoiceConversation() {
   async function startSession() {
     setErrorMessage("");
     setStatus("connecting");
+    userEndedRef.current = false;
 
     try {
       // 1. Initialize microphone stream at 16kHz
@@ -186,15 +198,34 @@ export default function LiveVoiceConversation() {
       outputAudioCtxRef.current = outputCtx;
       nextStartTimeRef.current = outputCtx.currentTime;
 
-      // 3. Connect WebSocket to server.mjs
+      // 3. Resolve the WebSocket bridge URL.
+      // Production: NEXT_PUBLIC_LIVE_WS_URL (Neon Function).
+      // Local dev: server.mjs serves /api/live-ws on the same host.
+      const liveWsUrl = process.env.NEXT_PUBLIC_LIVE_WS_URL;
       const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-      const wsUrl = `${protocol}//${window.location.host}/api/live-ws`;
-      const ws = new WebSocket(wsUrl);
+      const bridgeUrl = liveWsUrl || `${protocol}//${window.location.host}/api/live-ws`;
+
+      let token = null;
+      try {
+        const currentUser = auth?.currentUser;
+        if (currentUser) token = await currentUser.getIdToken();
+      } catch {
+        token = null;
+      }
+      if (liveWsUrl && !token) {
+        setErrorMessage("Please sign in to use real-time voice.");
+        setStatus("error");
+        cleanupSession();
+        return;
+      }
+
+      const ws = new WebSocket(token ? `${bridgeUrl}?token=${encodeURIComponent(token)}` : bridgeUrl);
       wsRef.current = ws;
 
       ws.onopen = () => {
         setStatus("listening");
         setIsActive(true);
+        reconnectAttemptRef.current = 0;
         setTranscripts((prev) => [
           ...prev,
           {
@@ -270,6 +301,14 @@ export default function LiveVoiceConversation() {
       };
 
       ws.onclose = () => {
+        // Neon Functions evict idle isolates; reconnect with fresh token/backoff.
+        if (mountedRef.current && !userEndedRef.current && reconnectAttemptRef.current < 6) {
+          reconnectAttemptRef.current += 1;
+          const delay = Math.min(1000 * 2 ** reconnectAttemptRef.current, 15000);
+          setTimeout(() => {
+            if (mountedRef.current && !userEndedRef.current) startSession();
+          }, delay);
+        }
         cleanupSession();
       };
     } catch (err) {
@@ -285,6 +324,7 @@ export default function LiveVoiceConversation() {
   }
 
   function handleEndSession() {
+    userEndedRef.current = true;
     cleanupSession();
     setTranscripts((prev) => [
       ...prev,
