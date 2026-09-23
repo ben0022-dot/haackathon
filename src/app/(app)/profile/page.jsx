@@ -24,6 +24,11 @@ export default function ProfilePage() {
     if (!loading && !user) router.push("/login");
   }, [loading, user, router]);
 
+  useEffect(() => {
+    if (loading || !user || profile) return;
+    refreshProfile();
+  }, [loading, user, profile, refreshProfile]);
+
   const authHeaders = useCallback(() => {
     return user ? { Authorization: `Bearer ${user.accessToken || ""}` } : {};
   }, [user]);
@@ -113,7 +118,30 @@ export default function ProfilePage() {
   }
 
   if (loading || !user) return <LoadingState message="Loading your profile..." />;
-  if (!profile) return <LoadingState message="Setting up your profile..." />;
+  if (!profile) {
+    return (
+      <main className="container">
+        <div className="page-hero">
+          <h1>Your profile</h1>
+          <p className="subtitle">We couldn&apos;t load your profile yet.</p>
+        </div>
+        <div className="card">
+          <p>
+            Your account looks new or the profile is still being created. Retry
+            to fetch it now.
+          </p>
+          <div style={{ display: "flex", gap: 12, marginTop: 16, flexWrap: "wrap" }}>
+            <button type="button" className="btn btn-primary" onClick={() => refreshProfile()}>
+              Retry
+            </button>
+            <button type="button" className="btn btn-secondary" onClick={() => router.push("/signup")}>
+              Create profile
+            </button>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   const completion = profileCompletion(profile);
 
