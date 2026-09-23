@@ -1,13 +1,10 @@
 import prisma from "@/lib/prisma";
-import { requireUser, requireRole } from "@/lib/auth";
+import { requireUser } from "@/lib/auth";
 import { getCachedMatchExplanation } from "@/lib/gemini";
 
 export async function GET(request, ctx) {
   const { user, error } = await requireUser(request);
   if (error) return Response.json({ error: error.message }, { status: error.status });
-
-  const roleError = requireRole(user, ["GRADUATE", "ADMIN"]);
-  if (roleError.error) return Response.json({ error: roleError.error.message }, { status: roleError.error.status });
 
   const { id } = await ctx.params;
 
