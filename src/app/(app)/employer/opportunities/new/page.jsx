@@ -156,7 +156,7 @@ function PhoneVerificationGate({ onVerified }) {
 
 export default function NewOpportunityPage() {
   const router = useRouter();
-  const { user, profile, loading } = useAuth();
+  const { user, profile, loading, refreshProfile } = useAuth();
 
   const [skills, setSkills] = useState([]);
   const [selected, setSelected] = useState({});
