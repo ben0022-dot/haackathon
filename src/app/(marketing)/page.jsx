@@ -9,10 +9,8 @@ import {
   Globe,
   ArrowRight,
   Compass,
-  LayoutDashboard,
   Briefcase,
   UserCheck,
-  Zap,
   ShieldCheck,
 } from "lucide-react";
 
@@ -88,97 +86,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-
-      {/* Main Platform Navigation Hub: Clearly separates Landing, Dashboard, Map, and Auth */}
-      <section className={styles.section} style={{ background: "var(--surface)", borderBottom: "1px solid var(--border)", paddingTop: 36, paddingBottom: 36 }}>
-        <div className={styles.sectionInner}>
-          <div style={{ textAlign: "center", maxWidth: 680, margin: "0 auto 28px" }}>
-            <span className="badge badge-skill" style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
-              <Zap size={14} /> Platform Core
-            </span>
-            <h2 className={styles.sectionTitle} style={{ fontSize: "1.7rem", marginBottom: 8 }}>
-              Everything You Need in One Place
-            </h2>
-            <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem" }}>
-              Explore the core areas of SpaceMakers: browse gigs, analyze neighborhood demand, or enter your dedicated dashboard.
-            </p>
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
-            {/* Opportunities */}
-            <div className="card" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 20 }}>
-              <div>
-                <div style={{ width: 42, height: 42, borderRadius: 10, background: "var(--primary-soft)", color: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 12 }}>
-                  <Briefcase size={22} />
-                </div>
-                <h3 style={{ fontSize: "1.15rem", marginBottom: 6 }}>Opportunities Directory</h3>
-                <p style={{ fontSize: "0.88rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>
-                  Browse verified local jobs and gigs across Nairobi. Filter by TVET trade, neighborhood, and budget.
-                </p>
-              </div>
-              <Link href="/opportunities" style={{ marginTop: 16, fontSize: "0.88rem", fontWeight: 700, color: "var(--primary)", display: "inline-flex", alignItems: "center", gap: 4 }}>
-                Explore Open Gigs <ArrowRight size={14} />
-              </Link>
-            </div>
-
-            {/* Demand Map */}
-            <div className="card" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 20, border: "2px solid var(--primary-soft)" }}>
-              <div>
-                <div style={{ width: 42, height: 42, borderRadius: 10, background: "var(--primary-soft)", color: "var(--primary-dark)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 12 }}>
-                  <Compass size={22} />
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
-                  <h3 style={{ fontSize: "1.15rem" }}>Interactive Demand Map</h3>
-                  <span className="badge badge-skill" style={{ fontSize: "0.7rem", padding: "2px 6px" }}>Live Map</span>
-                </div>
-                <p style={{ fontSize: "0.88rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>
-                  Full-screen Google Map showing real-time gig density clusters, average artisan wages, and high-demand zones.
-                </p>
-              </div>
-              <Link href="/demand-map" style={{ marginTop: 16, fontSize: "0.88rem", fontWeight: 700, color: "var(--primary)", display: "inline-flex", alignItems: "center", gap: 4 }}>
-                Open Interactive Map <ArrowRight size={14} />
-              </Link>
-            </div>
-
-            {/* Dashboard */}
-            <div className="card" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 20 }}>
-              <div>
-                <div style={{ width: 42, height: 42, borderRadius: 10, background: "#fef3c7", color: "#b45309", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 12 }}>
-                  <LayoutDashboard size={22} />
-                </div>
-                <h3 style={{ fontSize: "1.15rem", marginBottom: 6 }}>Personal Dashboard</h3>
-                <p style={{ fontSize: "0.88rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>
-                  Access your artisan or employer workspace. Manage applications, review skill matches, and update profile credentials.
-                </p>
-              </div>
-              <Link href="/dashboard" style={{ marginTop: 16, fontSize: "0.88rem", fontWeight: 700, color: "var(--primary)", display: "inline-flex", alignItems: "center", gap: 4 }}>
-                Go to Dashboard <ArrowRight size={14} />
-              </Link>
-            </div>
-
-            {/* Sign In & Sign Up */}
-            <div className="card" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 20 }}>
-              <div>
-                <div style={{ width: 42, height: 42, borderRadius: 10, background: "var(--background)", color: "var(--text-primary)", border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 12 }}>
-                  <UserCheck size={22} />
-                </div>
-                <h3 style={{ fontSize: "1.15rem", marginBottom: 6 }}>Sign In / Register</h3>
-                <p style={{ fontSize: "0.88rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>
-                  Create an artisan or employer account to start finding work, posting gigs, and tracking your applications.
-                </p>
-              </div>
-              <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
-                <Link href="/login" className="btn btn-secondary" style={{ padding: "6px 12px", fontSize: "0.82rem" }}>
-                  Sign In
-                </Link>
-                <Link href="/signup" className="btn btn-primary" style={{ padding: "6px 14px", fontSize: "0.82rem" }}>
-                  Sign Up
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Demand Map Teaser Section with direct link to /demand-map */}
       <section className={styles.section}>
@@ -324,6 +231,27 @@ export default function Home() {
               <span className="badge badge-verified">Verified opportunity = employer confirmed their details</span>
               <span className="badge badge-skill">Every profile shows real skills &amp; experience level</span>
               <span className="badge">Zero middleman fees on both sides</span>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 14, maxWidth: 820, margin: "28px auto 0" }}>
+              <div className="card" style={{ padding: 18 }}>
+                <p style={{ fontSize: "0.92rem", lineHeight: 1.6, color: "var(--text-primary)", marginBottom: 10, fontStyle: "italic" }}>
+                  &ldquo;Landing a wiring job in my own estate in two days — no middleman taking a cut.&rdquo;
+                </p>
+                <span style={{ fontSize: "0.8rem", color: "var(--text-secondary)", fontWeight: 700 }}>Daniel K. · Electrician, Githogoro</span>
+              </div>
+              <div className="card" style={{ padding: 18 }}>
+                <p style={{ fontSize: "0.92rem", lineHeight: 1.6, color: "var(--text-primary)", marginBottom: 10, fontStyle: "italic" }}>
+                  &ldquo;Found a certified welder three streets away. Negotiated price directly, done same week.&rdquo;
+                </p>
+                <span style={{ fontSize: "0.8rem", color: "var(--text-secondary)", fontWeight: 700 }}>Sarah M. · Homeowner, Runda</span>
+              </div>
+              <div className="card" style={{ padding: 18 }}>
+                <p style={{ fontSize: "0.92rem", lineHeight: 1.6, color: "var(--text-primary)", marginBottom: 10, fontStyle: "italic" }}>
+                  &ldquo;The demand map showed me where catering gigs actually are. Applied smart, not blind.&rdquo;
+                </p>
+                <span style={{ fontSize: "0.8rem", color: "var(--text-secondary)", fontWeight: 700 }}>Grace W. · Caterer, Westlands</span>
+              </div>
             </div>
           </div>
         </div>
@@ -478,9 +406,6 @@ export default function Home() {
             </Link>
             <Link href="/opportunities" className={`btn btn-secondary ${styles.ctaSecondary}`}>
               Browse opportunities
-            </Link>
-            <Link href="/dashboard" className={`btn btn-secondary ${styles.ctaSecondary}`}>
-              Open Dashboard
             </Link>
           </div>
         </div>

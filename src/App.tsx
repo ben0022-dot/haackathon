@@ -162,11 +162,8 @@ export function HeroSection({
                 maxWidth: "540px",
               }}
             >
-              SpaceMakers bridges the gap between vocational training and local work.
-              We match certified TVET graduates, technicians, and local artisans with
-              verified residential, commercial, and construction gigs in their
-              neighbourhoods — guaranteeing fair rates, direct employer connections,
-              and zero middleman cuts.
+              Certified TVET graduates and artisans find verified local gigs near home —
+              fair rates, direct employer contact, zero middleman cuts.
             </p>
 
             {/* Clear Call to Action (CTA) Buttons */}
