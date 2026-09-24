@@ -28,6 +28,12 @@ export default function ApplicationsPage() {
   }, [loading, user, router]);
 
   useEffect(() => {
+    if (!loading && profile && profile.role !== "GRADUATE") {
+      router.replace(profile.role === "ADMIN" ? "/admin" : "/employer");
+    }
+  }, [loading, profile, router]);
+
+  useEffect(() => {
     if (!user) return;
     let cancelled = false;
     async function load() {

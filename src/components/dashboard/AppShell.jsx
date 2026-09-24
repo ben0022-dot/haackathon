@@ -77,14 +77,13 @@ export default function AppShell({ children }) {
 
   const adminMain = [
     { href: "/admin", label: "Admin", icon: House },
-    { href: "/employer/opportunities/new", label: "Post a gig", icon: PlusCircle },
   ];
 
   const mainLinks = isAdmin ? adminMain : isEmployer ? employerMain : graduateMain;
 
   const accountLinks = user
     ? [
-        ...(isEmployer && !isAdmin
+        ...(isEmployer || isAdmin
           ? []
           : [{ href: "/applications", label: "Applications", icon: FileText }]),
         { href: "/profile", label: "Profile", icon: User },
@@ -213,7 +212,7 @@ export default function AppShell({ children }) {
             </div>
           )}
 
-          {!loading && (isEmployer || isAdmin) && (
+          {!loading && isEmployer && (
             <div className={styles.navGroup}>
               <span className={styles.navLabel}>Discover</span>
               {renderLinks(discoverMain)}
