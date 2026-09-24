@@ -15,7 +15,7 @@ const EMPTY_FILTERS = { skill: "", location: "", type: "", verified: "" };
 
 export default function OpportunitiesPage() {
   const router = useRouter();
-  const { user, loading } = useAuth();
+  const { user, profile, loading } = useAuth();
 
   const [query, setQuery] = useState("");
   const [filters, setFilters] = useState(EMPTY_FILTERS);
@@ -28,6 +28,10 @@ export default function OpportunitiesPage() {
   useEffect(() => {
     if (!loading && !user) router.push("/login");
   }, [loading, user, router]);
+
+  useEffect(() => {
+    if (!loading && profile && profile.role === "EMPLOYER") router.replace("/employer");
+  }, [loading, profile, router]);
 
   useEffect(() => {
     if (!user) return;
