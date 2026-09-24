@@ -125,8 +125,8 @@ export default function Navbar() {
 <Image
               src="/spacemakers.png"
               alt="SpaceMakers"
-              width={44}
-              height={44}
+              width={52}
+              height={52}
               priority
               className={styles.brandLogo}
             />
@@ -154,8 +154,8 @@ export default function Navbar() {
           <Image
             src="/spacemakers.png"
             alt="SpaceMakers"
-            width={44}
-            height={44}
+            width={52}
+            height={52}
             priority
             className={styles.brandLogo}
           />
