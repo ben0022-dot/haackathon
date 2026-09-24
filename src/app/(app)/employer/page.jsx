@@ -18,6 +18,7 @@ export default function EmployerPage() {
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState("");
   const [busyId, setBusyId] = useState(null);
+  const [copiedId, setCopiedId] = useState(null);
 
   useEffect(() => {
     if (!loading && !user) router.push("/login");
@@ -142,6 +143,27 @@ export default function EmployerPage() {
     }
   }
 
+  async function handleAccept(application, opportunity) {
+    await updateStatus(application.id, "ACCEPTED");
+    if (opportunity.status === "OPEN") {
+      const close = window.confirm(
+        "Applicant accepted. Close this gig so it stops collecting new applicants?",
+      );
+      if (close) await toggleStatus(opportunity);
+    }
+  }
+
+  async function copyLink(opportunity) {
+    const url = `${window.location.origin}/opportunities/${opportunity.id}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopiedId(opportunity.id);
+      setTimeout(() => setCopiedId(null), 2000);
+    } catch {
+      setError("Could not copy the link.");
+    }
+  }
+
   if (loading || !user) return <LoadingState message="Loading..." />;
   if (profile && profile.role === "GRADUATE") {
     return (
@@ -163,12 +185,44 @@ export default function EmployerPage() {
   const reviewedAlready = (app) =>
     Array.isArray(app.reviews) && app.reviews.some((r) => r.reviewerId === profile?.id);
 
+  const metrics = [
+    { label: "Active gigs", value: opportunities.filter((o) => o.status === "OPEN").length },
+    { label: "Applications", value: applicants.length },
+    { label: "Pending review", value: applicants.filter((a) => a.status === "PENDING").length },
+    { label: "Completed", value: applicants.filter((a) => a.status === "COMPLETED").length },
+  ];
+
   return (
     <main className="container">
       <div className="page-hero">
         <h1>Employer dashboard</h1>
         <p className="subtitle">Manage your opportunities and review applicants.</p>
       </div>
+
+      {profile && !profile.phoneVerified && (
+        <div className={`card ${styles.verifyBanner}`} role="status">
+          <div>
+            <strong>Verify your phone to start posting</strong>
+            <p style={{ margin: "4px 0 0", color: "var(--text-secondary)", fontSize: "0.9rem" }}>
+              Employers with a verified phone can post gigs and build trust with artisans.
+            </p>
+          </div>
+          <Link href="/profile" className="btn btn-sm btn-primary">
+            Verify phone
+          </Link>
+        </div>
+      )}
+
+      {!fetching && (
+        <div className={styles.metrics}>
+          {metrics.map((m) => (
+            <div className={styles.metricCard} key={m.label}>
+              <div className={styles.metricValue}>{m.value}</div>
+              <div className={styles.metricLabel}>{m.label}</div>
+            </div>
+          ))}
+        </div>
+      )}
 
       <div style={{ marginTop: 14, marginBottom: 18 }}>
         <Link href="/employer/opportunities/new" className="btn btn-primary">
@@ -233,6 +287,13 @@ export default function EmployerPage() {
                         </button>
                         <button
                           type="button"
+                          className="btn btn-sm btn-secondary"
+                          onClick={() => copyLink(opportunity)}
+                        >
+                          {copiedId === opportunity.id ? "Link copied" : "Copy link"}
+                        </button>
+                        <button
+                          type="button"
                           className="btn btn-sm btn-danger-soft"
                           onClick={() => deleteOpportunity(opportunity)}
                         >
@@ -277,7 +338,7 @@ export default function EmployerPage() {
                               <button
                                 type="button"
                                 className="btn btn-sm btn-primary"
-                                onClick={() => updateStatus(app.id, "ACCEPTED")}
+                                onClick={() => handleAccept(app, opportunity)}
                               >
                                 Accept
                               </button>

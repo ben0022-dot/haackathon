@@ -46,6 +46,7 @@ export default function AppShell({ children }) {
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [pendingCount, setPendingCount] = useState(null);
   const sidebarRef = useRef(null);
 
   const isEmployer = profile?.role === "EMPLOYER";
@@ -65,8 +66,13 @@ export default function AppShell({ children }) {
   ];
 
   const employerMain = [
-    { href: "/employer", label: "My gigs", icon: Briefcase },
+    { href: "/employer", label: "My gigs", icon: Briefcase, badge: pendingCount },
     { href: "/employer/opportunities/new", label: "Post a gig", icon: PlusCircle },
+  ];
+
+  const discoverMain = [
+    { href: "/demand-map", label: "Demand Map", icon: Compass },
+    { href: "/ai", label: "AI Suite", icon: Sparkles },
   ];
 
   const adminMain = [
@@ -97,6 +103,29 @@ export default function AppShell({ children }) {
   }, []);
 
   useEffect(() => {
+    if (!user || !(isEmployer || isAdmin)) return;
+    let cancelled = false;
+    async function loadStats() {
+      try {
+        const token = await user.getIdToken();
+        const res = await fetch("/api/employer/stats", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (!cancelled && res.ok) {
+          setPendingCount(typeof data.pendingApplications === "number" ? data.pendingApplications : 0);
+        }
+      } catch {
+        if (!cancelled) setPendingCount(0);
+      }
+    }
+    loadStats();
+    return () => {
+      cancelled = true;
+    };
+  }, [user, isEmployer, isAdmin]);
+
+  useEffect(() => {
     if (!open) return undefined;
     const { overflow: previousOverflow } = document.body.style;
     document.body.style.overflow = "hidden";
@@ -114,6 +143,7 @@ export default function AppShell({ children }) {
     return links.map((item) => {
       const Icon = item.icon;
       const active = isActive(item.href, pathname);
+      const hasBadge = typeof item.badge === "number" && item.badge > 0;
       return (
         <Link
           key={item.href}
@@ -124,6 +154,9 @@ export default function AppShell({ children }) {
         >
           <Icon size={18} />
           <span>{item.label}</span>
+          {hasBadge && (
+            <span className={styles.navBadge}>{item.badge > 99 ? "99+" : item.badge}</span>
+          )}
         </Link>
       );
     });
@@ -177,6 +210,13 @@ export default function AppShell({ children }) {
             <div className={styles.navGroup}>
               <span className={styles.navLabel}>Main</span>
               {renderLinks(mainLinks)}
+            </div>
+          )}
+
+          {!loading && (isEmployer || isAdmin) && (
+            <div className={styles.navGroup}>
+              <span className={styles.navLabel}>Discover</span>
+              {renderLinks(discoverMain)}
             </div>
           )}
 
