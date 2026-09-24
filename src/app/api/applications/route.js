@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import { requireUser } from "@/lib/auth";
+import { ensureGraduateMockPipeline } from "@/lib/mockApplications";
 
 const PHONE_STATUSES = ["ACCEPTED", "COMPLETED"];
 
@@ -49,6 +50,8 @@ export async function GET(request) {
       ),
     });
   }
+
+  await ensureGraduateMockPipeline(user);
 
   const applications = await prisma.application.findMany({
     where: { applicantId: user.id },
