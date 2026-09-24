@@ -29,6 +29,18 @@
   display: block;
 }
 
+.wordmark {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.wordmarkAccent {
+  color: var(--primary);
+}
+
 .hamburger {
   display: flex;
   flex-direction: column;
