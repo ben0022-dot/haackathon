@@ -9,7 +9,7 @@ import LoadingState from "@/components/LoadingState";
 import OpportunityCard from "@/components/OpportunityCard";
 import { profileCompletion } from "@/lib/matching";
 import styles from "./page.module.css";
-import { Bot, Radio, MapPin, Globe, Sparkles } from "lucide-react";
+import { Bot, Radio, MapPin, Globe, Sparkles, Send } from "lucide-react";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -19,6 +19,7 @@ export default function DashboardPage() {
   const [error, setError] = useState("");
   const [verifyMessage, setVerifyMessage] = useState("");
   const [resending, setResending] = useState(false);
+  const [applications, setApplications] = useState([]);
 
   async function handleResendVerification() {
     if (!user) return;
@@ -78,11 +79,45 @@ export default function DashboardPage() {
     };
   }, [user]);
 
+  useEffect(() => {
+    if (!user) return;
+    let cancelled = false;
+    async function loadApps() {
+      try {
+        const token = await user.getIdToken();
+        const res = await fetch("/api/applications", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (!cancelled && res.ok) {
+          const data = await res.json();
+          setApplications(data.applications || []);
+        }
+      } catch {
+        // snapshot is best-effort
+      }
+    }
+    loadApps();
+    return () => {
+      cancelled = true;
+    };
+  }, [user]);
+
   if (loading || !user) return <LoadingState message="Loading your dashboard..." />;
 
   const completion = profile ? profileCompletion(profile) : 0;
   const matched = opportunities.filter((o) => o.score > 0);
   const showMatchCount = matched.length > 0;
+  const pendingApps = applications.filter((a) => a.status === "PENDING").length;
+  const reviewingApps = applications.filter((a) => a.status === "REVIEWING").length;
+  const acceptedApps = applications.filter((a) => a.status === "ACCEPTED").length;
+  const completedApps = applications.filter((a) => a.status === "COMPLETED").length;
+
+  const metrics = [
+    { value: matched.length, label: "Matched gigs" },
+    { value: applications.length, label: "Applications sent" },
+    { value: pendingApps + reviewingApps, label: "Pending" },
+    { value: completedApps, label: "Completed" },
+  ];
 
   return (
     <main className="container">
@@ -122,6 +157,29 @@ export default function DashboardPage() {
 
       {error && <p className="alert alert-error" role="alert">{error}</p>}
 
+      {profile && !profile.phoneVerified && (
+        <div className={`card ${styles.verifyBanner}`} role="status">
+          <div>
+            <strong>Verify your phone so employers can reach you</strong>
+            <p style={{ margin: "4px 0 0", color: "var(--text-secondary)", fontSize: "0.9rem" }}>
+              Artisans with a verified phone get contacted faster and build trust with employers.
+            </p>
+          </div>
+          <Link href="/profile" className="btn btn-sm btn-primary">
+            Verify phone
+          </Link>
+        </div>
+      )}
+
+      <div className={styles.metrics}>
+        {metrics.map((m) => (
+          <div className={styles.metricCard} key={m.label}>
+            <div className={styles.metricValue}>{m.value}</div>
+            <div className={styles.metricLabel}>{m.label}</div>
+          </div>
+        ))}
+      </div>
+
       <div className={styles.profileCard}>
         <div className={styles.profileInfo}>
           <span className={styles.profileLabel}>Profile completion</span>
@@ -132,6 +190,22 @@ export default function DashboardPage() {
         </div>
         <Link href="/profile" className="btn btn-secondary btn-sm">Edit profile</Link>
       </div>
+
+      <Link href="/applications" className={styles.appsCard}>
+        <div className={styles.appsInfo}>
+          <span className={styles.appsIcon}>
+            <Send size={18} />
+          </span>
+          <div>
+            <div className={styles.appsTitle}>Your applications</div>
+            <div className={styles.appsMeta}>
+              {pendingApps} pending · {reviewingApps} in review · {acceptedApps} accepted ·{" "}
+              {completedApps} completed
+            </div>
+          </div>
+        </div>
+        <span className="btn btn-secondary btn-sm">View all</span>
+      </Link>
 
       {/* Gemini AI Suite Quick Access */}
       <section style={{ marginTop: 20 }}>
