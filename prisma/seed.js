@@ -21,7 +21,7 @@ if (!getApps().length) {
   });
 }
 
-const DEMO_PASSWORD = "Khanyanga2@";
+const DEMO_PASSWORD = "Spacemakers@2026";
 
 const SKILLS = [
   { name: "Electrical", category: "Trades" },

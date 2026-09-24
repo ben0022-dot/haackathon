@@ -183,7 +183,7 @@ Real-time voice runs on a **Neon Function** because its WebSocket upgrade endpoi
 
 ## Demo accounts
 
-Seeded by `npm run db:seed` (password for all: `Khanyanga2@`):
+Seeded by `npm run db:seed` (password for all: `Spacemakers@2026`):
 
 - Graduate: `brian.demo@spacemakers.app`
 - Employer: `eatery.demo@spacemakers.app`
