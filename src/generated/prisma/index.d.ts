@@ -2047,6 +2047,8 @@ export namespace Prisma {
     phoneVerified: boolean | null
     role: $Enums.Role | null
     bio: string | null
+    companyName: string | null
+    jobTitle: string | null
     location: string | null
     avatarUrl: string | null
     createdAt: Date | null
@@ -2063,6 +2065,8 @@ export namespace Prisma {
     phoneVerified: boolean | null
     role: $Enums.Role | null
     bio: string | null
+    companyName: string | null
+    jobTitle: string | null
     location: string | null
     avatarUrl: string | null
     createdAt: Date | null
@@ -2079,6 +2083,8 @@ export namespace Prisma {
     phoneVerified: number
     role: number
     bio: number
+    companyName: number
+    jobTitle: number
     location: number
     avatarUrl: number
     createdAt: number
@@ -2097,6 +2103,8 @@ export namespace Prisma {
     phoneVerified?: true
     role?: true
     bio?: true
+    companyName?: true
+    jobTitle?: true
     location?: true
     avatarUrl?: true
     createdAt?: true
@@ -2113,6 +2121,8 @@ export namespace Prisma {
     phoneVerified?: true
     role?: true
     bio?: true
+    companyName?: true
+    jobTitle?: true
     location?: true
     avatarUrl?: true
     createdAt?: true
@@ -2129,6 +2139,8 @@ export namespace Prisma {
     phoneVerified?: true
     role?: true
     bio?: true
+    companyName?: true
+    jobTitle?: true
     location?: true
     avatarUrl?: true
     createdAt?: true
@@ -2218,6 +2230,8 @@ export namespace Prisma {
     phoneVerified: boolean
     role: $Enums.Role
     bio: string | null
+    companyName: string | null
+    jobTitle: string | null
     location: string | null
     avatarUrl: string | null
     createdAt: Date
@@ -2251,6 +2265,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: boolean
     bio?: boolean
+    companyName?: boolean
+    jobTitle?: boolean
     location?: boolean
     avatarUrl?: boolean
     createdAt?: boolean
@@ -2276,6 +2292,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: boolean
     bio?: boolean
+    companyName?: boolean
+    jobTitle?: boolean
     location?: boolean
     avatarUrl?: boolean
     createdAt?: boolean
@@ -2292,6 +2310,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: boolean
     bio?: boolean
+    companyName?: boolean
+    jobTitle?: boolean
     location?: boolean
     avatarUrl?: boolean
     createdAt?: boolean
@@ -2308,13 +2328,15 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: boolean
     bio?: boolean
+    companyName?: boolean
+    jobTitle?: boolean
     location?: boolean
     avatarUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firebaseUid" | "name" | "email" | "emailVerified" | "phone" | "phoneVerified" | "role" | "bio" | "location" | "avatarUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firebaseUid" | "name" | "email" | "emailVerified" | "phone" | "phoneVerified" | "role" | "bio" | "companyName" | "jobTitle" | "location" | "avatarUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     skills?: boolean | User$skillsArgs<ExtArgs>
     opportunities?: boolean | User$opportunitiesArgs<ExtArgs>
@@ -2351,6 +2373,8 @@ export namespace Prisma {
       phoneVerified: boolean
       role: $Enums.Role
       bio: string | null
+      companyName: string | null
+      jobTitle: string | null
       location: string | null
       avatarUrl: string | null
       createdAt: Date
@@ -2795,6 +2819,8 @@ export namespace Prisma {
     readonly phoneVerified: FieldRef<"User", 'Boolean'>
     readonly role: FieldRef<"User", 'Role'>
     readonly bio: FieldRef<"User", 'String'>
+    readonly companyName: FieldRef<"User", 'String'>
+    readonly jobTitle: FieldRef<"User", 'String'>
     readonly location: FieldRef<"User", 'String'>
     readonly avatarUrl: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
@@ -13481,6 +13507,8 @@ export namespace Prisma {
     phoneVerified: 'phoneVerified',
     role: 'role',
     bio: 'bio',
+    companyName: 'companyName',
+    jobTitle: 'jobTitle',
     location: 'location',
     avatarUrl: 'avatarUrl',
     createdAt: 'createdAt',
@@ -13809,6 +13837,8 @@ export namespace Prisma {
     phoneVerified?: BoolFilter<"User"> | boolean
     role?: EnumRoleFilter<"User"> | $Enums.Role
     bio?: StringNullableFilter<"User"> | string | null
+    companyName?: StringNullableFilter<"User"> | string | null
+    jobTitle?: StringNullableFilter<"User"> | string | null
     location?: StringNullableFilter<"User"> | string | null
     avatarUrl?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -13833,6 +13863,8 @@ export namespace Prisma {
     phoneVerified?: SortOrder
     role?: SortOrder
     bio?: SortOrderInput | SortOrder
+    companyName?: SortOrderInput | SortOrder
+    jobTitle?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
     avatarUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -13860,6 +13892,8 @@ export namespace Prisma {
     phoneVerified?: BoolFilter<"User"> | boolean
     role?: EnumRoleFilter<"User"> | $Enums.Role
     bio?: StringNullableFilter<"User"> | string | null
+    companyName?: StringNullableFilter<"User"> | string | null
+    jobTitle?: StringNullableFilter<"User"> | string | null
     location?: StringNullableFilter<"User"> | string | null
     avatarUrl?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -13884,6 +13918,8 @@ export namespace Prisma {
     phoneVerified?: SortOrder
     role?: SortOrder
     bio?: SortOrderInput | SortOrder
+    companyName?: SortOrderInput | SortOrder
+    jobTitle?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
     avatarUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -13906,6 +13942,8 @@ export namespace Prisma {
     phoneVerified?: BoolWithAggregatesFilter<"User"> | boolean
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     bio?: StringNullableWithAggregatesFilter<"User"> | string | null
+    companyName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    jobTitle?: StringNullableWithAggregatesFilter<"User"> | string | null
     location?: StringNullableWithAggregatesFilter<"User"> | string | null
     avatarUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -14531,6 +14569,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -14555,6 +14595,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -14579,6 +14621,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14603,6 +14647,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14627,6 +14673,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -14643,6 +14691,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14659,6 +14709,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15415,6 +15467,8 @@ export namespace Prisma {
     phoneVerified?: SortOrder
     role?: SortOrder
     bio?: SortOrder
+    companyName?: SortOrder
+    jobTitle?: SortOrder
     location?: SortOrder
     avatarUrl?: SortOrder
     createdAt?: SortOrder
@@ -15431,6 +15485,8 @@ export namespace Prisma {
     phoneVerified?: SortOrder
     role?: SortOrder
     bio?: SortOrder
+    companyName?: SortOrder
+    jobTitle?: SortOrder
     location?: SortOrder
     avatarUrl?: SortOrder
     createdAt?: SortOrder
@@ -15447,6 +15503,8 @@ export namespace Prisma {
     phoneVerified?: SortOrder
     role?: SortOrder
     bio?: SortOrder
+    companyName?: SortOrder
+    jobTitle?: SortOrder
     location?: SortOrder
     avatarUrl?: SortOrder
     createdAt?: SortOrder
@@ -17762,6 +17820,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -17785,6 +17845,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -17845,6 +17907,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17868,6 +17932,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17918,6 +17984,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -17941,6 +18009,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -18056,6 +18126,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18079,6 +18151,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18327,6 +18401,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -18350,6 +18426,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -18464,6 +18542,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18487,6 +18567,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18526,6 +18608,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -18549,6 +18633,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -18588,6 +18674,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18611,6 +18699,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18659,6 +18749,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -18682,6 +18774,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -18710,6 +18804,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -18733,6 +18829,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -18803,6 +18901,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18826,6 +18926,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18860,6 +18962,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18883,6 +18987,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18906,6 +19012,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -18929,6 +19037,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -19009,6 +19119,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19032,6 +19144,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19102,6 +19216,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -19125,6 +19241,8 @@ export namespace Prisma {
     phoneVerified?: boolean
     role?: $Enums.Role
     bio?: string | null
+    companyName?: string | null
+    jobTitle?: string | null
     location?: string | null
     avatarUrl?: string | null
     createdAt?: Date | string
@@ -19164,6 +19282,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19187,6 +19307,8 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

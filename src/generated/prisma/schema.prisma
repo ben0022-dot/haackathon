@@ -57,6 +57,8 @@ model User {
   phoneVerified Boolean  @default(false)
   role          Role     @default(GRADUATE)
   bio           String?
+  companyName   String?
+  jobTitle      String?
   location      String?
   avatarUrl     String?
   createdAt     DateTime @default(now())

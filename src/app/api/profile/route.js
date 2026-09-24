@@ -95,12 +95,14 @@ export async function PATCH(request) {
     return Response.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const { name, phone, bio, location, role, skillIds, experienceLevels, avatarUrl } = body;
+  const { name, phone, bio, companyName, jobTitle, location, role, skillIds, experienceLevels, avatarUrl } = body;
 
   const updateData = {};
   if (typeof name === "string" && name.trim()) updateData.name = name.trim();
   if (typeof phone === "string") updateData.phone = phone.trim() || null;
   if (typeof bio === "string") updateData.bio = bio.trim() || null;
+  if (typeof companyName === "string") updateData.companyName = companyName.trim() || null;
+  if (typeof jobTitle === "string") updateData.jobTitle = jobTitle.trim() || null;
   if (typeof avatarUrl === "string") updateData.avatarUrl = avatarUrl.trim() || null;
 
   if (typeof location === "string" && location.trim()) {

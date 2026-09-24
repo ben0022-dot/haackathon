@@ -45,11 +45,14 @@ export function rankOpportunities(opportunities, user) {
 }
 
 export function profileCompletion(user) {
-  let count = 0;
-  if (user.name) count += 1;
-  if (user.location) count += 1;
-  if (user.bio) count += 1;
-  if (user.phone) count += 1;
-  if ((user.skills || []).length > 0) count += 1;
-  return Math.round((count / 5) * 100);
+  const isEmployer = user.role === "EMPLOYER";
+  const fields = [
+    Boolean(user.name),
+    Boolean(user.location),
+    Boolean(user.bio),
+    Boolean(user.phone),
+    ...(isEmployer ? [] : [Boolean((user.skills || []).length > 0)]),
+  ];
+  const done = fields.filter(Boolean).length;
+  return Math.round((done / fields.length) * 100);
 }

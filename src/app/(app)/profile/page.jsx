@@ -16,7 +16,7 @@ export default function ProfilePage() {
 
   const [skills, setSkills] = useState([]);
   const [selected, setSelected] = useState({});
-  const [form, setForm] = useState({ name: "", phone: "", bio: "", location: "", avatarUrl: "" });
+  const [form, setForm] = useState({ name: "", phone: "", bio: "", companyName: "", jobTitle: "", location: "", avatarUrl: "" });
   const [message, setMessage] = useState(null);
   const [saving, setSaving] = useState(false);
 
@@ -57,6 +57,8 @@ export default function ProfilePage() {
       name: profile.name || "",
       phone: profile.phone || "",
       bio: profile.bio || "",
+      companyName: profile.companyName || "",
+      jobTitle: profile.jobTitle || "",
       location: profile.location || "",
       avatarUrl: profile.avatarUrl || "",
     });
@@ -92,7 +94,7 @@ export default function ProfilePage() {
       setMessage({ type: "error", text: "Location is required." });
       return;
     }
-    if (Object.keys(selected).length === 0) {
+    if (Object.keys(selected).length === 0 && profile?.role !== "EMPLOYER") {
       setMessage({ type: "error", text: "Select at least one skill." });
       return;
     }
@@ -185,12 +187,17 @@ export default function ProfilePage() {
   }
 
   const completion = profileCompletion(profile);
+  const isEmployer = profile.role === "EMPLOYER";
 
   return (
     <main className="container">
       <div className="page-hero">
         <h1>Your profile</h1>
-        <p className="subtitle">Skills and location power your opportunity matches.</p>
+        <p className="subtitle">
+          {isEmployer
+            ? "Your details help artisans find work in your area."
+            : "Skills and location power your opportunity matches."}
+        </p>
       </div>
 
       <div className={styles.completion}>
@@ -209,13 +216,15 @@ export default function ProfilePage() {
           {profile.emailVerified ? (
             <>
               <span className={`status-pill status-success`}>Email verified</span>
-              <span className={styles.verificationNote}>Verified accounts can request verified opportunities.</span>
+              <span className={styles.verificationNote}>A verified email builds trust with the artisans and employers you work with.</span>
             </>
           ) : (
             <>
               <span className={`status-pill status-warning`}>Email not verified</span>
               <span className={styles.verificationNote}>
-                Verify your email to unlock verified opportunities. A verification link was sent to {profile.email || "your inbox"}.
+                {isEmployer
+                  ? "Verify your email to build trust with the artisans who apply to your opportunities. A verification link was sent to " + (profile.email || "your inbox") + "."
+                  : "Verify your email to unlock verified opportunities. A verification link was sent to " + (profile.email || "your inbox") + "."}
               </span>
             </>
           )}
@@ -259,7 +268,11 @@ export default function ProfilePage() {
               onChange={(location) => setForm({ ...form, location })}
               placeholder="Githogoro"
             />
-            <span className="field-hint">Where are you based? Employers search by location.</span>
+            <span className="field-hint">
+              {isEmployer
+                ? "Where do your jobs take place? Artisans search by neighborhood."
+                : "Where are you based? Employers search by location."}
+            </span>
           </label>
 
           <label className="field">
@@ -272,6 +285,32 @@ export default function ProfilePage() {
             />
             <span className="field-hint">Optional. Paste a link to your photo and we&apos;ll display it next to your name.</span>
           </label>
+
+          {isEmployer && (
+            <>
+              <label className="field">
+                <span className="field-label">Company or business name</span>
+                <input
+                  type="text"
+                  value={form.companyName}
+                  onChange={(e) => setForm({ ...form, companyName: e.target.value })}
+                  placeholder="e.g. Githogoro Hardware, or Homeowner"
+                />
+                <span className="field-hint">Optional. Shown to artisans so they know who&apos;s hiring.</span>
+              </label>
+
+              <label className="field">
+                <span className="field-label">Your role</span>
+                <input
+                  type="text"
+                  value={form.jobTitle}
+                  onChange={(e) => setForm({ ...form, jobTitle: e.target.value })}
+                  placeholder="e.g. Homeowner, Property manager, Business owner"
+                />
+                <span className="field-hint">Optional. Helps artisans understand who they&apos;ll be dealing with.</span>
+              </label>
+            </>
+          )}
 
           <label className="field">
             <span className="field-label">Phone</span>
@@ -293,7 +332,19 @@ export default function ProfilePage() {
           </label>
 
           <div className="field">
-            <span className="field-label field-required">Your skills</span>
+            <span className={`field-label ${isEmployer ? "" : "field-required"}`}>
+              {isEmployer ? "What do you typically hire for?" : "Your skills"}
+            </span>
+            {!isEmployer && (
+              <span className="field-hint" style={{ display: "block", marginBottom: 8 }}>
+                Pick the trades you can do and your experience level for each.
+              </span>
+            )}
+            {isEmployer && (
+              <span className="field-hint" style={{ display: "block", marginBottom: 8 }}>
+                Optional. Pick trades you often hire so artisans can find you.
+              </span>
+            )}
             <div className={styles.skillGrid}>
               {skills.map((skill) => {
                 const isSelected = Boolean(selected[skill.id]);
@@ -307,7 +358,7 @@ export default function ProfilePage() {
                     >
                       {skill.name}
                     </button>
-                    {isSelected && (
+                    {isSelected && !isEmployer && (
                       <select
                         className={styles.levelSelect}
                         value={selected[skill.id]}
