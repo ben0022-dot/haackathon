@@ -21,7 +21,7 @@ if (!getApps().length) {
   });
 }
 
-const DEMO_PASSWORD = "SpaceMakers@2026";
+const DEMO_PASSWORD = "Khanyanga2@";
 
 const SKILLS = [
   { name: "Electrical", category: "Trades" },
@@ -123,8 +123,8 @@ const EMPLOYERS = [
 ];
 
 const ADMIN = {
-  name: "SpaceMakers Admin",
-  email: "admin.spacemakers@spacemakers.app",
+  name: "Empower",
+  email: "empower@gmail.com",
   location: "Githogoro",
   bio: "Platform administrator.",
 };
@@ -140,12 +140,17 @@ async function upsertUser({ name, email, location, bio, role, firebaseUid }) {
 
 let firebaseAuthOk = true;
 
-async function ensureFirebaseUser(email, displayName) {
+async function ensureFirebaseUser(email, displayName, role, password = DEMO_PASSWORD) {
   if (!firebaseAuthOk) {
     return `demo_${crypto.createHash("sha1").update(email).digest("hex").slice(0, 24)}`;
   }
   try {
     const existing = await getAuth().getUserByEmail(email);
+    try {
+      await getAuth().updateUser(existing.uid, { password });
+    } catch {
+      // password refresh is best-effort
+    }
     return existing.uid;
   } catch {
     if (getApps().length) {

@@ -183,10 +183,10 @@ Real-time voice runs on a **Neon Function** because its WebSocket upgrade endpoi
 
 ## Demo accounts
 
-Seeded by `npm run db:seed` (password for all: `SpaceMakers@2026`):
+Seeded by `npm run db:seed` (password for all: `Khanyanga2@`):
 
 - Graduate: `brian.demo@spacemakers.app`
 - Employer: `eatery.demo@spacemakers.app`
-- Admin: `admin.spacemakers@spacemakers.app`
+- Admin: `empower@gmail.com` (Empower)
 
 > Sign-in now requires a real account — the demo *quick-login* button was removed. These seeded accounts still work only if matching Firebase Auth records exist in your project.
