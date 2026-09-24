@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 import { requireUser } from "@/lib/auth";
-import { ensureGraduateMockPipeline } from "@/lib/mockApplications";
+import { ensureGraduateMockPipeline, ensureEmployerMockData } from "@/lib/mockApplications";
 
 const PHONE_STATUSES = ["ACCEPTED", "COMPLETED"];
 
@@ -29,6 +29,8 @@ export async function GET(request) {
     if (user.role !== "EMPLOYER" && user.role !== "ADMIN") {
       return Response.json({ error: "Not allowed." }, { status: 403 });
     }
+
+    await ensureEmployerMockData(user);
 
     const applications = await prisma.application.findMany({
       where: user.role === "ADMIN" ? undefined : { opportunity: { employerId: user.id } },

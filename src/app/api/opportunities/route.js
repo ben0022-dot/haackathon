@@ -3,6 +3,7 @@ import { requireUser, requireRole } from "@/lib/auth";
 import { rankOpportunities } from "@/lib/matching";
 import { normalizeNeighborhood } from "@/lib/neighborhoods";
 import { getCachedMatchExplanation } from "@/lib/gemini";
+import { ensureEmployerMockData } from "@/lib/mockApplications";
 
 const PAGE_SIZE = 12;
 
@@ -54,6 +55,7 @@ export async function GET(request) {
     if (user.role !== "EMPLOYER" && user.role !== "ADMIN") {
       return Response.json({ error: "Only employers can list their opportunities." }, { status: 403 });
     }
+    await ensureEmployerMockData(user);
     const opportunities = await prisma.opportunity.findMany({
       where: { employerId: user.id },
       include: {
