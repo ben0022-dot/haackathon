@@ -126,3 +126,121 @@
   color: var(--text-secondary);
   margin-top: 2px;
 }
+
+.appsAccepted {
+  font-size: 0.8rem;
+  color: var(--success);
+  margin-top: 4px;
+}
+
+.checklist {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  box-shadow: var(--shadow);
+  margin-top: 12px;
+}
+
+.checklistHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.checklistHead strong {
+  font-size: 0.95rem;
+}
+
+.checklistCount {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.checkItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+}
+
+.checkItem:first-of-type {
+  border-top: none;
+}
+
+.checkDone,
+.checkTodo {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.checkDone {
+  background: var(--success);
+}
+
+.checkTodo {
+  background: var(--border);
+}
+
+.checkLabel {
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.checkLabelDone {
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-decoration: line-through;
+}
+
+.checkCta {
+  flex: none;
+}
+
+.checkBadge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--success);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sectionLinks {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.verifiedChip {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  background: rgba(30, 127, 78, 0.1);
+  border: 1px solid rgba(30, 127, 78, 0.2);
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+@media (max-width: 480px) {
+  .checkItem {
+    flex-wrap: wrap;
+  }
+  .checkCta {
+    margin-left: 34px;
+  }
+}

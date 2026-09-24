@@ -119,6 +119,38 @@ export default function DashboardPage() {
     { value: completedApps, label: "Completed" },
   ];
 
+  const latestAccepted = applications.find((a) => a.status === "ACCEPTED");
+
+  const skillsDone = Boolean(profile?.skills?.length > 0 && profile?.location);
+  const steps = [
+    {
+      label: "Verify your email",
+      done: Boolean(user?.emailVerified),
+      cta: user?.emailVerified
+        ? null
+        : {
+            label: resending ? "Sending..." : "Resend email",
+            onClick: handleResendVerification,
+            disabled: resending,
+          },
+    },
+    {
+      label: "Verify your phone",
+      done: Boolean(profile?.phoneVerified),
+      cta: profile?.phoneVerified ? null : { href: "/profile", label: "Verify phone" },
+    },
+    {
+      label: "Add skills & location to your profile",
+      done: skillsDone,
+      cta: skillsDone ? null : { href: "/profile", label: "Complete profile" },
+    },
+    {
+      label: "Send your first application",
+      done: applications.length > 0,
+      cta: applications.length > 0 ? null : { href: "/opportunities", label: "Find work" },
+    },
+  ];
+
   return (
     <main className="container">
       <div className="page-hero">
@@ -202,10 +234,56 @@ export default function DashboardPage() {
               {pendingApps} pending · {reviewingApps} in review · {acceptedApps} accepted ·{" "}
               {completedApps} completed
             </div>
+            {latestAccepted && (
+              <div className={styles.appsAccepted}>
+                Accepted: <strong>{latestAccepted.opportunity?.title}</strong> by{" "}
+                {latestAccepted.opportunity?.employer?.name}
+                {latestAccepted.opportunity?.employer?.phone
+                  ? ` · ${latestAccepted.opportunity.employer.phone}`
+                  : ""}
+              </div>
+            )}
           </div>
         </div>
         <span className="btn btn-secondary btn-sm">View all</span>
       </Link>
+
+      <div className={styles.checklist}>
+        <div className={styles.checklistHead}>
+          <strong>Your next steps</strong>
+          <span className={styles.checklistCount}>
+            {steps.filter((s) => s.done).length}/{steps.length} complete
+          </span>
+        </div>
+        {steps.map((step) => (
+          <div key={step.label} className={styles.checkItem}>
+            <span className={step.done ? styles.checkDone : styles.checkTodo}>
+              {step.done ? "✓" : ""}
+            </span>
+            <span className={step.done ? styles.checkLabelDone : styles.checkLabel}>
+              {step.label}
+            </span>
+            <span className={styles.checkCta}>
+              {step.done ? (
+                <span className={styles.checkBadge}>Done</span>
+              ) : step.cta?.href ? (
+                <Link href={step.cta.href} className="btn btn-sm btn-secondary">
+                  {step.cta.label}
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  className="btn btn-sm btn-secondary"
+                  onClick={step.cta?.onClick}
+                  disabled={step.cta?.disabled}
+                >
+                  {step.cta?.label}
+                </button>
+              )}
+            </span>
+          </div>
+        ))}
+      </div>
 
       {/* Gemini AI Suite Quick Access */}
       <section style={{ marginTop: 20 }}>
@@ -366,7 +444,12 @@ export default function DashboardPage() {
               ? `${matched.length} opportunit${matched.length === 1 ? "y" : "ies"} matching your skills`
               : "Recommended opportunities"}
           </h2>
-          <Link href="/opportunities">See all</Link>
+          <div className={styles.sectionLinks}>
+            <Link href="/opportunities?verified=true" className={styles.verifiedChip}>
+              ✓ Verified gigs
+            </Link>
+            <Link href="/opportunities">See all</Link>
+          </div>
         </div>
 
         {fetching ? (
