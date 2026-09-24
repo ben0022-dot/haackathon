@@ -514,6 +514,32 @@ async function main() {
       verified: true,
       daysAgo: 1,
     },
+    {
+      title: "Salon lighting & socket upgrade",
+      description:
+        "Upgrade lighting and replace worn sockets at a salon in Eastleigh. Small job, materials provided.",
+      type: "GIG",
+      location: "Eastleigh",
+      payment: 1500,
+      paymentType: "PER_DAY",
+      employerId: salon.id,
+      skills: ["Electrical"],
+      verified: false,
+      daysAgo: 3,
+    },
+    {
+      title: "Serviced apartment switchboard refresh",
+      description:
+        "Replaced breakers, sockets and lighting in serviced units at Kasarani. Two days of structured work.",
+      type: "GIG",
+      location: "Kasarani",
+      payment: 1800,
+      paymentType: "PER_DAY",
+      employerId: construction.id,
+      skills: ["Electrical"],
+      verified: false,
+      daysAgo: 24,
+    },
   ];
 
   console.log("Seeding opportunities...");
@@ -583,6 +609,43 @@ async function main() {
       createdApplications.push({ application: created, op, grad, status });
       console.log(`  + application (${status}): ${grad.user.name} -> ${op.title}`);
     }
+  }
+
+  console.log("Seeding demo pipeline for the demo graduate...");
+  const demoGraduate = grads[0];
+  const opByTitle = (title) => opportunities.find((o) => o.title === title);
+  const DEMO_PIPELINE = [
+    {
+      title: "Salon lighting & socket upgrade",
+      status: "REJECTED",
+      daysAgo: 2,
+      message: "I am available this week and can start right away.",
+    },
+    {
+      title: "Serviced apartment switchboard refresh",
+      status: "COMPLETED",
+      daysAgo: 20,
+      message: "Handled a similar switchboard refresh during my TVET attachment.",
+    },
+  ];
+  for (const item of DEMO_PIPELINE) {
+    const op = opByTitle(item.title);
+    if (!op) continue;
+    const existingApp = await prisma.application.findFirst({
+      where: { applicantId: demoGraduate.user.id, opportunityId: op.id },
+    });
+    if (existingApp) continue;
+    const created = await prisma.application.create({
+      data: {
+        opportunityId: op.id,
+        applicantId: demoGraduate.user.id,
+        status: item.status,
+        message: item.message,
+        createdAt: new Date(now - item.daysAgo * 864e5),
+      },
+    });
+    createdApplications.push({ application: created, op, grad: demoGraduate, status: item.status });
+    console.log(`  + demo application (${item.status}): ${demoGraduate.user.name} -> ${op.title}`);
   }
 
   console.log("Seeding reviews for completed applications...");
