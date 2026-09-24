@@ -230,12 +230,6 @@
   gap: 14px;
 }
 
-@media (min-width: 700px) {
-  .steps {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 .stepCard {
   background: var(--surface);
   border: 1px solid var(--border);
